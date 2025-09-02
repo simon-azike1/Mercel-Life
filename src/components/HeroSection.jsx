@@ -1,9 +1,11 @@
-import React from "react";
+import {useRef} from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import { Figma, Code, Monitor, PenTool, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SkillsSection from "./SkillsSection";
+import Portfolio from './PortfolioSection'
+import {Link} from 'react-router-dom'
 
 const tools = [
   { name: "Figma", icon: Figma },
@@ -15,12 +17,11 @@ const tools = [
 ];
 
 export default function HeroSection() {
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const sectionRef = useRef(null);
+  const scrollToSection = () => {
+    sectionRef.current.scrollIntoView({behavior:"smooth"});
   };
+
 
   return (
     <>
@@ -40,19 +41,17 @@ export default function HeroSection() {
                   </span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-gray-600 font-medium">
-                  UX/UI Designer crafting digital experiences that users love
-                </p>
-                <p className="text-lg text-gray-500 max-w-lg">
-                  I specialize in creating intuitive, user-centered designs that solve real problems and drive business
-                  results. Let's build something amazing together.
-                </p>
+                  Graphic Designer, UI/UX Designer & Writer Crafting visually stunning digital experiences and compelling storie
+                  </p>
+                  <p className="text-lg text-gray-500 max-w-lg">
+                      I create captivating graphics, design intuitive user interfaces, and produce content that resonates. 
+                       Whether it’s shaping a brand’s visual identity or telling its story, I help businesses engage their audience 
+                      and achieve meaningful results. Let’s build something extraordinary together.
+                      </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  onClick={() => scrollToSection("portfolio")}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 text-lg"
-                >
+               <Button  onClick={scrollToSection}    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 text-lg cursor-pointer" >
                   View My Work
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -83,6 +82,7 @@ export default function HeroSection() {
 
       {/* Skills Section */}
       <SkillsSection />
+      <Portfolio ref={sectionRef} />
 
       {/* Tools I Use Section */}
       <section id="tools" className="py-20 bg-gray-50">

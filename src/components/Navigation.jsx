@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import Logo from '/assets/img/mercel_logo.png'
+
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,12 +23,21 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-           <Link to="/" className="hover:bg-gray-400 duration-500 p-2 rounded-2xl">
-           <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 hover:text-red-600 to-pink-700  bg-clip-text text-transparent">
-             Mercel Life
-            </span>
-           </Link> 
-          </div>
+         <Link to="/">
+         <div className="flex justify-center items-center p-2 my-1 mx-1 group transition-transform duration-500 hover:scale-110 mt-6 mb-6">
+           <div className="rounded-full p-1 transition duration-500 group-hover:bg-red-600 group-hover:shadow-lg">
+        <img 
+        src={Logo} 
+        alt="Mercel-logo" 
+        className="rounded-full w-8 h-8 transition-transform duration-500" 
+      />
+    </div>
+    <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-700 bg-clip-text text-transparent transition duration-500 group-hover:text-red-600">
+      Mercel Life
+    </span>
+  </div>
+</Link>
+</div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
