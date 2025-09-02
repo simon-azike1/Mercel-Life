@@ -1,8 +1,7 @@
-import {useState} from 'react'
-import { ExternalLink, Eye, Heart, MessageCircle, ArrowRight } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { ExternalLink, Eye, Heart, MessageCircle, ArrowRight } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export default function PortfolioSection() {
   const projects = [
@@ -12,7 +11,7 @@ export default function PortfolioSection() {
       category: "Mobile Design",
       description:
         "Complete redesign of a fashion e-commerce app focusing on user experience and conversion optimization.",
-      image: "/placeholder.svg?height=300&width=400&text=E-Commerce+App",
+      image: "https://unsplash.it/400/300?image=1080",
       tags: ["UI/UX", "Mobile", "Figma", "Prototyping"],
       link: "#",
       stats: { views: "2.3k", likes: "156", comments: "23" },
@@ -22,7 +21,7 @@ export default function PortfolioSection() {
       title: "SaaS Dashboard Design",
       category: "Web Design",
       description: "Modern dashboard design for a project management SaaS platform with focus on data visualization.",
-      image: "/placeholder.svg?height=300&width=400&text=SaaS+Dashboard",
+      image: "https://unsplash.it/400/300?image=1050",
       tags: ["Dashboard", "SaaS", "Data Viz", "Web"],
       link: "#",
       stats: { views: "1.8k", likes: "124", comments: "18" },
@@ -32,7 +31,7 @@ export default function PortfolioSection() {
       title: "Banking App Redesign",
       category: "Mobile Design",
       description: "Complete UX overhaul of a banking application with emphasis on security and ease of use.",
-      image: "/placeholder.svg?height=300&width=400&text=Banking+App",
+      image: "https://unsplash.it/400/300?image=1045",
       tags: ["Fintech", "Mobile", "Security", "UX"],
       link: "#",
       stats: { views: "3.1k", likes: "201", comments: "34" },
@@ -43,7 +42,7 @@ export default function PortfolioSection() {
       category: "Design System",
       description:
         "Comprehensive design system for a tech startup including components, guidelines, and documentation.",
-      image: "/placeholder.svg?height=300&width=400&text=Design+System",
+      image: "https://unsplash.it/400/300?image=1060",
       tags: ["Design System", "Components", "Guidelines"],
       link: "#",
       stats: { views: "4.2k", likes: "287", comments: "45" },
@@ -54,7 +53,7 @@ export default function PortfolioSection() {
       category: "Web Design",
       description:
         "Patient portal design for a healthcare platform focusing on accessibility and user-friendly interface.",
-      image: "/placeholder.svg?height=300&width=400&text=Healthcare+Platform",
+      image: "https://unsplash.it/400/300?image=1020",
       tags: ["Healthcare", "Accessibility", "Web", "UX"],
       link: "#",
       stats: { views: "1.9k", likes: "143", comments: "21" },
@@ -64,12 +63,12 @@ export default function PortfolioSection() {
       title: "Food Delivery App",
       category: "Mobile Design",
       description: "Modern food delivery app design with focus on quick ordering and seamless user experience.",
-      image: "/placeholder.svg?height=300&width=400&text=Food+Delivery",
+      image: "https://unsplash.it/400/300?image=1070",
       tags: ["Mobile", "Food Tech", "UI", "Ordering"],
       link: "#",
       stats: { views: "2.7k", likes: "189", comments: "29" },
     },
-  ]
+  ];
 
   return (
     <section id="portfolio" className="py-20 bg-white">
@@ -89,7 +88,7 @@ export default function PortfolioSection() {
             >
               <div className="relative overflow-hidden">
                 <img
-                  src={project.image || "/placeholder.svg"}
+                  src={project.image}
                   alt={project.title}
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
@@ -155,5 +154,5 @@ export default function PortfolioSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

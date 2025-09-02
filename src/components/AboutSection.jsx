@@ -1,28 +1,68 @@
-import {useState} from "react"
-
-import { Award } from "lucide-react"
+import { useEffect, useState } from "react";
+import { Award } from "lucide-react";
+import { useInView } from "react-intersection-observer";
 
 export default function AboutSection() {
   const stats = [
-    { number: "50+", label: "Projects Completed" },
-    { number: "5+", label: "Years Experience" },
-    { number: "25+", label: "Happy Clients" },
-    { number: "3", label: "Design Awards" },
-  ]
+    { number: 50, suffix: "+", label: "Projects Completed" },
+    { number: 5, suffix: "+", label: "Years Experience" },
+    { number: 25, suffix: "+", label: "Happy Clients" },
+    { number: 3, suffix: "", label: "Design Awards" },
+  ];
+
+  const [counts, setCounts] = useState(stats.map(() => 0));
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
+
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (inView) setAnimate(true);
+  }, [inView]);
+
+  useEffect(() => {
+    if (!animate) return;
+
+    const duration = 1500;
+    const intervalTime = 30;
+
+    stats.forEach((stat, index) => {
+      let start = 0;
+      const increment = Math.ceil(stat.number / (duration / intervalTime));
+      const counter = setInterval(() => {
+        start += increment;
+        if (start >= stat.number) {
+          start = stat.number;
+          clearInterval(counter);
+        }
+        setCounts((prev) => {
+          const updated = [...prev];
+          updated[index] = start;
+          return updated;
+        });
+      }, intervalTime);
+    });
+  }, [animate]);
 
   return (
     <section id="about" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">About Me</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            I'm a passionate UX/UI designer with 5+ years of experience creating digital experiences that make a
-            difference.
-          </p>
+        {/* Section Header */}
+        <div
+          className={`text-center mb-16 transition-all duration-1000 ${
+            animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
+          {/* About Text */}
+          <div
+            ref={ref}
+            className={`space-y-6 transition-all duration-1000 delay-200 ${
+              animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
             <p className="text-lg text-gray-700 leading-relaxed">
               My journey in design started with a fascination for how people interact with technology. I believe that
               great design is invisible – it just works, feels natural, and solves real problems.
@@ -37,20 +77,34 @@ export default function AboutSection() {
               experimenting with new design tools and techniques.
             </p>
 
+            {/* Stats */}
             <div className="grid grid-cols-2 gap-6 pt-6">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">{stat.number}</div>
+                <article
+                  key={stat.label}
+                  className={`text-center transition-all duration-1000 delay-${200 + index * 100} ${
+                    animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                  }`}
+                >
+                  <div className="text-3xl font-bold text-purple-600 mb-2">
+                    {counts[index]}
+                    {stat.suffix}
+                  </div>
                   <div className="text-gray-600">{stat.label}</div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
 
-          <div className="relative">
+          {/* Image and Award */}
+          <div
+            className={`relative transition-all duration-1000 delay-400 ${
+              animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
             <img
               src="/assets/img/bg__23.PNG"
-              alt="About Mercelina"
+              alt="Mercelina working on design"
               className="rounded-2xl shadow-xl"
             />
             <div className="absolute -top-6 -right-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-6 text-white shadow-xl">
@@ -62,5 +116,5 @@ export default function AboutSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

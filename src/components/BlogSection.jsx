@@ -1,9 +1,7 @@
-import {useState} from "react"
-
-import { Calendar, Clock, ArrowRight, BookOpen, TrendingUp, Users } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Calendar, Clock, ArrowRight, BookOpen, TrendingUp, Users } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export default function BlogSection() {
   const blogPosts = [
@@ -12,7 +10,7 @@ export default function BlogSection() {
       title: "The Future of UX Design: Trends to Watch in 2024",
       excerpt:
         "Exploring the emerging trends that will shape user experience design in the coming year, from AI integration to sustainable design practices.",
-      image: "/placeholder.svg?height=250&width=400&text=UX+Trends+2024",
+      image: "https://unsplash.it/400/250?image=1011",
       category: "Design Trends",
       readTime: "8 min read",
       publishDate: "Dec 15, 2023",
@@ -24,7 +22,7 @@ export default function BlogSection() {
       title: "Building Accessible Design Systems at Scale",
       excerpt:
         "A comprehensive guide to creating design systems that prioritize accessibility from the ground up, ensuring inclusive experiences for all users.",
-      image: "/placeholder.svg?height=250&width=400&text=Accessible+Design",
+      image: "https://unsplash.it/400/250?image=1022",
       category: "Accessibility",
       readTime: "12 min read",
       publishDate: "Dec 8, 2023",
@@ -36,7 +34,7 @@ export default function BlogSection() {
       title: "User Research Methods That Actually Work",
       excerpt:
         "Practical insights into conducting effective user research, from guerrilla testing to comprehensive usability studies.",
-      image: "/placeholder.svg?height=250&width=400&text=User+Research",
+      image: "https://unsplash.it/400/250?image=1033",
       category: "Research",
       readTime: "10 min read",
       publishDate: "Nov 28, 2023",
@@ -48,7 +46,7 @@ export default function BlogSection() {
       title: "From Wireframes to Prototypes: My Design Process",
       excerpt:
         "A behind-the-scenes look at my design process, from initial concepts to high-fidelity prototypes and user testing.",
-      image: "/placeholder.svg?height=250&width=400&text=Design+Process",
+      image: "https://unsplash.it/400/250?image=1044",
       category: "Process",
       readTime: "6 min read",
       publishDate: "Nov 20, 2023",
@@ -60,7 +58,7 @@ export default function BlogSection() {
       title: "The Psychology Behind Great Interface Design",
       excerpt:
         "Understanding cognitive psychology principles and how they apply to creating intuitive and engaging user interfaces.",
-      image: "/placeholder.svg?height=250&width=400&text=Psychology+Design",
+      image: "https://unsplash.it/400/250?image=1055",
       category: "Psychology",
       readTime: "9 min read",
       publishDate: "Nov 12, 2023",
@@ -72,14 +70,14 @@ export default function BlogSection() {
       title: "Mobile-First Design: Best Practices for 2024",
       excerpt:
         "Essential strategies for designing mobile-first experiences that work seamlessly across all device sizes and contexts.",
-      image: "/placeholder.svg?height=250&width=400&text=Mobile+First",
+      image: "https://unsplash.it/400/250?image=1066",
       category: "Mobile Design",
       readTime: "7 min read",
       publishDate: "Nov 5, 2023",
       tags: ["Mobile Design", "Responsive", "Best Practices"],
       featured: false,
     },
-  ]
+  ];
 
   const categories = [
     { name: "All Posts", count: 24, icon: BookOpen },
@@ -87,7 +85,7 @@ export default function BlogSection() {
     { name: "User Research", count: 6, icon: Users },
     { name: "Accessibility", count: 4, icon: Users },
     { name: "Process", count: 6, icon: BookOpen },
-  ]
+  ];
 
   return (
     <section id="blog" className="py-20 bg-gray-50">
@@ -102,7 +100,7 @@ export default function BlogSection() {
         {/* Blog Categories */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category, index) => {
-            const IconComponent = category.icon
+            const IconComponent = category.icon;
             return (
               <Button
                 key={index}
@@ -119,113 +117,106 @@ export default function BlogSection() {
                   {category.count}
                 </Badge>
               </Button>
-            )
+            );
           })}
         </div>
 
         {/* Featured Post */}
-        {blogPosts
-          .filter((post) => post.featured)
-          .map((post) => (
-            <Card key={post.id} className="mb-12 overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                <div className="relative overflow-hidden">
-                  <img
-                    src={post.image || "/placeholder.svg"}
-                    alt={post.title}
-                    className="w-full h-64 lg:h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">Featured</Badge>
+        {blogPosts.filter((post) => post.featured).map((post) => (
+          <Card key={post.id} className="mb-12 overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+              <div className="relative overflow-hidden">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="w-full h-64 lg:h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">Featured</Badge>
+                </div>
+              </div>
+              <CardContent className="p-8 flex flex-col justify-center">
+                <div className="flex items-center gap-4 mb-4">
+                  <Badge variant="secondary" className="bg-purple-100 text-purple-700">
+                    {post.category}
+                  </Badge>
+                  <div className="flex items-center text-sm text-gray-500">
+                    <Calendar className="h-4 w-4 mr-1" />
+                    {post.publishDate}
+                  </div>
+                  <div className="flex items-center text-sm text-gray-500">
+                    <Clock className="h-4 w-4 mr-1" />
+                    {post.readTime}
                   </div>
                 </div>
-                <CardContent className="p-8 flex flex-col justify-center">
-                  <div className="flex items-center gap-4 mb-4">
-                    <Badge variant="secondary" className="bg-purple-100 text-purple-700">
-                      {post.category}
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 hover:text-purple-600 transition-colors cursor-pointer">
+                  {post.title}
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{post.excerpt}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {post.tags.map((tag) => (
+                    <Badge key={tag} variant="outline" className="text-xs">
+                      {tag}
                     </Badge>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      {post.publishDate}
-                    </div>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Clock className="h-4 w-4 mr-1" />
-                      {post.readTime}
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 hover:text-purple-600 transition-colors cursor-pointer">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{post.excerpt}</p>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {post.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                  <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white self-start">
-                    Read Full Article
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </div>
-            </Card>
-          ))}
+                  ))}
+                </div>
+                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white self-start">
+                  Read Full Article
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </div>
+          </Card>
+        ))}
 
         {/* Regular Blog Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts
-            .filter((post) => !post.featured)
-            .map((post) => (
-              <Card
-                key={post.id}
-                className="group overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={post.image || "/placeholder.svg"}
-                    alt={post.title}
-                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <Badge variant="secondary" className="bg-white/90 text-gray-700">
-                      {post.category}
-                    </Badge>
+          {blogPosts.filter((post) => !post.featured).map((post) => (
+            <Card key={post.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative overflow-hidden">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge variant="secondary" className="bg-white/90 text-gray-700">
+                    {post.category}
+                  </Badge>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4 mb-3 text-sm text-gray-500">
+                  <div className="flex items-center">
+                    <Calendar className="h-4 w-4 mr-1" />
+                    {post.publishDate}
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="h-4 w-4 mr-1" />
+                    {post.readTime}
                   </div>
                 </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4 mb-3 text-sm text-gray-500">
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      {post.publishDate}
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="h-4 w-4 mr-1" />
-                      {post.readTime}
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors cursor-pointer line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.slice(0, 2).map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                  <Button
-                    variant="ghost"
-                    className="w-full text-purple-600 hover:bg-purple-50 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300"
-                  >
-                    Read More
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors cursor-pointer line-clamp-2">
+                  {post.title}
+                </h3>
+                <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {post.tags.slice(0, 2).map((tag) => (
+                    <Badge key={tag} variant="outline" className="text-xs">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+                <Button
+                  variant="ghost"
+                  className="w-full text-purple-600 hover:bg-purple-50 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300"
+                >
+                  Read More
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         {/* Load More Button */}
@@ -256,5 +247,5 @@ export default function BlogSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
