@@ -204,10 +204,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] Google Analytics integration
 - [ ] Progressive Web App (PWA) features
 
----
 
 ⭐ If you found this project helpful, please give it a star on GitHub!
-```
 
 <img width="1873" height="875" alt="image" src="https://github.com/user-attachments/assets/6a5c85b4-dda8-4a42-8aed-7b7641f21fdf" />
-
