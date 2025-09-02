@@ -24,6 +24,7 @@ export default function HeroSection() {
 
   return (
     <>
+      {/* Hero Section */}
       <section
         id="home"
         className="pt-16 min-h-screen flex items-center bg-gradient-to-br from-purple-50 via-white to-pink-50"
