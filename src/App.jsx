@@ -11,9 +11,8 @@ import BlogSection from "./components/BlogSection";
 import ExperienceSection from "./components/ExperienceSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
-import FAQSection from './components/FAQSection'
-import EducationSection from "./components/EducationSection";
-import ProcessSection from "./components/ProcessSection";
+
+
 
 
 function App() {
@@ -23,7 +22,6 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HeroSection />} />
-        <Route path="/faqsection" element={<FAQSection />} />
         <Route path="/about" element={<AboutSection />} />
         <Route path="/services" element={<ServicesSection />} />
         <Route path="/skills" element={<SkillsSection />} />
@@ -31,8 +29,6 @@ function App() {
         <Route path="/blog" element={<BlogSection />} />
         <Route path="/experience" element={<ExperienceSection />} />
         <Route path="/contact" element={<ContactSection />} />
-        <Route path="/education" element={<EducationSection/>}/>
-        <Route path="/process" element={<ProcessSection/>}/>
       </Routes>
 
       <Footer />

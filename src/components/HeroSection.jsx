@@ -5,7 +5,7 @@ import { Figma, Code, Monitor, PenTool, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SkillsSection from "./SkillsSection";
 import Portfolio from './PortfolioSection'
-import FaqSection from './FAQSection'
+import FAQSection from './FAQSection'
 import TestimonialsSection from "./TestimonialsSection";
 
 
@@ -157,7 +157,7 @@ export default function HeroSection() {
             })}
           </motion.div>
           <TestimonialsSection/>
-          <FaqSection/>
+          <FAQSection/>
         </div>
       </section>
     </>
