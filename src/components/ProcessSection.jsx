@@ -43,7 +43,7 @@ export default function ProcessSection() {
       description: "Preparing final assets and documentation for development team and supporting the launch.",
       icon: Rocket,
       duration: "1 week",
-      deliverables: ["Design Specs", "Asset Library", "Style Guide", "Developer Handoff"],
+      deliverables: ["Design Specs", "Asset Librairy", "Style Guide", "Developer Handoff"],
     },
     {
       step: "06",
