@@ -1,67 +1,76 @@
 import {  useState} from "react";
 import { Star, Quote } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import { motion, easeIn } from "framer-motion";
 
 export default function TestimonialsSection() {
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      role: "Product Manager at TechFlow",
-      content:
-        "Working with Alex has been incredible. Their attention to detail and user-centered approach has transformed our product experience.",
-      avatar: "/placeholder.svg?height=60&width=60&text=SJ",
-      rating: 5,
-      company: "TechFlow Inc.",
-    },
-    {
-      name: "Michael Chen",
-      role: "CEO at StartupXYZ",
-      content:
-        "Alex delivered exceptional designs that not only looked great but also improved our conversion rates significantly.",
-      avatar: "/placeholder.svg?height=60&width=60&text=MC",
-      rating: 5,
-      company: "StartupXYZ",
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Marketing Director",
-      content:
-        "The design system Alex created has streamlined our entire design process. Highly recommend their expertise.",
-      avatar: "/placeholder.svg?height=60&width=60&text=ER",
-      rating: 5,
-      company: "Creative Agency",
-    },
-    {
-      name: "David Kim",
-      role: "Frontend Developer",
-      content:
-        "Alex's designs are not only beautiful but also developer-friendly. The handoff process was seamless and well-documented.",
-      avatar: "/placeholder.svg?height=60&width=60&text=DK",
-      rating: 5,
-      company: "Dev Solutions",
-    },
-    {
-      name: "Lisa Wang",
-      role: "UX Researcher",
-      content:
-        "Alex's research-driven approach to design is impressive. They truly understand user needs and translate them into great experiences.",
-      avatar: "/placeholder.svg?height=60&width=60&text=LW",
-      rating: 5,
-      company: "Research Lab",
-    },
-    {
-      name: "James Wilson",
-      role: "Startup Founder",
-      content:
-        "From concept to launch, Alex guided our design process expertly. Our app's user engagement increased by 60% after the redesign.",
-      avatar: "/placeholder.svg?height=60&width=60&text=JW",
-      rating: 5,
-      company: "InnovateCorp",
-    },
-  ]
+  const testimonials =[
+  {
+    name: "Sarah Johnson",
+    role: "Product Manager at TechFlow",
+    content:
+      "Working with Mercelina has been incredible. Her attention to detail and user-centered approach has transformed our product experience.",
+    avatar: "https://randomuser.me/api/portraits/women/21.jpg",
+    rating: 5,
+    company: "TechFlow Inc.",
+  },
+  {
+    name: "Michael Chen",
+    role: "CEO at StartupXYZ",
+    content:
+      "Mercelina delivered exceptional designs that not only looked great but also improved our conversion rates significantly.",
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    rating: 5,
+    company: "StartupXYZ",
+  },
+  {
+    name: "Emily Rodriguez",
+    role: "Marketing Director",
+    content:
+      "The design system Mercelina created has streamlined our entire design process. Highly recommend her expertise.",
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    rating: 5,
+    company: "Creative Agency",
+  },
+  {
+    name: "David Kim",
+    role: "Frontend Developer",
+    content:
+      "Mercelina's designs are not only beautiful but also developer-friendly. The handoff process was seamless and well-documented.",
+    avatar: "https://randomuser.me/api/portraits/men/55.jpg",
+    rating: 5,
+    company: "Dev Solutions",
+  },
+  {
+    name: "Lisa Wang",
+    role: "UX Researcher",
+    content:
+      "Mercelina's research-driven approach to design is impressive. She truly understands user needs and translates them into great experiences.",
+    avatar: "https://randomuser.me/api/portraits/women/66.jpg",
+    rating: 5,
+    company: "Research Lab",
+  },
+  {
+    name: "James Wilson",
+    role: "Startup Founder",
+    content:
+      "From concept to launch, Mercelina guided our design process expertly. Our app's user engagement increased by 60% after the redesign.",
+    avatar: "https://randomuser.me/api/portraits/men/77.jpg",
+    rating: 5,
+    company: "InnovateCorp",
+  },
+]
+
+
 
   return (
-    <section id="testimonials" className="py-20 bg-white">
+
+    <motion.div
+    initioal={{opaciy:0, y:50}}
+    whileInView={{opaciy:1, y:1}}
+    viewport={{once:true}}
+    transition={{duration:1, ease:"easeIn",delay:0.3}}>
+ <section id="testimonials" className="py-20 bg-gray-300 mt-23">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">What People Say</h2>
@@ -72,7 +81,7 @@ export default function TestimonialsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="p-6 hover:shadow-lg transition-shadow duration-300 relative">
+            <Card key={index} className="p-6  bg-gray-200 hover:lg transform transition-transform duration-300 hover:scale-105 relative border-none hover:cursor-pointer hover:opacity-0.3 ">
               <CardContent className="p-0">
                 <Quote className="h-8 w-8 text-purple-500 mb-4" />
                 <p className="text-gray-700 mb-6 leading-relaxed">"{testimonial.content}"</p>
@@ -118,5 +127,7 @@ export default function TestimonialsSection() {
         </div>
       </div>
     </section>
+    </motion.div>
+   
   )
 }

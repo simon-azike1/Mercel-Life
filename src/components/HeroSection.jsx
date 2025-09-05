@@ -1,11 +1,13 @@
 import {useRef} from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download,Eye } from "lucide-react";
 import { Figma, Code, Monitor, PenTool, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SkillsSection from "./SkillsSection";
 import Portfolio from './PortfolioSection'
-import {Link} from 'react-router-dom'
+import FaqSection from './FAQSection'
+import TestimonialsSection from "./TestimonialsSection";
+
 
 const tools = [
   { name: "Figma", icon: Figma },
@@ -13,7 +15,7 @@ const tools = [
   { name: "Sketch", icon: Image },
   { name: "Photoshop", icon: Image },
   { name: "Illustrator", icon: Image },
-  { name: "VS Code", icon: Code },
+
 ];
 
 export default function HeroSection() {
@@ -25,11 +27,17 @@ export default function HeroSection() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section
-        id="home"
-        className="pt-16 min-h-screen flex items-center bg-gradient-to-br from-purple-50 via-white to-pink-50"
-      >
+    <motion.div
+   initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1, ease: "easeIn", delay: 0.3 }}
+  viewport={{ once: true }}
+
+  
+
+    >
+        {/* Hero Section */}
+ <section id="home" className="pt-16 min-h-screen flex items-center   bg-gray-200" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
@@ -49,24 +57,52 @@ export default function HeroSection() {
                       and achieve meaningful results. Let’s build something extraordinary together.
                       </p>
               </div>
+<div className="flex flex-col sm:flex-row gap-4 items-center sm:justify-center">
+  {/* View My Work */}
+  <Button
+    onClick={() => scrollToSection("portfolio")}
+    className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 text-lg"
+  >
+    View My Work
+    <ArrowRight className="ml-2 h-5 w-5" />
+  </Button>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-               <Button  onClick={scrollToSection}    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 text-lg cursor-pointer" >
-                  View My Work
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-purple-600 text-purple-600 hover:bg-purple-50 px-8 py-3 text-lg bg-transparent"
-                >
-                  <Download className="mr-2 h-5 w-5" />
-                  Download Resume
-                </Button>
-              </div>
+  {/* View Resume */}
+  <a
+    href="/assets/Resume.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full sm:w-auto"
+  >
+    <Button
+      variant="outline"
+      className="w-full sm:w-auto border-purple-600 text-purple-600 hover:bg-purple-50 px-8 py-3 text-lg bg-transparent"
+    >
+      <Eye className="mr-2 h-7 w-8" />
+      View
+    </Button>
+  </a>
+
+  {/* Download Resume */}
+  <a
+    href="/assets/Resume.pdf"
+    download="Resume.pdf"
+    className="w-full sm:w-auto"
+  >
+    <Button
+      variant="outline"
+      className="w-full sm:w-auto border-green-600 text-green-600 hover:bg-green-50 px-8 py-3 text-lg bg-transparent"
+    >
+      <Download className="mr-2 h-5 w-5" /> Resume
+    </Button>
+  </a>
+</div>
+
+
             </div>
 
             <div className="relative">
-              <div className="relative z-10">
+              <div className="relative z-10  flex justify-center">
                 <img
                   src="/assets/img/bg_24.jpg"
                   alt="Hero"
@@ -79,13 +115,16 @@ export default function HeroSection() {
           </div>
         </div>
       </section>
+    </motion.div>
+    
+     
 
       {/* Skills Section */}
       <SkillsSection />
       <Portfolio ref={sectionRef} />
 
       {/* Tools I Use Section */}
-      <section id="tools" className="py-20 bg-gray-50">
+      <section id="tools" className="py-20 bg-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 text-center mb-12">
             Tools I Use
@@ -105,7 +144,7 @@ export default function HeroSection() {
               return (
                 <motion.div
                   key={index}
-                  className="flex flex-col items-center justify-center p-6 rounded-xl bg-white shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-1 hover:scale-105"
+                  className="flex flex-col items-center justify-center p-6 rounded-xl bg-gray-200 shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-1 hover:scale-105"
                   variants={{
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 },
@@ -117,6 +156,8 @@ export default function HeroSection() {
               );
             })}
           </motion.div>
+          <TestimonialsSection/>
+          <FaqSection/>
         </div>
       </section>
     </>

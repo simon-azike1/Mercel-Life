@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { Award } from "lucide-react";
 import { useInView } from "react-intersection-observer";
+import SkillsSection from "./SkillsSection";
+import TestimonialsSection from "./TestimonialsSection";
+import EducationSection from "./EducationSection";
 
 export default function AboutSection() {
   const stats = [
-    { number: 50, suffix: "+", label: "Projects Completed" },
-    { number: 5, suffix: "+", label: "Years Experience" },
-    { number: 25, suffix: "+", label: "Happy Clients" },
-    { number: 3, suffix: "", label: "Design Awards" },
+    { number: 12, suffix: "+", label: "Projects Completed" },
+    { number: 2, suffix: "+", label: "Years Experience" },
+    { number: 10, suffix: "+", label: "Happy Clients" },
+    { number: 1, suffix: "", label: "Design Awards" },
   ];
 
   const [counts, setCounts] = useState(stats.map(() => 0));
@@ -44,7 +47,7 @@ export default function AboutSection() {
   }, [animate]);
 
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20 bg-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div
@@ -115,6 +118,9 @@ export default function AboutSection() {
           </div>
         </div>
       </div>
+      <EducationSection/>
+      <SkillsSection/>
+      <TestimonialsSection/>
     </section>
   );
 }
