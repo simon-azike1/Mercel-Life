@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, Linkedin, Facebook, Instagram, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import FaqSection from "@/components/FaqSection";
+import FAQSection from "@/components/FAQSection";
 import { motion } from "framer-motion";
 
 export default function ContactSection() {
@@ -165,7 +165,7 @@ export default function ContactSection() {
         </motion.div>
 
         {/* FAQ Section */}
-        <FaqSection />
+        <FAQSection />
       </div>
     </section>
   );
