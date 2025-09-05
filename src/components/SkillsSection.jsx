@@ -14,7 +14,7 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section id="skills" className="py-20 bg-gray-50">
+    <section id="skills" className="py-20 bg-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Skills & Expertise</h2>
@@ -34,7 +34,7 @@ export default function SkillsSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
+                <Card className="p-6 hover:shadow-lg transform transition-transform duration-300 border-none hover:scale-x-105 hover:cursor-pointer">
                   <CardContent className="p-0">
                     <div className="flex items-center mb-4">
                       <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg text-white mr-4">

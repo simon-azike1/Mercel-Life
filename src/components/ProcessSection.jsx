@@ -56,7 +56,7 @@ export default function ProcessSection() {
   ]
 
   return (
-    <section id="process" className="py-20 bg-white">
+    <section id="process" className="py-20 bg-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">My Design Process</h2>
@@ -71,7 +71,7 @@ export default function ProcessSection() {
             return (
               <Card
                 key={index}
-                className="p-6 hover:shadow-lg transition-all duration-300 relative overflow-hidden group"
+                className="p-6 hover:shadow-lg transition-all duration-300 relative overflow-hidden group border-none bg-gray-100"
               >
                 <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"></div>
 

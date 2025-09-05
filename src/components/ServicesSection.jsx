@@ -4,60 +4,69 @@ import { Button } from "@/components/ui/button"
 import {useState} from 'react'
 
 export default function ServicesSection() {
-  const services = [
-    {
-      icon: Palette,
-      title: "UI/UX Design",
-      description:
-        "Creating beautiful and intuitive user interfaces that enhance user experience and drive engagement.",
-      features: ["User Interface Design", "Visual Design", "Design Systems", "Brand Integration"],
-      price: "Starting at $2,500",
-    },
-    {
-      icon: Users,
-      title: "User Research",
-      description: "In-depth user research to understand your audience and inform design decisions with data.",
-      features: ["User Interviews", "Usability Testing", "Persona Development", "Journey Mapping"],
-      price: "Starting at $1,800",
-    },
-    {
-      icon: Smartphone,
-      title: "Mobile App Design",
-      description: "Native and responsive mobile app designs optimized for iOS and Android platforms.",
-      features: ["iOS Design", "Android Design", "Responsive Design", "App Store Assets"],
-      price: "Starting at $3,200",
-    },
-    {
-      icon: Monitor,
-      title: "Web Design",
-      description: "Modern, responsive websites that look great on all devices and convert visitors into customers.",
-      features: ["Responsive Design", "Landing Pages", "E-commerce Design", "CMS Integration"],
-      price: "Starting at $2,800",
-    },
-    {
-      icon: Search,
-      title: "UX Audit",
-      description: "Comprehensive analysis of your existing product to identify usability issues and opportunities.",
-      features: ["Heuristic Evaluation", "Accessibility Audit", "Performance Analysis", "Recommendations"],
-      price: "Starting at $1,200",
-    },
-    {
-      icon: Zap,
-      title: "Design Sprint",
-      description: "Fast-track your product development with a structured 5-day design sprint process.",
-      features: ["Problem Definition", "Ideation Workshop", "Prototyping", "User Testing"],
-      price: "Starting at $4,500",
-    },
-  ]
+const phone = "2349056195484";
+const message = "Hi Mercelina, I would like to schedule a consultation"
+const whatappLink = `https://wa.me/${phone}?text=${encodeURIComponent}(message)}`;
+  const services =[
+  {
+    icon: Palette,
+    title: "UI/UX Design",
+    description:
+      "Designing intuitive and visually stunning interfaces paired with clear, engaging microcopy that guides users seamlessly through your product.",
+    features: ["User Interface Design", "Visual Design", "Design Systems", "Brand Messaging"],
+    price: "Starting at $500",
+  },
+  {
+    icon: Users,
+    title: "Graphic Design & Storytelling",
+    description:
+      "Creating captivating graphics and brand narratives that not only capture attention but also tell your story in a way your audience connects with.",
+    features: ["Brand Identity Design", "Illustrations", "Content-Driven Graphics", "Visual Storytelling"],
+    price: "Starting at $350",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile App Design",
+    description:
+      "Building responsive mobile experiences with visuals and copy that work hand in hand to deliver clarity, usability, and emotional connection.",
+    features: ["iOS Design", "Android Design", "UX Writing", "App Store Assets"],
+    price: "Starting at $600",
+  },
+  {
+    icon: Monitor,
+    title: "Web Design & Content",
+    description:
+      "Designing modern, responsive websites that combine strong visuals with compelling content, ensuring your brand identity is consistent and impactful.",
+    features: ["Responsive Design", "Landing Pages", "Content Strategy", "E-commerce Design"],
+    price: "Starting at $550",
+  },
+  {
+    icon: Search,
+    title: "UX Audit & Content Review",
+    description:
+      "Analyzing both design and content to uncover usability gaps, accessibility issues, and messaging improvements for a balanced user experience.",
+    features: ["Heuristic Evaluation", "Accessibility Audit", "Content Clarity Review", "Actionable Recommendations"],
+    price: "Starting at $300",
+  },
+  {
+    icon: Zap,
+    title: "Design Sprint & Content Strategy",
+    description:
+      "Fast-tracking product ideas with a 5-day sprint that blends design prototyping and strategic content creation for well-rounded results.",
+    features: ["Problem Definition", "Ideation Workshop", "Prototyping", "Content Mapping"],
+    price: "Starting at $700",
+  },
+]
 
   return (
-    <section id="services" className="py-20 bg-gray-50">
+    <section id="services" className="py-20 bg-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Services</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive design services to help bring your digital products to life.
-          </p>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+  Comprehensive design and product storytelling solutions crafted to bring your digital products to life with clarity and impact.
+</p>
+
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -90,6 +99,7 @@ export default function ServicesSection() {
                     ))}
                   </div>
 
+                 
                   <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
                     Get Started
                   </Button>
@@ -106,7 +116,11 @@ export default function ServicesSection() {
             Every project is unique. Let's discuss your specific needs and create a tailored solution that fits your
             budget and timeline.
           </p>
-          <Button className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3">Schedule a Consultation</Button>
+
+          <a href={whatappLink} target="_blank " rel="noopener noreferrer">
+           <Button className="bg-white text-purple-600 hover:cursor-pointer hover:bg-gray-100 px-8 py-3">Schedule a Consultation</Button>
+            </a>
+
         </div>
       </div>
     </section>

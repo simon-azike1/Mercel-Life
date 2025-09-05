@@ -30,7 +30,7 @@ export default function ExperienceSection() {
   ]
 
   return (
-    <section id="experience" className="py-20 bg-white">
+    <section id="experience" className="py-20 bg-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Experience</h2>
@@ -48,7 +48,7 @@ export default function ExperienceSection() {
               className={`relative flex items-center mb-12 ${index % 2 === 0 ? "justify-start" : "justify-end"}`}
             >
               <div className={`w-full md:w-5/12 ${index % 2 === 0 ? "pr-8" : "pl-8"}`}>
-                <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
+                <Card className="p-6 hover:shadow-lg transition-shadow duration-300 border-none bg-gray-200">
                   <CardContent className="p-0">
                     <div className="flex items-center mb-3">
                       <Calendar className="h-5 w-5 text-purple-600 mr-2" />
