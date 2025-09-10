@@ -16,7 +16,7 @@ const tools = [
   { name: "Canva", icon: PenTool },
   { name: "PixelApp", icon: Image },
   { name: "Web Design", icon: Monitor },
-  { name: "Coding", icon: Code },
+
 ];
 
 export default function HeroSection() {

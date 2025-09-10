@@ -11,7 +11,7 @@ import BlogSection from "./components/BlogSection";
 import ExperienceSection from "./components/ExperienceSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
-import ScrollToTop from "./ScrollToTop";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 
