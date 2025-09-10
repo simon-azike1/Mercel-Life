@@ -15,7 +15,6 @@ export default function AboutSection() {
 
   const [counts, setCounts] = useState(stats.map(() => 0));
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
-
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
@@ -24,7 +23,6 @@ export default function AboutSection() {
 
   useEffect(() => {
     if (!animate) return;
-
     const duration = 1500;
     const intervalTime = 30;
 
@@ -47,16 +45,13 @@ export default function AboutSection() {
   }, [animate]);
 
   return (
-    <section id="about" className="py-20 bg-gray-300">
+    <section id="about" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div
           className={`text-center mb-16 transition-all duration-1000 ${
             animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
-        >
-          
-        </div>
+        ></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* About Text */}
@@ -66,16 +61,16 @@ export default function AboutSection() {
               animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-gray-800 leading-relaxed">
               My journey in design started with a fascination for how people interact with technology. I believe that
               great design is invisible – it just works, feels natural, and solves real problems.
             </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-gray-800 leading-relaxed">
               I specialize in user research, interaction design, and creating design systems that scale. My approach
               combines analytical thinking with creative problem-solving to deliver designs that are both beautiful and
               functional.
             </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-gray-800 leading-relaxed">
               When I'm not designing, you can find me exploring new coffee shops, reading about psychology, or
               experimenting with new design tools and techniques.
             </p>
@@ -85,15 +80,15 @@ export default function AboutSection() {
               {stats.map((stat, index) => (
                 <article
                   key={stat.label}
-                  className={`text-center transition-all duration-1000 delay-${200 + index * 100} ${
-                    animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                  }`}
+                  className={`text-center transition-all duration-1000 delay-${
+                    200 + index * 100
+                  } ${animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                 >
-                  <div className="text-3xl font-bold text-purple-600 mb-2">
+                  <div className="text-3xl font-bold text-green-600 mb-2">
                     {counts[index]}
                     {stat.suffix}
                   </div>
-                  <div className="text-gray-600">{stat.label}</div>
+                  <div className="text-gray-700">{stat.label}</div>
                 </article>
               ))}
             </div>
@@ -106,21 +101,21 @@ export default function AboutSection() {
             }`}
           >
             <img
-              src="/assets/img/bg__23.PNG"
+              src="/assets/img/bg__23.png"
               alt="Mercelina working on design"
               className="rounded-2xl shadow-xl"
             />
-            <div className="absolute -top-6 -right-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-6 text-white shadow-xl">
+            <div className="absolute -top-6 -right-6 bg-gradient-to-br from-green-500 to-black rounded-2xl p-6 text-white shadow-xl">
               <Award className="h-8 w-8 mb-2" />
               <div className="text-sm font-medium">Design Award Winner</div>
-              <div className="text-xs opacity-90">Best UX Design 2023</div>
+              {/* <div className="text-xs opacity-90">Best UX Design 2023</div> */}
             </div>
           </div>
         </div>
       </div>
-      <EducationSection/>
-      <SkillsSection/>
-      <TestimonialsSection/>
+      <EducationSection />
+      <SkillsSection />
+      <TestimonialsSection />
     </section>
   );
 }

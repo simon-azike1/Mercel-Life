@@ -1,6 +1,5 @@
 import { Palette, Users, Smartphone, Figma, Eye, Monitor } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function SkillsSection() {
@@ -14,15 +13,19 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section id="skills" className="py-20 bg-gray-300">
+    <section id="skills" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Skills & Expertise</h2>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Skills & Expertise
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             I combine technical skills with creative thinking to deliver exceptional user experiences.
           </p>
         </div>
 
+        {/* Skill Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skills.map((skill, index) => {
             const IconComponent = skill.icon;
@@ -34,20 +37,27 @@ export default function SkillsSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="p-6 hover:shadow-lg transform transition-transform duration-300 border-none hover:scale-x-105 hover:cursor-pointer">
+                <Card className="p-6 hover:shadow-lg transform transition-transform duration-300 border border-gray-100 hover:scale-105">
                   <CardContent className="p-0">
                     <div className="flex items-center mb-4">
-                      <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg text-white mr-4">
+                      {/* Icon with green theme */}
+                      <div className="p-3 bg-gradient-to-br from-green-600 to-black rounded-lg text-white mr-4">
                         <IconComponent className="h-6 w-6" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-900">{skill.name}</h3>
-                        <p className="text-sm text-gray-600">{skill.level}% Proficiency</p>
+                        <h3 className="text-lg font-semibold text-gray-900">
+                          {skill.name}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {skill.level}% Proficiency
+                        </p>
                       </div>
                     </div>
+
+                    {/* Progress Bar */}
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000 ease-out"
+                        className="bg-gradient-to-r from-green-600 to-black h-2 rounded-full transition-all duration-1000 ease-out"
                         style={{ width: `${skill.level}%` }}
                       ></div>
                     </div>

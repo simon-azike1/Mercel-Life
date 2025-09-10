@@ -1,13 +1,14 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion,easeIn} from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function FAQSection() {
-const [openFAQ, setOpenFAQ] = useState(0);
- const phone = "2349056195484"; // Mercelina's number without the "+"
- const message = "Hi Mercelina, I would like to schedule a consultation";
- const link = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const [openFAQ, setOpenFAQ] = useState(0);
+  const phone = "2349056195484"; // Mercelina's number without the "+"
+  const message = "Hi Mercelina, I would like to schedule a consultation";
+  const link = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  
   const faqs = [
     {
       question: "What's your typical project timeline?",
@@ -39,7 +40,6 @@ const [openFAQ, setOpenFAQ] = useState(0);
       answer:
         "I primarily use Figma for design and prototyping, along with tools like Miro for collaboration, Principle for advanced animations, and various research tools for user testing and analytics.",
     },
-   
   ];
 
   const toggleFAQ = (index) => {
@@ -48,67 +48,64 @@ const [openFAQ, setOpenFAQ] = useState(0);
 
   return (
     <motion.div
-    initial={{opacity:0, y:0}}
-    whileInView={{opacity:1,y:0}}
-    transition={{duration:1, ease:"easeIn" ,delay:0.3}}
-    viewport={{onece:true}}
-    
+      initial={{ opacity: 0, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: "easeIn", delay: 0.3 }}
+      viewport={{ once: true }}
     >
- <section  className="py-20 bg-gray-300 rounded-2xl mt-15">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Common questions about my design process, timeline, and collaboration approach.
-          </p>
-        </div>
+      <section className="py-20 bg-white rounded-2xl mt-15">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-black mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+              Common questions about my design process, timeline, and collaboration approach.
+            </p>
+          </div>
 
-        <div className="space-y-4 ">
-          {faqs.map((faq, index) => (
-            <Card key={index} className="overflow-hidden border-none ">
-              <CardContent className="p-0">
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-200 transition-colors duration-200"
-                >
-                  <h3 className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
-                  {openFAQ === index ? (
-                    <ChevronUp className="h-5 w-5 text-purple-600 flex-shrink-0" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5 text-purple-600 flex-shrink-0" />
-                  )}
-                </button>
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <Card key={index} className="overflow-hidden border border-green-200">
+                <CardContent className="p-0">
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-green-50 transition-colors duration-200"
+                  >
+                    <h3 className="text-lg font-semibold text-black pr-4">{faq.question}</h3>
+                    {openFAQ === index ? (
+                      <ChevronUp className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    )}
+                  </button>
 
-                {openFAQ === index && (
-                  <div className="px-6 pb-4">
-                    <div className="border-t border-gray-200 pt-4">
-                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  {openFAQ === index && (
+                    <div className="px-6 pb-4">
+                      <div className="border-t border-green-200 pt-4">
+                        <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Still have questions CTA */}
+          <div className="mt-12 text-center bg-gradient-to-r from-green-500 to-black rounded-2xl p-8 text-white">
+            <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
+            <p className="mb-6 max-w-2xl mx-auto text-green-100">
+              Get the latest insights on UX design, industry trends, and practical tips delivered straight to your inbox.
+            </p>
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              <button className="bg-gradient-to-r from-green-400 to-black text-white px-6 py-3 rounded-lg hover:from-green-500 hover:to-black transition hover:cursor-pointer">
+                Schedule a Consultation
+              </button>
+            </a>
+          </div>
         </div>
-
-        {/* Still have questions CTA */}
-       <div className="mt-12 text-center bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-white">
-  <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
-  <p className="mb-6 max-w-2xl mx-auto text-purple-100">
-    Get the latest insights on UX design, industry trends, and practical tips delivered straight to your inbox.
-  </p>
-  <a href={link} target="_blank" rel="noopener noreferrer">
-    <button className="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-6 py-3 rounded-lg hover:from-purple-500 hover:to-pink-500 transition">
-      Schedule a Consultation
-    </button>
-  </a>
-</div>
-
-      </div>
-    </section>
+      </section>
     </motion.div>
-   
   );
 }
