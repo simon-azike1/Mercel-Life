@@ -41,42 +41,7 @@ export default function BlogSection() {
       tags: ["User Research", "Methods", "Testing"],
       featured: false,
     },
-    {
-      id: 4,
-      title: "From Wireframes to Prototypes: My Design Process",
-      excerpt:
-        "A behind-the-scenes look at my design process, from initial concepts to high-fidelity prototypes and user testing.",
-      image: "https://unsplash.it/400/250?image=1044",
-      category: "Process",
-      readTime: "6 min read",
-      publishDate: "Nov 20, 2023",
-      tags: ["Design Process", "Wireframes", "Prototyping"],
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "The Psychology Behind Great Interface Design",
-      excerpt:
-        "Understanding cognitive psychology principles and how they apply to creating intuitive and engaging user interfaces.",
-      image: "https://unsplash.it/400/250?image=1055",
-      category: "Psychology",
-      readTime: "9 min read",
-      publishDate: "Nov 12, 2023",
-      tags: ["Psychology", "UI Design", "Cognitive Science"],
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Mobile-First Design: Best Practices for 2024",
-      excerpt:
-        "Essential strategies for designing mobile-first experiences that work seamlessly across all device sizes and contexts.",
-      image: "https://unsplash.it/400/250?image=1066",
-      category: "Mobile Design",
-      readTime: "7 min read",
-      publishDate: "Nov 5, 2023",
-      tags: ["Mobile Design", "Responsive", "Best Practices"],
-      featured: false,
-    },
+    // ... more posts
   ];
 
   const categories = [
@@ -88,11 +53,12 @@ export default function BlogSection() {
   ];
 
   return (
-    <section id="blog" className="py-20 bg-gray-300">
+    <section id="blog" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Blog & Insights</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
             Sharing my thoughts on design, user experience, and the latest trends in the industry.
           </p>
         </div>
@@ -107,8 +73,8 @@ export default function BlogSection() {
                 variant={index === 0 ? "default" : "outline"}
                 className={`flex items-center gap-2 ${
                   index === 0
-                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
-                    : "border-purple-200 text-purple-600 hover:bg-purple-50"
+                    ? "bg-gradient-to-r from-green-600 to-black text-white"
+                    : "border-green-600 text-green-600 hover:bg-green-50"
                 }`}
               >
                 <IconComponent className="h-4 w-4" />
@@ -132,12 +98,12 @@ export default function BlogSection() {
                   className="w-full h-64 lg:h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-4 left-4">
-                  <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">Featured</Badge>
+                  <Badge className="bg-gradient-to-r from-green-600 to-black text-white">Featured</Badge>
                 </div>
               </div>
               <CardContent className="p-8 flex flex-col justify-center">
                 <div className="flex items-center gap-4 mb-4">
-                  <Badge variant="secondary" className="bg-purple-100 text-purple-700">
+                  <Badge variant="secondary" className="bg-green-100 text-green-700">
                     {post.category}
                   </Badge>
                   <div className="flex items-center text-sm text-gray-500">
@@ -149,18 +115,18 @@ export default function BlogSection() {
                     {post.readTime}
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 hover:text-purple-600 transition-colors cursor-pointer">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 hover:text-green-600 transition-colors cursor-pointer">
                   {post.title}
                 </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">{post.excerpt}</p>
+                <p className="text-gray-700 mb-6 leading-relaxed">{post.excerpt}</p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {post.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs">
+                    <Badge key={tag} variant="outline" className="text-xs border-green-600 text-green-600">
                       {tag}
                     </Badge>
                   ))}
                 </div>
-                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white self-start">
+                <Button className="bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-black text-white self-start">
                   Read Full Article
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -169,7 +135,7 @@ export default function BlogSection() {
           </Card>
         ))}
 
-        {/* Regular Blog Posts Grid */}
+        {/* Regular Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.filter((post) => !post.featured).map((post) => (
             <Card key={post.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
@@ -180,7 +146,7 @@ export default function BlogSection() {
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute top-4 left-4">
-                  <Badge variant="secondary" className="bg-white/90 text-gray-700">
+                  <Badge variant="secondary" className="bg-white/90 text-green-700">
                     {post.category}
                   </Badge>
                 </div>
@@ -196,20 +162,20 @@ export default function BlogSection() {
                     {post.readTime}
                   </div>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors cursor-pointer line-clamp-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-green-600 transition-colors cursor-pointer line-clamp-2">
                   {post.title}
                 </h3>
-                <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
+                <p className="text-gray-700 mb-4 text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {post.tags.slice(0, 2).map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs">
+                    <Badge key={tag} variant="outline" className="text-xs border-green-600 text-green-600">
                       {tag}
                     </Badge>
                   ))}
                 </div>
                 <Button
                   variant="ghost"
-                  className="w-full text-purple-600 hover:bg-purple-50 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300"
+                  className="w-full text-green-600 hover:bg-green-600 hover:text-white transition-all duration-300"
                 >
                   Read More
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -219,21 +185,21 @@ export default function BlogSection() {
           ))}
         </div>
 
-        {/* Load More Button */}
+        {/* Load More */}
         <div className="text-center mt-12">
           <Button
             variant="outline"
-            className="border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white px-8 py-3 bg-transparent"
+            className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 bg-transparent"
           >
             Load More Articles
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>
 
-        {/* Newsletter Signup */}
-        <div className="mt-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-center text-white">
+        {/* Newsletter */}
+        <div className="mt-16 bg-gradient-to-r from-green-600 to-black rounded-2xl p-8 text-center text-white">
           <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
-          <p className="text-purple-100 mb-6 max-w-2xl mx-auto">
+          <p className="text-green-100 mb-6 max-w-2xl mx-auto">
             Get the latest insights on UX design, industry trends, and practical tips delivered straight to your inbox.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
@@ -242,7 +208,7 @@ export default function BlogSection() {
               placeholder="Enter your email"
               className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <Button className="bg-white text-purple-600 hover:bg-gray-100 px-6 py-3">Subscribe</Button>
+            <Button className="bg-white text-green-600 hover:bg-gray-100 px-6 py-3">Subscribe</Button>
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ import BlogSection from "./components/BlogSection";
 import ExperienceSection from "./components/ExperienceSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
+import ScrollToTop from "./ScrollToTop";
 
 
 
@@ -19,7 +20,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-300">
       <Navigation />
-
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<HeroSection />} />
         <Route path="/about" element={<AboutSection />} />
