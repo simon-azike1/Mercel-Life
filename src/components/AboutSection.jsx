@@ -101,7 +101,7 @@ export default function AboutSection() {
             }`}
           >
             <img
-              src="/assets/img/bg__23.png"
+              src="/assets/img/bg_24.png"
               alt="Mercelina working on design"
               className="rounded-2xl shadow-xl"
             />
