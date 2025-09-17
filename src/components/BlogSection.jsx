@@ -1,55 +1,130 @@
-import { Calendar, Clock, ArrowRight, BookOpen, TrendingUp, Users } from "lucide-react";
+import { useState } from "react";
+import { Calendar, Clock, ArrowRight, BookOpen, TrendingUp, Users, X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export default function BlogSection() {
+  const [selectedPost, setSelectedPost] = useState(null);
+
   const blogPosts = [
     {
       id: 1,
-      title: "The Future of UX Design: Trends to Watch in 2024",
+      title: "Unwavering Devotion",
       excerpt:
-        "Exploring the emerging trends that will shape user experience design in the coming year, from AI integration to sustainable design practices.",
-      image: "https://unsplash.it/400/250?image=1011",
-      category: "Design Trends",
-      readTime: "8 min read",
-      publishDate: "Dec 15, 2023",
-      tags: ["UX Design", "Trends", "Future"],
+        "A heartfelt poem about a mother’s enduring love, faith, and the beauty of God’s gift through her life.",
+      content: `A world of longing, where wishes fade,
+Where life’s brevity leaves hearts unmade.
+My mother, my guiding light, my all,
+The one whose love stands tall.
+
+In darkest times, she found a way,
+To bring hope forth, day by day.
+She taught me faith, despite our strife,
+And showed me God’s love is life.
+
+Your role, dear mother, etched in my heart,
+Uncommon love, a work of art.
+Your care, a treasure to behold,
+Unspeakable, yet forever told.
+
+The pain of birth, a memory so dear,
+The love that followed, pure, sincere.
+I pray to God, with a grateful soul,
+To preserve your life, make it whole.`,
+      image: "https://cdn.pixabay.com/photo/2016/04/05/03/18/prayer-1308663_1280.jpg",
+      category: "Poetry",
+      readTime: "3 min read",
+      publishDate: "Sept 16, 2025",
+      tags: ["Poem", "Mother", "Love", "Faith"],
       featured: true,
     },
     {
       id: 2,
-      title: "Building Accessible Design Systems at Scale",
+      title: "Dreamland solace",
       excerpt:
-        "A comprehensive guide to creating design systems that prioritize accessibility from the ground up, ensuring inclusive experiences for all users.",
-      image: "https://unsplash.it/400/250?image=1022",
-      category: "Accessibility",
-      readTime: "12 min read",
-      publishDate: "Dec 8, 2023",
-      tags: ["Accessibility", "Design Systems", "Inclusive Design"],
+        "A poem reflecting on God’s sustaining power when life feels overwhelming.",
+      content: `In slumber’s depths, she finds reprieve,
+
+Lost in dreams, troubles fade away,
+
+Alone with thoughts, her heart does grieve.
+
+As worries dissipate in a peaceful sway.
+
+In this dreamland, melodies unfold,
+
+A soothing balm for her troubled soul.
+
+The breeze whispers secrets, calming her pain,
+
+As she floats on a sea of sweet refrain.
+
+Comforted, she lingers, reluctant to wake,
+
+The moonless night her peaceful slumber makes.
+
+But dawn’s early call, the cock’s loud cry,
+
+Pierces the night, and she begins to sigh.
+
+Jolted awake, reality’s chill descends,
+
+The dreamland’s solace, her heart now mends.
+
+Though brief, the respite, it brings a smile,
+
+A fleeting peace, worth holding awhile.`,
+      image: "https://cdn.pixabay.com/photo/2019/06/03/15/31/bible-4249164_1280.jpg",
+      category: "Christian Poem",
+      readTime: "2 min read",
+      publishDate: "Sept 12, 2025",
+      tags: ["Faith", "Poem", "Hope"],
       featured: false,
     },
     {
-      id: 3,
-      title: "User Research Methods That Actually Work",
+      id: 2,
+      title: "Beyond the pain",
       excerpt:
-        "Practical insights into conducting effective user research, from guerrilla testing to comprehensive usability studies.",
-      image: "https://unsplash.it/400/250?image=1033",
-      category: "Research",
-      readTime: "10 min read",
-      publishDate: "Nov 28, 2023",
-      tags: ["User Research", "Methods", "Testing"],
+       "A poem reflecting on how God’s sustaining power holds us when lives when we go through overwhelming trubles of this world.",
+      content: `In slumber’s depths, she finds reprieve,
+
+Lost in dreams, troubles fade away,
+
+Alone with thoughts, her heart does grieve.
+
+As worries dissipate in a peaceful sway.
+
+In this dreamland, melodies unfold,
+
+A soothing balm for her troubled soul.
+
+The breeze whispers secrets, calming her pain,
+
+As she floats on a sea of sweet refrain.
+
+Comforted, she lingers, reluctant to wake,
+
+The moonless night her peaceful slumber makes.
+
+But dawn’s early call, the cock’s loud cry,
+
+Pierces the night, and she begins to sigh.
+
+Jolted awake, reality’s chill descends,
+
+The dreamland’s solace, her heart now mends.
+
+Though brief, the respite, it brings a smile,
+
+A fleeting peace, worth holding awhile.`,
+      image: "https://cdn.pixabay.com/photo/2023/10/08/01/19/ai-generated-8301294_1280.png",
+      category: "Christian Poem",
+      readTime: "2 min read",
+      publishDate: "Sept 12, 2025",
+      tags: ["Faith", "Poem", "Hope"],
       featured: false,
     },
-    // ... more posts
-  ];
-
-  const categories = [
-    { name: "All Posts", count: 24, icon: BookOpen },
-    { name: "Design Trends", count: 8, icon: TrendingUp },
-    { name: "User Research", count: 6, icon: Users },
-    { name: "Accessibility", count: 4, icon: Users },
-    { name: "Process", count: 6, icon: BookOpen },
   ];
 
   return (
@@ -57,88 +132,21 @@ export default function BlogSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Blog & Insights</h2>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Poems & Writings
+          </h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Sharing my thoughts on design, user experience, and the latest trends in the industry.
+            Sharing heartfelt Christian poems, devotionals, and reflections that inspire faith and love.
           </p>
         </div>
 
-        {/* Blog Categories */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category, index) => {
-            const IconComponent = category.icon;
-            return (
-              <Button
-                key={index}
-                variant={index === 0 ? "default" : "outline"}
-                className={`flex items-center gap-2 ${
-                  index === 0
-                    ? "bg-gradient-to-r from-green-600 to-black text-white"
-                    : "border-green-600 text-green-600 hover:bg-green-50"
-                }`}
-              >
-                <IconComponent className="h-4 w-4" />
-                {category.name}
-                <Badge variant="secondary" className="ml-1 text-xs">
-                  {category.count}
-                </Badge>
-              </Button>
-            );
-          })}
-        </div>
-
-        {/* Featured Post */}
-        {blogPosts.filter((post) => post.featured).map((post) => (
-          <Card key={post.id} className="mb-12 overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-              <div className="relative overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-64 lg:h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 left-4">
-                  <Badge className="bg-gradient-to-r from-green-600 to-black text-white">Featured</Badge>
-                </div>
-              </div>
-              <CardContent className="p-8 flex flex-col justify-center">
-                <div className="flex items-center gap-4 mb-4">
-                  <Badge variant="secondary" className="bg-green-100 text-green-700">
-                    {post.category}
-                  </Badge>
-                  <div className="flex items-center text-sm text-gray-500">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    {post.publishDate}
-                  </div>
-                  <div className="flex items-center text-sm text-gray-500">
-                    <Clock className="h-4 w-4 mr-1" />
-                    {post.readTime}
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 hover:text-green-600 transition-colors cursor-pointer">
-                  {post.title}
-                </h3>
-                <p className="text-gray-700 mb-6 leading-relaxed">{post.excerpt}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {post.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs border-green-600 text-green-600">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-                <Button className="bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-black text-white self-start">
-                  Read Full Article
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </div>
-          </Card>
-        ))}
-
-        {/* Regular Posts Grid */}
+        {/* Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.filter((post) => !post.featured).map((post) => (
-            <Card key={post.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          {blogPosts.map((post) => (
+            <Card
+              key={post.id}
+              className="group overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+            >
               <div className="relative overflow-hidden">
                 <img
                   src={post.image}
@@ -165,19 +173,15 @@ export default function BlogSection() {
                 <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-green-600 transition-colors cursor-pointer line-clamp-2">
                   {post.title}
                 </h3>
-                <p className="text-gray-700 mb-4 text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {post.tags.slice(0, 2).map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs border-green-600 text-green-600">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+                <p className="text-gray-700 mb-4 text-sm leading-relaxed line-clamp-3">
+                  {post.excerpt}
+                </p>
                 <Button
                   variant="ghost"
                   className="w-full text-green-600 hover:bg-green-600 hover:text-white transition-all duration-300"
+                  onClick={() => setSelectedPost(post)}
                 >
-                  Read More
+                  Read Full Poem
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
@@ -185,32 +189,28 @@ export default function BlogSection() {
           ))}
         </div>
 
-        {/* Load More */}
-        <div className="text-center mt-12">
-          <Button
-            variant="outline"
-            className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 bg-transparent"
-          >
-            Load More Articles
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </div>
-
-        {/* Newsletter */}
-        <div className="mt-16 bg-gradient-to-r from-green-600 to-black rounded-2xl p-8 text-center text-white">
-          <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
-          <p className="text-green-100 mb-6 max-w-2xl mx-auto">
-            Get the latest insights on UX design, industry trends, and practical tips delivered straight to your inbox.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
-            />
-            <Button className="bg-white text-green-600 hover:bg-gray-100 px-6 py-3">Subscribe</Button>
+        {/* Modal for full content */}
+        {selectedPost && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+            <div className="bg-white rounded-xl shadow-lg max-w-3xl w-full p-6 relative overflow-y-auto max-h-[90vh]">
+              <button
+                className="absolute top-4 right-4 text-gray-600 hover:text-green-600"
+                onClick={() => setSelectedPost(null)}
+              >
+                <X className="h-6 w-6" />
+              </button>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">
+                {selectedPost.title}
+              </h2>
+              <div className="text-sm text-gray-500 mb-6">
+                {selectedPost.publishDate} • {selectedPost.readTime}
+              </div>
+              <p className="whitespace-pre-line text-gray-800 leading-relaxed">
+                {selectedPost.content}
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

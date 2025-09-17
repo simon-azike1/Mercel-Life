@@ -9,7 +9,7 @@ export default function AboutSection() {
   const stats = [
     { number: 12, suffix: "+", label: "Projects Completed" },
     { number: 2, suffix: "+", label: "Years Experience" },
-    { number: 10, suffix: "+", label: "Happy Clients" },
+    { number: 5, suffix: "+", label: "Happy Clients" },
     { number: 1, suffix: "", label: "Design Awards" },
   ];
 
@@ -101,7 +101,7 @@ export default function AboutSection() {
             }`}
           >
             <img
-              src="/assets/img/bg_24.png"
+              src="/assets/img/grad_1.png"
               alt="Mercelina working on design"
               className="rounded-2xl shadow-xl"
             />

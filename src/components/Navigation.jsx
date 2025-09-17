@@ -18,7 +18,7 @@ export default function Navigation() {
     { id: "/about", label: "About" },
     { id: "/services", label: "Services" },
     { id: "/skills", label: "Skills" },
-    { id: "/blog", label: "Blog" },
+    { id: "/blog", label: "Christian Blog" },
     { id: "/experience", label: "Experience" },
   ];
 

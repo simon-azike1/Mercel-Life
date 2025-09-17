@@ -6,81 +6,84 @@ import ProcessSection from "./ProcessSection";
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+// import {img} from '../../public/assets/img/bg_24.jpg'
 
 const PortfolioSection = forwardRef((props, ref) => {
   const projects = [
-    {
-      id: 1,
-      title: "E-Commerce Brand Identity & Content Strategy",
-      category: "Graphic Design & Content Creation",
-      description:
-        "Crafted a complete visual identity and compelling brand narrative for an e-commerce platform, combining stunning graphics with persuasive copy that drives engagement and conversions.",
-      image:
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=2340&q=80",
-      tags: ["Branding", "Graphic Design", "Content Strategy", "Copywriting"],
-      link: "/skills",
-      stats: { views: "2.3k", likes: "156", comments: "23" },
-    },
-    {
-      id: 2,
-      title: "SaaS Dashboard Design & User Experience Writing",
-      category: "UI/UX Design & Content",
-      description:
-        "Redesigned a SaaS dashboard with intuitive interfaces and crafted clear, user-focused microcopy that guides users through complex data visualization seamlessly.",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2340&q=80",
-      tags: ["UI/UX Design", "UX Writing", "Data Visualization", "User Experience"],
-      link: "/contact",
-      stats: { views: "1.8k", likes: "124", comments: "18" },
-    },
-    {
-      id: 3,
-      title: "Mobile Banking App & Security Content",
-      category: "UI/UX Design & Technical Writing",
-      description:
-        "Designed an intuitive mobile banking interface while creating clear, trustworthy content that communicates security features and builds user confidence in financial transactions.",
-      image:
-        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=2340&q=80",
-      tags: ["Mobile Design", "UI/UX", "Technical Writing", "Security Content"],
-      link: "/blog",
-      stats: { views: "3.1k", likes: "201", comments: "34" },
-    },
-    {
+   
+     {
       id: 4,
-      title: "Design System & Documentation Storytelling",
+      title: "Wishes and  Celebration card",
       category: "Graphic Design & Technical Writing",
       description:
-        "Created a comprehensive design system with visually stunning components and wrote engaging documentation that tells the story of each design decision and usage guideline.",
+        "Created a comprehensive design with visually stunning color themes, for engaging audience that tells the story of our clients",
       image:
-        "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=2340&q=80",
+        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010308.jpg?w=1526&h=",
       tags: ["Design System", "Graphic Design", "Documentation", "Storytelling"],
       link: "/experience",
       stats: { views: "4.2k", likes: "287", comments: "45" },
     },
     {
       id: 5,
-      title: "Healthcare Platform Design & Patient Communication",
+      title: "Home of Beauty",
       category: "UI/UX Design & Health Content",
       description:
-        "Designed an accessible healthcare interface and crafted empathetic, clear content that helps patients navigate their health journey with confidence and understanding.",
+        "Designed an accessible cloth branding and crafted empathetic, clear content that helps clients appreciate their journey with confidence and understanding fabric.",
       image:
-        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=2340&q=80",
-      tags: ["Healthcare Design", "UI/UX", "Health Content", "Accessibility"],
+        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010314.jpg?w=1526&h",
+      tags: ["Fashion Design", "UI/UX", "Clothe Content", "Beauty"],
       link: "/about",
       stats: { views: "1.9k", likes: "143", comments: "21" },
     },
     {
       id: 6,
-      title: "Food Delivery App & Culinary Storytelling",
-      category: "UI/UX Design & Creative Writing",
+      title: "Prisca Apparel",
+      category: "UI/UX Design & Creative Fabrics",
       description:
-        "Developed a mouth-watering food delivery interface paired with compelling culinary content that tells the story of each dish and creates an emotional connection with food lovers.",
+        "Clothing Brand",
       image:
-        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=2340&q=80",
-      tags: ["Food Design", "UI/UX", "Creative Writing", "Brand Storytelling"],
+        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010311.jpg?w=1526&h",
+      tags: [ "UI/UX", "Brand Storytelling"],
       link: "/services",
       stats: { views: "2.7k", likes: "189", comments: "29" },
     },
+    {
+      id: 2,
+      title: "A Greeting Card",
+      category: "UI/UX Design & Content",
+      description:
+        "Personal project",
+      image:
+        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008907.jpg?w=1526&h=",
+      tags: ["UI/UX Design", "UX Writing", "Data Visualization", "User Experience"],
+      link: "/contact",
+      stats: { views: "1.8k", likes: "124", comments: "18" },
+    },
+     {
+      id: 1,
+      title: "Fundamental of Christian Faith",
+      category: "Graphic Design & Content Creation",
+      description:
+        "A Christian Project.",
+      image:
+        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008987.jpg?w=1526&h=",
+      tags: ["Branding", "Graphic Design", "Content Strategy", "Copywriting"],
+      link: "/skills",
+      stats: { views: "2.3k", likes: "156", comments: "23" },
+    },
+    {
+      id: 3,
+      title: "About Me Card",
+      category: "UI/UX Design & Technical Writing",
+      description:
+        "Designed an intuitive card  while creating clear, trustworthy content that communicates personality and builds user confidence in personal branding.",
+      image:
+        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008383.png?w=1526&h=",
+      tags: ["Mobile Design", "UI/UX", "Technical Writing", "Security Content"],
+      link: "/blog",
+      stats: { views: "3.1k", likes: "201", comments: "34" },
+    },
+   
   ];
 
   return (
@@ -109,7 +112,7 @@ const PortfolioSection = forwardRef((props, ref) => {
                 className="group overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-none hover:cursor-pointer"
               >
                 <div className="relative overflow-hidden">
-                  <img
+                  <img style={{height:"50%"}}
                     src={project.image}
                     alt={project.title}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
@@ -184,10 +187,12 @@ const PortfolioSection = forwardRef((props, ref) => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/portfolio">
+            <Link to="https://marcelinaadebisi.wordpress.com/"
+            target="_blank"
+            >
               <Button
                 variant="outline"
-                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3"
+                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 hover:cursor-pointer"
               >
                 View All Projects
                 <ExternalLink className="ml-2 h-5 w-5" />

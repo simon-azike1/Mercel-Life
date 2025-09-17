@@ -1,6 +1,6 @@
-import { Palette, Users, Smartphone, Monitor, Search, Zap } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Palette, Users, Smartphone, Monitor, Search, Zap } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function ServicesSection() {
   const phone = "2349056195484";
@@ -14,7 +14,7 @@ export default function ServicesSection() {
       description:
         "Designing intuitive and visually stunning interfaces paired with clear, engaging microcopy that guides users seamlessly through your product.",
       features: ["User Interface Design", "Visual Design", "Design Systems", "Brand Messaging"],
-      price: "Starting at $500",
+      price: "Starting at $100",
     },
     {
       icon: Users,
@@ -22,7 +22,7 @@ export default function ServicesSection() {
       description:
         "Creating captivating graphics and brand narratives that not only capture attention but also tell your story in a way your audience connects with.",
       features: ["Brand Identity Design", "Illustrations", "Content-Driven Graphics", "Visual Storytelling"],
-      price: "Starting at $350",
+      price: "Starting at $150",
     },
     {
       icon: Smartphone,
@@ -30,7 +30,7 @@ export default function ServicesSection() {
       description:
         "Building responsive mobile experiences with visuals and copy that work hand in hand to deliver clarity, usability, and emotional connection.",
       features: ["iOS Design", "Android Design", "UX Writing", "App Store Assets"],
-      price: "Starting at $600",
+      price: "Starting at $200",
     },
     {
       icon: Monitor,
@@ -38,7 +38,7 @@ export default function ServicesSection() {
       description:
         "Designing modern, responsive websites that combine strong visuals with compelling content, ensuring your brand identity is consistent and impactful.",
       features: ["Responsive Design", "Landing Pages", "Content Strategy", "E-commerce Design"],
-      price: "Starting at $550",
+      price: "Starting at $350",
     },
     {
       icon: Search,
@@ -46,7 +46,7 @@ export default function ServicesSection() {
       description:
         "Analyzing both design and content to uncover usability gaps, accessibility issues, and messaging improvements for a balanced user experience.",
       features: ["Heuristic Evaluation", "Accessibility Audit", "Content Clarity Review", "Actionable Recommendations"],
-      price: "Starting at $300",
+      price: "Starting at $400",
     },
     {
       icon: Zap,
@@ -54,56 +54,63 @@ export default function ServicesSection() {
       description:
         "Fast-tracking product ideas with a 5-day sprint that blends design prototyping and strategic content creation for well-rounded results.",
       features: ["Problem Definition", "Ideation Workshop", "Prototyping", "Content Mapping"],
-      price: "Starting at $700",
+      price: "Starting at $300",
     },
-  ]
+  ];
 
   return (
     <section id="services" className="py-20 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Services</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive design and product storytelling solutions crafted to bring your digital products to life with clarity and impact.
-          </p>
-        </div>
+        {/* <div className="text-center mb-16">
+  <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Services</h2>
+  <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+    Comprehensive design and product storytelling solutions crafted to bring your digital products to life with clarity and impact.
+    <br />
+    <strong>Please be sure of the service you need before proceeding to place an order.</strong>
+  </p>
+</div> */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => {
-            const IconComponent = service.icon
+            const IconComponent = service.icon;
             return (
-              <Card
+              <a
                 key={index}
-                className="p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 bg-white"
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:cursor-pointer"
               >
-                <CardContent className="p-0">
-                  <div className="flex items-center mb-4">
-                    <div className="p-3 bg-gradient-to-br from-green-600 to-black rounded-lg text-white mr-4">
-                      <IconComponent className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900">{service.title}</h3>
-                      <p className="text-sm text-green-600 font-medium">{service.price}</p>
-                    </div>
-                  </div>
-
-                  <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-
-                  <div className="space-y-2 mb-6">
-                    {service.features.map((feature, i) => (
-                      <div key={i} className="flex items-center text-sm text-gray-700">
-                        <div className="w-2 h-2 bg-gradient-to-r from-green-600 to-black rounded-full mr-3"></div>
-                        {feature}
+                <Card className="p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 bg-white">
+                  <CardContent className="p-0">
+                    <div className="flex items-center mb-4">
+                      <div className="p-3 bg-gradient-to-br from-green-600 to-black rounded-lg text-white mr-4">
+                        <IconComponent className="h-6 w-6" />
                       </div>
-                    ))}
-                  </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">{service.title}</h3>
+                        <p className="text-sm text-green-600 font-medium">{service.price}</p>
+                      </div>
+                    </div>
 
-                  <Button className="w-full bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-gray-900 text-white">
-                    Get Started
-                  </Button>
-                </CardContent>
-              </Card>
-            )
+                    <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+
+                    <div className="space-y-2 mb-6">
+                      {service.features.map((feature, i) => (
+                        <div key={i} className="flex items-center text-sm text-gray-700">
+                          <div className="w-2 h-2 bg-gradient-to-r from-green-600 to-black rounded-full mr-3"></div>
+                          {feature}
+                        </div>
+                      ))}
+                    </div>
+
+                    <Button className="w-full bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-gray-900 text-white hover:cursor-pointer">
+                      Get Started
+                    </Button>
+                  </CardContent>
+                </Card>
+              </a>
+            );
           })}
         </div>
 
@@ -115,12 +122,12 @@ export default function ServicesSection() {
           </p>
 
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-white text-green-600 hover:cursor-pointer hover:bg-gray-100 px-8 py-3">
+            <Button className="bg-white text-green-600 hover:bg-gray-100 hover:cursor-pointer px-8 py-3">
               Schedule a Consultation
             </Button>
           </a>
         </div>
       </div>
     </section>
-  )
+  );
 }

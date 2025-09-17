@@ -6,7 +6,7 @@ export default function ExperienceSection() {
   const experiences = [
     {
       year: "2023 - Present",
-      title: "Senior UX Designer",
+      title: "Trained UX Designer",
       company: "TechFlow Inc.",
       description:
         "Leading design initiatives for multiple product lines, mentoring junior designers, and establishing design systems.",
