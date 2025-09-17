@@ -9,82 +9,81 @@ import { motion } from "framer-motion";
 // import {img} from '../../public/assets/img/bg_24.jpg'
 
 const PortfolioSection = forwardRef((props, ref) => {
-  const projects = [
-   
-     {
-      id: 4,
-      title: "Wishes and  Celebration card",
-      category: "Graphic Design & Technical Writing",
-      description:
-        "Created a comprehensive design with visually stunning color themes, for engaging audience that tells the story of our clients",
-      image:
-        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010308.jpg?w=1526&h=",
-      tags: ["Design System", "Graphic Design", "Documentation", "Storytelling"],
-      link: "/experience",
-      stats: { views: "4.2k", likes: "287", comments: "45" },
-    },
-    {
-      id: 5,
-      title: "Home of Beauty",
-      category: "UI/UX Design & Health Content",
-      description:
-        "Designed an accessible cloth branding and crafted empathetic, clear content that helps clients appreciate their journey with confidence and understanding fabric.",
-      image:
-        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010314.jpg?w=1526&h",
-      tags: ["Fashion Design", "UI/UX", "Clothe Content", "Beauty"],
-      link: "/about",
-      stats: { views: "1.9k", likes: "143", comments: "21" },
-    },
-    {
-      id: 6,
-      title: "Prisca Apparel",
-      category: "UI/UX Design & Creative Fabrics",
-      description:
-        "Clothing Brand",
-      image:
-        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010311.jpg?w=1526&h",
-      tags: [ "UI/UX", "Brand Storytelling"],
-      link: "/services",
-      stats: { views: "2.7k", likes: "189", comments: "29" },
-    },
-    {
-      id: 2,
-      title: "A Greeting Card",
-      category: "UI/UX Design & Content",
-      description:
-        "Personal project",
-      image:
-        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008907.jpg?w=1526&h=",
-      tags: ["UI/UX Design", "UX Writing", "Data Visualization", "User Experience"],
-      link: "/contact",
-      stats: { views: "1.8k", likes: "124", comments: "18" },
-    },
-     {
-      id: 1,
-      title: "Fundamental of Christian Faith",
-      category: "Graphic Design & Content Creation",
-      description:
-        "A Christian Project.",
-      image:
-        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008987.jpg?w=1526&h=",
-      tags: ["Branding", "Graphic Design", "Content Strategy", "Copywriting"],
-      link: "/skills",
-      stats: { views: "2.3k", likes: "156", comments: "23" },
-    },
-    {
-      id: 3,
-      title: "About Me Card",
-      category: "UI/UX Design & Technical Writing",
-      description:
-        "Designed an intuitive card  while creating clear, trustworthy content that communicates personality and builds user confidence in personal branding.",
-      image:
-        "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008383.png?w=1526&h=",
-      tags: ["Mobile Design", "UI/UX", "Technical Writing", "Security Content"],
-      link: "/blog",
-      stats: { views: "3.1k", likes: "201", comments: "34" },
-    },
-   
-  ];
+  const projects  = [
+  {
+    id: 4,
+    title: "Wishes and Celebration Card",
+    category: "Graphic Design & Technical Writing",
+    description:
+      "In this project, I designed a visually engaging celebration card that celebrates birthday and communicates heartfelt messages of the celebrant. I focused on storytelling and color harmony to captivate and connect with the audience effectively.",
+    image:
+      "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010308.jpg?w=1526&h=",
+    tags: ["Design System", "Graphic Design", "Documentation", "Storytelling"],
+    link: "/experience",
+    stats: { views: "4.2k", likes: "287", comments: "45" },
+  },
+  {
+    id: 5,
+    title: "Home of Beauty",
+    category: "UI/UX Design & Health Content",
+    description:
+      "For this project, I designed an accessible beauty brand interface, combining intuitive Graphic design with clear, empathetic content. My goal was to enhance user engagement and help clients appreciate their journey with confidence.",
+    image:
+      "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010314.jpg?w=1526&h",
+    tags: ["Fashion Design", "U", "Clothe Content", "Beauty"],
+    link: "/about",
+    stats: { views: "1.9k", likes: "143", comments: "21" },
+  },
+  {
+    id: 6,
+    title: "Prisca Apparel",
+    category: "UI/UX Design & Creative Fabrics",
+    description:
+      "In this project, I designed a clothing brand’s digital presence, focusing on intuitive product presentation. I crafted a design that reflects the brand’s story while delivering an engaging and visually appealing experience.",
+    image:
+      "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010311.jpg?w=1526&h",
+    tags: ["UI/UX", "Brand Storytelling"],
+    link: "/services",
+    stats: { views: "2.7k", likes: "189", comments: "29" },
+  },
+  {
+    id: 2,
+    title: "A Greeting Card",
+    category: "UI/UX Design & Content",
+    description:
+      "This personal project allowed me to combine UI/UX design with creative content. I designed a greeting card that communicates thoughtful messages effectively, creating a memorable and emotionally engaging experience for recipients.",
+    image:
+      "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008907.jpg?w=1526&h=",
+    tags: ["UI/UX Design", "UX Writing", "Data Visualization", "User Experience"],
+    link: "/contact",
+    stats: { views: "1.8k", likes: "124", comments: "18" },
+  },
+  {
+    id: 1,
+    title: "Fundamentals of Christian Faith",
+    category: "Graphic Design & Content Creation",
+    description:
+      "For this project, I developed visually appealing Christian-themed content. I applied graphic design and clear messaging techniques to effectively communicate faith-based concepts while maintaining a professional and engaging aesthetic.",
+    image:
+      "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008987.jpg?w=1526&h=",
+    tags: ["Branding", "Graphic Design", "Content Strategy", "Copywriting"],
+    link: "/skills",
+    stats: { views: "2.3k", likes: "156", comments: "23" },
+  },
+  {
+    id: 3,
+    title: "About Me Card",
+    category: "UI/UX Design & Technical Writing",
+    description:
+      "In this project, I designed an intuitive 'About Me' card that communicates personality and professionalism. I combined clear, trustworthy content with effective UI/UX to build confidence and trust in personal branding.",
+    image:
+      "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008383.png?w=1526&h=",
+    tags: ["Mobile Design", "UI/UX", "Technical Writing", "Security Content"],
+    link: "/blog",
+    stats: { views: "3.1k", likes: "201", comments: "34" },
+  },
+];
+
 
   return (
     <motion.div
@@ -171,7 +170,7 @@ const PortfolioSection = forwardRef((props, ref) => {
                       </Badge>
                     ))}
                   </div>
-
+{/* 
                   <Link to={project.link}>
                     <Button
                       variant="ghost"
@@ -180,7 +179,7 @@ const PortfolioSection = forwardRef((props, ref) => {
                       View Case Study
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
-                  </Link>
+                  </Link> */}
                 </CardContent>
               </Card>
             ))}
@@ -190,13 +189,13 @@ const PortfolioSection = forwardRef((props, ref) => {
             <Link to="https://marcelinaadebisi.wordpress.com/"
             target="_blank"
             >
-              <Button
+              {/* <Button
                 variant="outline"
                 className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 hover:cursor-pointer"
               >
                 View All Projects
                 <ExternalLink className="ml-2 h-5 w-5" />
-              </Button>
+              </Button> */}
             </Link>
           </div>
         </div>
