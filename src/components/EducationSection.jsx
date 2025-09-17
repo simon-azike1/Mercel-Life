@@ -1,5 +1,6 @@
 import React from "react";
 import { GraduationCap, Award, Book } from "lucide-react";
+import {motion } from 'framer-motion'
 
 export default function EducationSection() {
   const education = [
@@ -33,7 +34,14 @@ export default function EducationSection() {
   ];
 
   return (
-    <section className="py-20 bg-white mt-25">
+   
+  <motion.div 
+  initial={{opacity:0,y:20}}
+  transition={{duration:0.6, ease:"easeInOut"}}
+  viewport={{once:true, amount:0.5}}
+  whileInView={{opacity:1, y:0}}>
+
+<section className="py-20 bg-white mt-25">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -73,5 +81,9 @@ export default function EducationSection() {
         </div>
       </div>
     </section>
+  </motion.div>
+   
+   
+   
   );
 }

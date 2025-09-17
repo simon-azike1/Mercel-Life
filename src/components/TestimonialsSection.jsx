@@ -3,25 +3,26 @@ import { Star, Quote } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
+
 export default function TestimonialsSection() {
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "Product Manager at TechFlow",
+      name: "Simon Azike",
+      role: "Software Engineer ",
       content:
         "Working with Mercelina has been incredible. Her attention to detail and user-centered approach has transformed our product experience.",
-      avatar: "https://randomuser.me/api/portraits/women/21.jpg",
+      avatar: "/assets/img/simon.jpg",
       rating: 5,
-      company: "TechFlow Inc.",
+      company: "SamzikTech.",
     },
     {
-      name: "Michael Chen",
-      role: "CEO at StartupXYZ",
+      name: "DevQuat",
+      role: "Full Stack Developer",
       content:
         "Mercelina delivered exceptional designs that not only looked great but also improved our conversion rates significantly.",
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      avatar: "/assets/img/quadri.png",
       rating: 5,
-      company: "StartupXYZ",
+      company: "Frontend Simplify",
     },
     {
       name: "Emily Rodriguez",
@@ -32,33 +33,7 @@ export default function TestimonialsSection() {
       rating: 5,
       company: "Creative Agency",
     },
-    {
-      name: "David Kim",
-      role: "Frontend Developer",
-      content:
-        "Mercelina's designs are not only beautiful but also developer-friendly. The handoff process was seamless and well-documented.",
-      avatar: "https://randomuser.me/api/portraits/men/55.jpg",
-      rating: 5,
-      company: "Dev Solutions",
-    },
-    {
-      name: "Lisa Wang",
-      role: "UX Researcher",
-      content:
-        "Mercelina's research-driven approach to design is impressive. She truly understands user needs and translates them into great experiences.",
-      avatar: "https://randomuser.me/api/portraits/women/66.jpg",
-      rating: 5,
-      company: "Research Lab",
-    },
-    {
-      name: "James Wilson",
-      role: "Startup Founder",
-      content:
-        "From concept to launch, Mercelina guided our design process expertly. Our app's user engagement increased by 60% after the redesign.",
-      avatar: "https://randomuser.me/api/portraits/men/77.jpg",
-      rating: 5,
-      company: "InnovateCorp",
-    },
+
   ];
 
   return (

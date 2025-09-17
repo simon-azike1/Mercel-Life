@@ -67,7 +67,7 @@ export default function HeroSection() {
                 <div className="flex flex-col sm:flex-row gap-4 items-center sm:justify-center">
                   <Button
                     onClick={() => scrollToSection("portfolio")}
-                    className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-black text-white px-8 py-3 text-lg"
+                    className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-black hover:cursor-pointer text-white px-8 py-3 text-lg"
                   >
                     View Work
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -81,7 +81,7 @@ export default function HeroSection() {
                   >
                     <Button
                       variant="outline"
-                      className="w-full sm:w-auto border-green-600 text-green-600 hover:bg-green-50 px-8 py-3 text-lg bg-transparent"
+                      className="w-full sm:w-auto hover:cursor-pointer border-green-600 text-green-600 hover:bg-green-50 px-8 py-3 text-lg bg-transparent"
                     >
                       <Eye className="mr-2 h-7 w-8" />
                       View
@@ -95,7 +95,7 @@ export default function HeroSection() {
                   >
                     <Button
                       variant="outline"
-                      className="w-full sm:w-auto border-black text-black hover:bg-gray-100 px-8 py-3 text-lg bg-transparent"
+                      className="w-full sm:w-auto border-black text-black hover:bg-gray-100 px-8 py-3 text-lg bg-transparent hover:cursor-pointer"
                     >
                       <Download className="mr-2 h-5 w-5" /> Resume
                     </Button>
