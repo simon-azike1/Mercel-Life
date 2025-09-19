@@ -120,7 +120,7 @@ const display = props.showIds ? projects.filter(project => props.showIds.include
             >
             {props.showIds && (
             <div className="text-center mt-12">
-              <Link to="/portfolio"
+              <Link to="../portfolio"
               target="_blank"
               >
                 <Button
