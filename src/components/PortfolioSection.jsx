@@ -114,27 +114,21 @@ const display = props.showIds ? projects.filter(project => props.showIds.include
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Link to="https://marcelinaadebisi.wordpress.com/"
-            target="_blank"
-            >
-            {props.showIds && (
-            <div className="text-center mt-12">
-              <Link to="../portfolio"
-              target="_blank"
-              >
-                <Button
-                  variant="outline"
-                  className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 hover:cursor-pointer"
-                >
-                  View All Projects
-                  <ExternalLink className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-            </div>
-          )}
-            </Link>
-          </div>
+         <div className="text-center mt-12">
+          {props.showIds && (
+  <div className="text-center mt-12">
+    <Link to="/portfolio">
+      <Button
+        variant="outline"
+        className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 hover:cursor-pointer"
+      >
+        View All Projects
+        <ExternalLink className="ml-2 h-5 w-5" />
+      </Button>
+    </Link>
+  </div>
+)}
+       </div>
         </div>
       </section>
 
