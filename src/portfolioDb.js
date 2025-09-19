@@ -42,7 +42,7 @@
     description:
       "This personal project allowed me to combine UI/UX design with creative content. I designed a promotional card that communicates thoughtful messages effectively, creating a program visibility.",
     image:
-      "/assets/img/project_ (6).jpg",
+      "/assets/img/project_(6).jpg",
     tags: ["UI/UX Design", "UX Writing", "Data Visualization", "User Experience"],
     link: "/contact",
     stats: { views: "1.8k", likes: "124", comments: "18" },
@@ -138,7 +138,7 @@
     description:
       "Call for Internship social media fleyer for company promotion",
     image:
-      "/assets/img/project_ (2).jpg",
+      "/assets/img/project_(2).jpg",
     tags: ["Graphic design", "UI/UX", "Technical Writing", "Content Creation"],
     link: "/blog",
     stats: { views: "3.1k", likes: "201", comments: "34" },
