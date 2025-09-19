@@ -122,7 +122,7 @@ export default function HeroSection() {
 
       {/* Skills Section */}
       <SkillsSection />
-      <Portfolio ref={sectionRef} />
+      <Portfolio ref={sectionRef} showIds= {[5,3,12,4,7,11]} />
 
       {/* Tools I Use Section */}
       <section id="tools" className="py-20 bg-gray-50">

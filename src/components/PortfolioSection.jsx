@@ -6,12 +6,12 @@ import ProcessSection from "./ProcessSection";
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-// import {img} from '../../public/assets/img/bg_24.jpg'
 
-const PortfolioSection = forwardRef((props, ref) => {
-  const projects  = [
+
+const PortfolioSection = forwardRef((props,ref) => {
+  const projects  =  [
   {
-    id: 4,
+    id: 9,
     title: "Wishes and Celebration Card",
     category: "Graphic Design & Technical Writing",
     description:
@@ -30,7 +30,7 @@ const PortfolioSection = forwardRef((props, ref) => {
       "For this project, I designed an accessible beauty brand interface, combining intuitive Graphic design with clear, empathetic content. My goal was to enhance user engagement and help clients appreciate their journey with confidence.",
     image:
       "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010314.jpg?w=1526&h",
-    tags: ["Fashion Design", "U", "Clothe Content", "Beauty"],
+    tags: ["Fashion Design", "Clothe Content", "Beauty"],
     link: "/about",
     stats: { views: "1.9k", likes: "143", comments: "21" },
   },
@@ -41,19 +41,19 @@ const PortfolioSection = forwardRef((props, ref) => {
     description:
       "In this project, I designed a clothing brand’s digital presence, focusing on intuitive product presentation. I crafted a design that reflects the brand’s story while delivering an engaging and visually appealing experience.",
     image:
-      "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000010311.jpg?w=1526&h",
+      "/assets/img/project_(9).png",
     tags: ["UI/UX", "Brand Storytelling"],
     link: "/services",
     stats: { views: "2.7k", likes: "189", comments: "29" },
   },
   {
     id: 2,
-    title: "A Greeting Card",
+    title: "Grow your Business",
     category: "UI/UX Design & Content",
     description:
-      "This personal project allowed me to combine UI/UX design with creative content. I designed a greeting card that communicates thoughtful messages effectively, creating a memorable and emotionally engaging experience for recipients.",
+      "This personal project allowed me to combine UI/UX design with creative content. I designed a promotional card that communicates thoughtful messages effectively, creating a program visibility.",
     image:
-      "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008907.jpg?w=1526&h=",
+      "/assets/img/project_ (6).jpg",
     tags: ["UI/UX Design", "UX Writing", "Data Visualization", "User Experience"],
     link: "/contact",
     stats: { views: "1.8k", likes: "124", comments: "18" },
@@ -72,27 +72,100 @@ const PortfolioSection = forwardRef((props, ref) => {
   },
   {
     id: 3,
-    title: "About Me Card",
+    title: "Learn a Skill",
+    category: "UI/UX Design & Promotion",
+    description:
+      "In this project, I designed an intuitive 'promotional' barner that communicates personality and professional brand. I combined clear, trustworthy content with effective Graphic design to build confidence and trust in personal branding effective promotional message.",
+    image:
+      "/assets/img/project_(8).jpg",
+    tags: ["Mobile Design", "UI/UX", "Technical Writing", "Security Content"],
+    link: "/blog",
+    stats: { views: "3.1k", likes: "201", comments: "34" },
+  },
+  {
+    id: 4,
+    title: "Internship Program",
+    category: "Graphic Design ",
+    description:
+      "In this project, I designed a Internship call to action card communicates company's program and professionalism. In this project I combined clear, trustworthy content with effective graphic skills to build confidence and trust in clients message.",
+    image:
+      "/assets/img/project_(3).jpg",
+    tags: ["Mobile Design", "Graphic Design", "Technical Writing", "Promotional Content"],
+    link: "/blog",
+    stats: { views: "3.1k", likes: "201", comments: "34" },
+  },
+  {
+    id: 7,
+    title: "Social Networking",
     category: "UI/UX Design & Technical Writing",
     description:
-      "In this project, I designed an intuitive 'About Me' card that communicates personality and professionalism. I combined clear, trustworthy content with effective UI/UX to build confidence and trust in personal branding.",
+      "With this project  I designed an intuitive 'social media promotional flyer that communicates personality and professionalism. I combined clear, trustworthy content with effective graphic design to build confidence and trust in clients branding.",
     image:
-      "https://marcelinaadebisi.wordpress.com/wp-content/uploads/2025/08/1000008383.png?w=1526&h=",
-    tags: ["Mobile Design", "UI/UX", "Technical Writing", "Security Content"],
+      "/assets/img/project_(4).jpg",
+    tags: ["Graphic  Design", "UI/UX", "Technical Writing", "Promotional Content"],
+    link: "/blog",
+    stats: { views: "3.1k", likes: "201", comments: "34" },
+  },
+  {
+    id: 8,
+    title: "Facebook Ads",
+    category: "Graphic Design & Technical Writing",
+    description:
+      "This project allowed me to designed an intuitive  Social media fleyer. This project required me to combined my clear design skill and writings to create trustworthy content with effective graphic design to build confidence and trust in personal branding.",
+    image:
+      "/assets/img/project_(5).jpg",
+    tags: ["Graphic design", "UI/UX", "Technical Writing", "Content Creation"],
+    link: "/blog",
+    stats: { views: "3.1k", likes: "201", comments: "34" },
+  },
+  {
+    id: 10,
+    title: "Advertisement",
+    category: "Graphic Design & Technical Writing",
+    description:
+      "This project allowed me to designed an intuitive  advertisement fleyer. This project required me to combined my clear design and writings skill to create trustworthy content with effective graphic design to build confidence and trust in personal branding.",
+    image:
+      "/assets/img/project_(1).jpg",
+    tags: ["Graphic design", "UI/UX", "Technical Writing", "Content Creation"],
+    link: "/blog",
+    stats: { views: "3.1k", likes: "201", comments: "34" },
+  },
+  {
+    id: 11,
+    title: "Business Scale FacebookAds",
+    category: "Graphic Design ",
+    description:
+      "This project allowed me to designed an clean and profession social media fleyer for program advert",
+    image:
+      "/assets/img/project_(7).jpg",
+    tags: ["Graphic design", "Technical Writing"],
+    link: "/blog",
+    stats: { views: "3.1k", likes: "201", comments: "34" },
+  },
+  {
+    id: 12,
+    title: "Gydgen",
+    category: "Graphic Design & Technical Writing",
+    description:
+      "Call for Internship social media fleyer for company promotion",
+    image:
+      "/assets/img/project_ (2).jpg",
+    tags: ["Graphic design", "UI/UX", "Technical Writing", "Content Creation"],
     link: "/blog",
     stats: { views: "3.1k", likes: "201", comments: "34" },
   },
 ];
 
-
+const display = props.showIds ? projects.filter(project => props.showIds.includes(project.id)):projects;
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: 0.1 }}
     >
-      <section ref={ref} className="py-20 bg-white">
+      <section  className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-black mb-4">
@@ -105,7 +178,7 @@ const PortfolioSection = forwardRef((props, ref) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
+            {display.map((project) => (
               <Card
                 key={project.id}
                 className="group overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-none hover:cursor-pointer"
@@ -125,7 +198,7 @@ const PortfolioSection = forwardRef((props, ref) => {
                             {project.stats.views}
                           </span>
                           <span className="flex items-center">
-                            <Heart className="h-4 w-4 mr-1" />
+                            <Heart className="h-4 w-4 mr-1 text-green-500" />
                             {project.stats.likes}
                           </span>
                           <span className="flex items-center">
@@ -170,8 +243,8 @@ const PortfolioSection = forwardRef((props, ref) => {
                       </Badge>
                     ))}
                   </div>
-{/* 
-                  <Link to={project.link}>
+
+                  {/* {<Link to={project.link}>
                     <Button
                       variant="ghost"
                       className="w-full text-green-600 hover:bg-green-100 transition-all duration-300"
@@ -179,7 +252,7 @@ const PortfolioSection = forwardRef((props, ref) => {
                       View Case Study
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
-                  </Link> */}
+                  </Link>  } */}
                 </CardContent>
               </Card>
             ))}
@@ -189,13 +262,21 @@ const PortfolioSection = forwardRef((props, ref) => {
             <Link to="https://marcelinaadebisi.wordpress.com/"
             target="_blank"
             >
-              {/* <Button
-                variant="outline"
-                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 hover:cursor-pointer"
+            {props.showIds && (
+            <div className="text-center mt-12">
+              <Link to="/portfolio"
+              target="_blank"
               >
-                View All Projects
-                <ExternalLink className="ml-2 h-5 w-5" />
-              </Button> */}
+                <Button
+                  variant="outline"
+                  className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 hover:cursor-pointer"
+                >
+                  View All Projects
+                  <ExternalLink className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
+          )}
             </Link>
           </div>
         </div>
