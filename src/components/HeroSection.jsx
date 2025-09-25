@@ -1,13 +1,14 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Eye } from "lucide-react";
-import { Figma, Code, Monitor, PenTool, Image } from "lucide-react";
+import { Figma, PenTool, Image, Monitor } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import SkillsSection from "./SkillsSection";
-import Portfolio from "./PortfolioSection";
+import PortfolioSection from "./PortfolioSection";
 import FAQSection from "./FAQSection";
 import TestimonialsSection from "./TestimonialsSection";
+import { Link } from "react-router-dom";
 
 const tools = [
   { name: "Figma", icon: Figma },
@@ -16,13 +17,14 @@ const tools = [
   { name: "Canva", icon: PenTool },
   { name: "PixelApp", icon: Image },
   { name: "Web Design", icon: Monitor },
-
 ];
 
 export default function HeroSection() {
-  const sectionRef = useRef(null);
-  const scrollToSection = () => {
-    sectionRef.current.scrollIntoView({ behavior: "smooth" });
+  const portfolioRef = useRef(null);
+
+  // Smooth scroll to Portfolio section
+  const scrollToPortfolio = () => {
+    portfolioRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -42,32 +44,30 @@ export default function HeroSection() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Left Side */}
               <div className="space-y-8">
-                <div className="space-y-4">
-                  <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
-                    Hi, I'm{" "}
-                    <span className="bg-gradient-to-r from-green-600 to-black bg-clip-text text-transparent">
-                      Marcelina Kehinde
-                    </span>
-                  </h1>
-                  <p className="text-xl lg:text-2xl text-gray-700 font-medium">
-                    Graphic Designer, UI/UX Designer & Writer Crafting visually
-                    stunning digital experiences and compelling stories
-                  </p>
-                  <p className="text-lg text-gray-600 max-w-lg">
-                    I create captivating graphics, design intuitive user
-                    interfaces, and produce content that resonates. Whether
-                    it’s shaping a brand’s visual identity or telling its story,
-                    I help businesses engage their audience and achieve
-                    meaningful results. Let’s build something extraordinary
-                    together.
-                  </p>
-                </div>
+                <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
+                  Hi, I'm{" "}
+                  <span className="bg-gradient-to-r from-green-600 to-black bg-clip-text text-transparent">
+                    Marcelina Kehinde
+                  </span>
+                </h1>
+                <p className="text-xl lg:text-2xl text-gray-700 font-medium">
+                  Graphic Designer, UI/UX Designer & Writer Crafting visually
+                  stunning digital experiences and compelling stories
+                </p>
+                <p className="text-lg text-gray-600 max-w-lg">
+                  I create captivating graphics, design intuitive user
+                  interfaces, and produce content that resonates. Whether
+                  it’s shaping a brand’s visual identity or telling its story,
+                  I help businesses engage their audience and achieve
+                  meaningful results. Let’s build something extraordinary
+                  together.
+                </p>
 
                 {/* Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 items-center sm:justify-center">
                   <Button
-                    onClick={() => scrollToSection("portfolio")}
-                    className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-black hover:cursor-pointer text-white px-8 py-3 text-lg"
+                    onClick={scrollToPortfolio}
+                    className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-black text-white px-8 py-3 text-lg hover:cursor-pointer"
                   >
                     View Work
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -105,13 +105,11 @@ export default function HeroSection() {
 
               {/* Right Side - Image */}
               <div className="relative">
-                <div className="relative z-10 flex justify-center">
-                  <img
-                    src="/assets/img/bg_24.png"
-                    alt="Hero"
-                    className="rounded-2xl shadow-2xl w-full"
-                  />
-                </div>
+                <img
+                  src="/assets/img/bg_24.png"
+                  alt="Hero"
+                  className="rounded-2xl shadow-2xl w-full"
+                />
                 <div className="absolute -top-4 -right-4 w-72 h-72 bg-gradient-to-br from-green-400 to-black rounded-full opacity-20 blur-3xl"></div>
                 <div className="absolute -bottom-4 -left-4 w-72 h-72 bg-gradient-to-br from-black to-green-400 rounded-full opacity-20 blur-3xl"></div>
               </div>
@@ -122,7 +120,19 @@ export default function HeroSection() {
 
       {/* Skills Section */}
       <SkillsSection />
-      <Portfolio ref={sectionRef} showIds= {[5,3,12,4,7,11]} />
+
+      {/* Portfolio Section (3 projects) */}
+      <PortfolioSection ref={portfolioRef} limit={3} />
+
+      {/* View All Projects Button */}
+      <div className="text-center mt-8 mb-16">
+        <Link to="/portfolio">
+          <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg inline-flex items-center gap-2">
+            View All Projects
+            <ArrowRight className="h-5 w-5" />
+          </Button>
+        </Link>
+      </div>
 
       {/* Tools I Use Section */}
       <section id="tools" className="py-20 bg-gray-50">
