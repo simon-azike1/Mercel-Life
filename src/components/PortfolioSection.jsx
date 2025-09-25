@@ -3,9 +3,8 @@ import React, { forwardRef } from "react";
 import { usePortfolio } from "./PortfolioContext";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { ExternalLink, Eye, Heart, MessageCircle } from "lucide-react";
+import { ExternalLink, Eye, Heart, MessageCircle, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const PortfolioSection = forwardRef(({ limit }, ref) => {
@@ -26,13 +25,21 @@ const PortfolioSection = forwardRef(({ limit }, ref) => {
         </div>
 
         {loading ? (
-          // Nice loader
-          <div className="flex justify-center items-center py-20">
-            <motion.div
-              className="w-16 h-16 border-4 border-green-600 border-t-transparent rounded-full"
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-            />
+          // Fancy 3-dot bouncing loader
+          <div className="flex justify-center items-center py-20 space-x-4">
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="w-5 h-5 rounded-full bg-gradient-to-r from-green-600 to-black"
+                animate={{ y: ["0%", "-50%", "0%"] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 0.6,
+                  delay: i * 0.2,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
           </div>
         ) : displayProjects.length === 0 ? (
           <p className="text-center text-gray-500">No projects available.</p>
