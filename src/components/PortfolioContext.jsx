@@ -10,8 +10,8 @@ export const PortfolioProvider = ({ children }) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        // ✅ Use your Render backend URL here
-        const res = await fetch("https://your-app-name.onrender.com/projects");
+        // Change this back to local
+        const res = await fetch("http://localhost:5000/projects");
         const data = await res.json();
         setProjects(data);
       } catch (err) {
