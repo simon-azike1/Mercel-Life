@@ -9,22 +9,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Use the port assigned by Railway or default to 5000 locally
 const PORT = process.env.PORT || 5000;
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("✅ MongoDB connected"))
-    .catch((err) => console.error("❌ MongoDB connection error:", err));
-
-// Import routes
-const projectRoutes = require("./routes/projectRoutes");
-app.use("/projects", projectRoutes); // <- this defines /projects route
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Test route
 app.get("/", (req, res) => {
-    res.send("API is running!");
+  res.send("API is running!");
+});
+
+// Example projects endpoint
+app.get("/projects", (req, res) => {
+  res.json([{ id: 1, title: "Test Project", description: "Sample project" }]);
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
