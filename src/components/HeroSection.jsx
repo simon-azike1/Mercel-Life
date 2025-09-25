@@ -124,15 +124,7 @@ export default function HeroSection() {
       {/* Portfolio Section (3 projects) */}
       <PortfolioSection ref={portfolioRef} limit={3} />
 
-      {/* View All Projects Button */}
-      <div className="text-center mt-8 mb-16">
-        <Link to="/portfolio">
-          <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg inline-flex items-center gap-2">
-            View All Projects
-            <ArrowRight className="h-5 w-5" />
-          </Button>
-        </Link>
-      </div>
+     
 
       {/* Tools I Use Section */}
       <section id="tools" className="py-20 bg-gray-50">
