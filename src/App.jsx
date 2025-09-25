@@ -12,28 +12,31 @@ import ExperienceSection from "./components/ExperienceSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import AdminDashboard from "./components/AdminDashboard";
 
-
-
+// ✅ Import the context
+import { PortfolioProvider } from "./components/PortfolioContext";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-300">
-      <Navigation />
-      <ScrollToTop/>
-      <Routes>
-        <Route path="/" element={<HeroSection />} />
-        <Route path="/about" element={<AboutSection />} />
-        <Route path="/services" element={<ServicesSection />} />
-        <Route path="/skills" element={<SkillsSection />} />
-        <Route path="/portfolio" element={<PortfolioSection />} />
-        <Route path="/blog" element={<BlogSection />} />
-        <Route path="/experience" element={<ExperienceSection />} />
-        <Route path="/contact" element={<ContactSection />} />
-      </Routes>
-
-      <Footer />
-    </div>
+    <PortfolioProvider>
+      <div className="min-h-screen bg-gray-300">
+        <Navigation />
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<HeroSection />} />
+          <Route path="/about" element={<AboutSection />} />
+          <Route path="/services" element={<ServicesSection />} />
+          <Route path="/skills" element={<SkillsSection />} />
+          <Route path="/portfolio" element={<PortfolioSection />} />
+          <Route path="/blog" element={<BlogSection />} />
+          <Route path="/experience" element={<ExperienceSection />} />
+          <Route path="/contact" element={<ContactSection />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+        </Routes>
+        <Footer />
+      </div>
+    </PortfolioProvider>
   );
 }
 

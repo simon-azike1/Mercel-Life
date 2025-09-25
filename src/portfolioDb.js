@@ -81,7 +81,7 @@
       "/assets/img/project_(3).jpg",
     tags: ["Mobile Design", "Graphic Design", "Technical Writing", "Promotional Content"],
     link: "/blog",
-    stats: { views: "3.1k", likes: "201", comments: "34" },
+    stats: { views: "5.1k", likes: "21", comments: "4" },
   },
   {
     id: 7,
@@ -93,7 +93,7 @@
       "/assets/img/project_(4).jpg",
     tags: ["Graphic  Design", "UI/UX", "Technical Writing", "Promotional Content"],
     link: "/blog",
-    stats: { views: "3.1k", likes: "201", comments: "34" },
+    stats: { views: "45k", likes: "301", comments: "54" },
   },
   {
     id: 8,
@@ -105,7 +105,7 @@
       "/assets/img/project_(5).jpg",
     tags: ["Graphic design", "UI/UX", "Technical Writing", "Content Creation"],
     link: "/blog",
-    stats: { views: "3.1k", likes: "201", comments: "34" },
+    stats: { views: "3k", likes: "21", comments: "4" },
   },
   {
     id: 10,
@@ -117,7 +117,7 @@
       "/assets/img/project_(1).jpg",
     tags: ["Graphic design", "UI/UX", "Technical Writing", "Content Creation"],
     link: "/blog",
-    stats: { views: "3.1k", likes: "201", comments: "34" },
+    stats: { views: "56.5k", likes: "89", comments: "74" },
   },
   {
     id: 11,
@@ -129,7 +129,7 @@
       "/assets/img/project_(7).jpg",
     tags: ["Graphic design", "Technical Writing"],
     link: "/blog",
-    stats: { views: "3.1k", likes: "201", comments: "34" },
+    stats: { views: "4k", likes: "241", comments: "74" },
   },
   {
     id: 12,
@@ -141,7 +141,7 @@
       "/assets/img/project_(2).jpg",
     tags: ["Graphic design", "UI/UX", "Technical Writing", "Content Creation"],
     link: "/blog",
-    stats: { views: "3.1k", likes: "201", comments: "34" },
+    stats: { views: "78.1k", likes: "231", comments: "89" },
   },
 ]
 
