@@ -10,9 +10,8 @@ export const PortfolioProvider = ({ children }) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        // Use either local or deployed backend URL
-        // const res = await fetch("http://localhost:5000/projects"); // for local testing
-        const res = await fetch("https://mercel-life.onrender.com/projects"); // deployed backend
+        const apiUrl = process.env.REACT_APP_API_URL; // environment variable
+        const res = await fetch(`${apiUrl}/projects`);
         const data = await res.json();
         setProjects(data);
       } catch (err) {
@@ -21,6 +20,7 @@ export const PortfolioProvider = ({ children }) => {
         setLoading(false);
       }
     };
+
     fetchProjects();
   }, []);
 
