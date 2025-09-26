@@ -12,7 +12,7 @@ export const PortfolioProvider = ({ children }) => {
       try {
         // Use either local or deployed backend URL
         // const res = await fetch("http://localhost:5000/projects"); // for local testing
-        const res = await fetch("https://mercel-life-1.onrender.com/projects"); // deployed backend
+        const res = await fetch("https://mercel-life.onrender.com/projects"); // deployed backend
         const data = await res.json();
         setProjects(data);
       } catch (err) {
