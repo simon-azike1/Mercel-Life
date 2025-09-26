@@ -12,11 +12,11 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 // MongoDB connection with proper options
-mongoose
-    .connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
+
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     .then(() => console.log("✅ MongoDB connected"))
     .catch((err) => {
         console.error("❌ MongoDB connection error:", err.message);
