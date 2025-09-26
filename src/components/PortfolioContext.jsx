@@ -7,7 +7,7 @@ export const PortfolioProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const apiUrl = import.meta.env.VITE_API_URL; 
+ const apiUrl = import.meta.env.VITE_API_URL;
 
 useEffect(() => {
   const fetchProjects = async () => {
@@ -24,6 +24,7 @@ useEffect(() => {
   };
   fetchProjects();
 }, [apiUrl]);
+
 
   
   return (
