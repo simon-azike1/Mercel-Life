@@ -11,20 +11,28 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
+// MongoDB connection with proper options
+mongoose
+    .connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then(() => console.log("✅ MongoDB connected"))
-    .catch((err) => console.error("❌ MongoDB connection error:", err));
+    .catch((err) => {
+        console.error("❌ MongoDB connection error:", err.message);
+        process.exit(1); // stop server if DB connection fails
+    });
 
 // Import routes
 const projectRoutes = require("./routes/projectRoutes");
-app.use("/projects", projectRoutes); // <- this defines /projects route
+app.use("/projects", projectRoutes);
 
 // Test route
 app.get("/", (req, res) => {
     res.send("API is running!");
 });
 
+// Start server
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
