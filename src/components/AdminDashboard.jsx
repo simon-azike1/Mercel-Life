@@ -3,8 +3,27 @@ import { usePortfolio } from "./PortfolioContext";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Edit, Trash, Plus, Search, Filter, Eye, ExternalLink, Calendar, Tag } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "./ui/dialog";
+import {
+  Edit,
+  Trash,
+  Plus,
+  Search,
+  Filter,
+  Eye,
+  ExternalLink,
+  Calendar,
+  Tag,
+  AlertCircle,
+  ImageIcon,
+  Link as LinkIcon,
+} from "lucide-react";
 
 const AdminDashboard = () => {
   const { projects, addProject, updateProject, deleteProject } = usePortfolio();
@@ -13,62 +32,75 @@ const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
-  const [formData, setFormData] = useState({ 
-    title: "", 
-    category: "", 
-    description: "", 
-    image: "", 
-    link: "", 
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "",
+    description: "",
+    image: "",
+    link: "",
     tags: "",
-    status: "active"
+    status: "active",
   });
   const [formErrors, setFormErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false); // Added
 
-  // Get unique categories for filter
-  const categories = useMemo(() => {
-    const cats = [...new Set(projects.map(p => p.category))];
-    return cats.filter(Boolean);
-  }, [projects]);
+  // Get unique categories
+  const categories = useMemo(
+    () => [...new Set(projects.map((p) => p.category))].filter(Boolean),
+    [projects]
+  );
 
-  // Filter and sort projects
+  // Filter & sort projects
   const filteredProjects = useMemo(() => {
-    let filtered = projects.filter(project => {
-      const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           project.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-      const matchesCategory = filterCategory === "all" || project.category === filterCategory;
-      return matchesSearch && matchesCategory;
-    });
-
-    // Sort projects
-    return filtered.sort((a, b) => {
-      switch (sortBy) {
-        case "newest":
-          return (b.id || 0) - (a.id || 0);
-        case "oldest":
-          return (a.id || 0) - (b.id || 0);
-        case "title":
-          return a.title.localeCompare(b.title);
-        case "category":
-          return a.category.localeCompare(b.category);
-        default:
-          return 0;
-      }
-    });
+    return projects
+      .filter((project) => {
+        const matchesSearch =
+          project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.tags?.some((tag) =>
+            tag.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        const matchesCategory =
+          filterCategory === "all" || project.category === filterCategory;
+        return matchesSearch && matchesCategory;
+      })
+      .sort((a, b) => {
+        switch (sortBy) {
+          case "newest":
+            return (b.id || b._id || 0) - (a.id || a._id || 0);
+          case "oldest":
+            return (a.id || a._id || 0) - (b.id || b._id || 0);
+          case "title":
+            return a.title.localeCompare(b.title);
+          case "category":
+            return a.category.localeCompare(b.category);
+          default:
+            return 0;
+        }
+      });
   }, [projects, searchTerm, filterCategory, sortBy]);
 
+  // Helpers
   const resetForm = () => {
-    setFormData({ title: "", category: "", description: "", image: "", link: "", tags: "", status: "active" });
+    setFormData({
+      title: "",
+      category: "",
+      description: "",
+      image: "",
+      link: "",
+      tags: "",
+      status: "active",
+    });
     setFormErrors({});
     setEditingProject(null);
   };
 
   const openEditModal = (project) => {
     setEditingProject(project);
-    setFormData({ 
-      ...project, 
+    setFormData({
+      ...project,
       tags: project.tags?.join(", ") || "",
-      status: project.status || "active"
+      status: project.status || "active",
     });
     setFormErrors({});
     setIsDialogOpen(true);
@@ -80,23 +112,8 @@ const AdminDashboard = () => {
   };
 
   const handleChange = (name, value) => {
-    setFormData({ ...formData, [name]: value });
-    // Clear error when user starts typing
-    if (formErrors[name]) {
-      setFormErrors({ ...formErrors, [name]: "" });
-    }
-  };
-
-  const validateForm = () => {
-    const errors = {};
-    if (!formData.title.trim()) errors.title = "Title is required";
-    if (!formData.category.trim()) errors.category = "Category is required";
-    if (!formData.description.trim()) errors.description = "Description is required";
-    if (formData.image && !isValidUrl(formData.image)) errors.image = "Please enter a valid image URL";
-    if (formData.link && !isValidUrl(formData.link)) errors.link = "Please enter a valid project URL";
-    
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (formErrors[name]) setFormErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const isValidUrl = (string) => {
@@ -108,408 +125,405 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleSave = () => {
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.title.trim()) errors.title = "Title is required";
+    if (!formData.category.trim()) errors.category = "Category is required";
+    if (!formData.description.trim()) errors.description = "Description is required";
+    if (formData.image && !isValidUrl(formData.image))
+      errors.image = "Please enter a valid image URL";
+    if (formData.link && !isValidUrl(formData.link))
+      errors.link = "Please enter a valid project URL";
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSave = async () => {
     if (!validateForm()) return;
 
-    const data = { 
-      ...formData, 
-      tags: formData.tags.split(",").map(t => t.trim()).filter(t => t),
-      createdAt: editingProject ? editingProject.createdAt : new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
-    
-    if (editingProject) {
-      updateProject(editingProject.id, data);
-    } else {
-      addProject({ ...data, id: Date.now() });
+    try {
+      setIsLoading(true);
+      const method = editingProject ? "PUT" : "POST";
+      const url = editingProject
+        ? `${import.meta.env.VITE_API_URL}/projects/${
+            editingProject._id || editingProject.id
+          }`
+        : `${import.meta.env.VITE_API_URL}/projects`;
+
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          tags: formData.tags.split(",").map((t) => t.trim()).filter(Boolean),
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.text();
+        throw new Error(`HTTP error! ${res.status}: ${errorData}`);
+      }
+
+      const result = await res.json();
+      const savedProject = result.success ? result.data : result;
+
+      if (editingProject) {
+        updateProject(editingProject._id || editingProject.id, savedProject);
+      } else {
+        addProject(savedProject);
+      }
+
+      resetForm();
+      setIsDialogOpen(false);
+    } catch (err) {
+      console.error("Error saving project:", err);
+      alert(`Failed to save project: ${err.message}`);
+    } finally {
+      setIsLoading(false);
     }
-    
-    resetForm();
-    setIsDialogOpen(false);
   };
 
   const handleDelete = (project) => {
     if (window.confirm(`Are you sure you want to delete "${project.title}"?`)) {
-      deleteProject(project.id);
+      deleteProject(project._id || project.id);
     }
   };
 
   const getStatusBadgeColor = (status) => {
     switch (status) {
-      case "active": return "bg-green-100 text-green-800 border-green-200";
-      case "draft": return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "archived": return "bg-gray-100 text-gray-800 border-gray-200";
-      default: return "bg-blue-100 text-blue-800 border-blue-200";
+      case "active":
+        return "bg-green-100 text-green-800 border-green-200";
+      case "draft":
+        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+      case "archived":
+        return "bg-gray-100 text-gray-800 border-gray-200";
+      default:
+        return "bg-blue-100 text-blue-800 border-blue-200";
     }
   };
+
+  // Project Card
+  const ProjectCard = ({ project }) => (
+    <Card className="bg-white hover:shadow-lg transition-shadow duration-200">
+      <CardContent className="p-0">
+        {project.image ? (
+          <div className="relative h-48 bg-gray-200 rounded-t-lg overflow-hidden">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+              onError={(e) => (e.target.style.display = "none")}
+            />
+            <div className="absolute top-2 right-2">
+              <Badge
+                className={`${getStatusBadgeColor(project.status || "active")} text-xs`}
+              >
+                {(project.status || "active")
+                  .charAt(0)
+                  .toUpperCase() +
+                  (project.status || "active").slice(1)}
+              </Badge>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-48 bg-gray-100 text-gray-400">
+            No Image
+          </div>
+        )}
+
+        <div className="p-4">
+          <div className="flex justify-between items-start mb-3">
+            <h3 className="font-semibold text-gray-900 text-lg truncate flex-1 mr-2">
+              {project.title}
+            </h3>
+            <div className="flex gap-1 flex-shrink-0">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => openEditModal(project)}
+                className="h-8 w-8 p-0 hover:bg-blue-50 hover:text-blue-600"
+              >
+                <Edit className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => handleDelete(project)}
+                className="h-8 w-8 p-0 hover:bg-red-50 hover:text-red-600"
+              >
+                <Trash className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+
+          <Badge variant="secondary" className="mb-3 text-xs">
+            {project.category}
+          </Badge>
+          <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed">
+            {project.description}
+          </p>
+
+          {project.tags?.length > 0 && (
+            <div className="flex flex-wrap gap-1 mb-3">
+              {project.tags.slice(0, 3).map((tag, idx) => (
+                <Badge key={idx} variant="outline" className="text-xs px-2 py-1">
+                  {tag}
+                </Badge>
+              ))}
+              {project.tags.length > 3 && (
+                <Badge variant="outline" className="text-xs px-2 py-1">
+                  +{project.tags.length - 3} more
+                </Badge>
+              )}
+            </div>
+          )}
+
+          {project.link && (
+            <Button
+              variant="link"
+              size="sm"
+              onClick={() => window.open(project.link, "_blank")}
+              className="text-blue-600 hover:text-blue-700 p-0 h-auto flex items-center gap-1"
+            >
+              Visit Project <ExternalLink className="w-3 h-3" />
+            </Button>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 mt-23">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="text-gray-600 mt-1">Manage your portfolio projects</p>
-            </div>
-            <Button 
-              onClick={openAddModal}
-              className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
-            >
-              <Plus className="w-4 h-4" />
-              Add New Project
-            </Button>
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+            <p className="text-gray-600 mt-1">Manage your portfolio projects</p>
           </div>
+          <Button
+            onClick={openAddModal}
+            className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
+          >
+            <Plus className="w-4 h-4" /> Add New Project
+          </Button>
         </div>
 
-        {/* Stats Cards */}
+        {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <Card className="bg-white">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
+          {[
+            {
+              label: "Total Projects",
+              value: projects.length,
+              icon: <Eye className="w-5 h-5 text-blue-600" />,
+              color: "bg-blue-100",
+            },
+            {
+              label: "Categories",
+              value: categories.length,
+              icon: <Tag className="w-5 h-5 text-green-600" />,
+              color: "bg-green-100",
+            },
+            {
+              label: "Active",
+              value: projects.filter((p) => p.status === "active" || !p.status).length,
+              icon: <Calendar className="w-5 h-5 text-green-600" />,
+              color: "bg-green-100",
+            },
+            {
+              label: "Drafts",
+              value: projects.filter((p) => p.status === "draft").length,
+              icon: <Edit className="w-5 h-5 text-yellow-600" />,
+              color: "bg-yellow-100",
+            },
+          ].map((stat, idx) => (
+            <Card key={idx} className="bg-white">
+              <CardContent className="p-4 flex justify-between items-center">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Projects</p>
-                  <p className="text-2xl font-bold text-gray-900">{projects.length}</p>
+                  <p className="text-sm font-medium text-gray-600">{stat.label}</p>
+                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
                 </div>
-                <div className="bg-blue-100 p-3 rounded-full">
-                  <Eye className="w-5 h-5 text-blue-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-white">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Categories</p>
-                  <p className="text-2xl font-bold text-gray-900">{categories.length}</p>
-                </div>
-                <div className="bg-green-100 p-3 rounded-full">
-                  <Tag className="w-5 h-5 text-green-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Active</p>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {projects.filter(p => p.status === "active" || !p.status).length}
-                  </p>
-                </div>
-                <div className="bg-green-100 p-3 rounded-full">
-                  <Calendar className="w-5 h-5 text-green-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Drafts</p>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {projects.filter(p => p.status === "draft").length}
-                  </p>
-                </div>
-                <div className="bg-yellow-100 p-3 rounded-full">
-                  <Edit className="w-5 h-5 text-yellow-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Filters and Search */}
-        <Card className="bg-white mb-6">
-          <CardContent className="p-4">
-            <div className="flex flex-col md:flex-row gap-4 items-center">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <input
-                  type="text"
-                  placeholder="Search projects..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-              
-              <div className="flex gap-2">
-                <div className="relative">
-                  <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <select
-                    value={filterCategory}
-                    onChange={(e) => setFilterCategory(e.target.value)}
-                    className="pl-10 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white min-w-40"
-                  >
-                    <option value="all">All Categories</option>
-                    {categories.map(category => (
-                      <option key={category} value={category}>{category}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white min-w-32"
-                >
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                  <option value="title">Title</option>
-                  <option value="category">Category</option>
-                </select>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
-            <Card key={project.id} className="bg-white hover:shadow-lg transition-shadow duration-200">
-              <CardContent className="p-0">
-                {project.image && (
-                  <div className="relative h-48 bg-gray-200 rounded-t-lg overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.parentNode.innerHTML = '<div class="flex items-center justify-center h-full bg-gray-100 text-gray-400">No Image</div>';
-                      }}
-                    />
-                    <div className="absolute top-2 right-2">
-                      <Badge className={`${getStatusBadgeColor(project.status || "active")} text-xs`}>
-                        {(project.status || "active").charAt(0).toUpperCase() + (project.status || "active").slice(1)}
-                      </Badge>
-                    </div>
-                  </div>
-                )}
-                
-                <div className="p-4">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-semibold text-gray-900 text-lg truncate flex-1 mr-2">
-                      {project.title}
-                    </h3>
-                    <div className="flex gap-1 flex-shrink-0">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => openEditModal(project)}
-                        className="h-8 w-8 p-0 hover:bg-blue-50 hover:text-blue-600"
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleDelete(project)}
-                        className="h-8 w-8 p-0 hover:bg-red-50 hover:text-red-600"
-                      >
-                        <Trash className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-
-                  <Badge variant="secondary" className="mb-3 text-xs">
-                    {project.category}
-                  </Badge>
-
-                  <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {project.tags && project.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {project.tags.slice(0, 3).map((tag, index) => (
-                        <Badge key={index} variant="outline" className="text-xs px-2 py-1">
-                          {tag}
-                        </Badge>
-                      ))}
-                      {project.tags.length > 3 && (
-                        <Badge variant="outline" className="text-xs px-2 py-1">
-                          +{project.tags.length - 3} more
-                        </Badge>
-                      )}
-                    </div>
-                  )}
-
-                  {project.link && (
-                    <Button
-                      variant="link"
-                      size="sm"
-                      onClick={() => window.open(project.link, '_blank')}
-                      className="text-blue-600 hover:text-blue-700 p-0 h-auto flex items-center gap-1"
-                    >
-                      Visit Project
-                      <ExternalLink className="w-3 h-3" />
-                    </Button>
-                  )}
-                </div>
+                <div className={`${stat.color} p-3 rounded-full`}>{stat.icon}</div>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        {filteredProjects.length === 0 && (
-          <Card className="bg-white">
-            <CardContent className="p-8 text-center">
-              <div className="text-gray-400 mb-4">
-                <Search className="w-12 h-12 mx-auto mb-4" />
+        {/* Search & Filters */}
+        <Card className="bg-white mb-6">
+          <CardContent className="p-4 flex flex-col md:flex-row gap-4 items-center">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <input
+                type="text"
+                placeholder="Search projects..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex gap-2">
+              <div className="relative">
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <select
+                  value={filterCategory}
+                  onChange={(e) => setFilterCategory(e.target.value)}
+                  className="pl-10 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                >
+                  <option value="all">All Categories</option>
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No projects found</h3>
-              <p className="text-gray-600 mb-4">
-                {searchTerm || filterCategory !== "all" 
-                  ? "Try adjusting your search or filter criteria." 
-                  : "Get started by adding your first project."}
-              </p>
-              {!searchTerm && filterCategory === "all" && (
-                <Button onClick={openAddModal} className="bg-blue-600 hover:bg-blue-700 text-white">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Your First Project
-                </Button>
-              )}
-            </CardContent>
-          </Card>
-        )}
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="title">Title</option>
+                <option value="category">Category</option>
+              </select>
+            </div>
+          </CardContent>
+        </Card>
 
-        {/* Add/Edit Project Dialog */}
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.id || project._id} project={project} />
+          ))}
+        </div>
+
+        {/* Modern Add/Edit Dialog */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-semibold">
+          <DialogContent className="max-w-4xl max-h-[95vh] overflow-y-auto bg-white shadow-2xl border-0">
+            <DialogHeader className="pb-6 border-b border-gray-100">
+              <DialogTitle className="text-lg font-semibold">
                 {editingProject ? "Edit Project" : "Add New Project"}
               </DialogTitle>
+              <DialogDescription>
+                {editingProject
+                  ? `Editing: ${editingProject.title}`
+                  : "Fill out the details for the new project."}
+              </DialogDescription>
             </DialogHeader>
 
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">
-                    Title <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Project title"
-                    value={formData.title}
-                    onChange={(e) => handleChange("title", e.target.value)}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      formErrors.title ? "border-red-500" : "border-gray-300"
-                    }`}
-                  />
-                  {formErrors.title && <p className="text-red-500 text-xs mt-1">{formErrors.title}</p>}
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">
-                    Category <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Web App, Mobile"
-                    value={formData.category}
-                    onChange={(e) => handleChange("category", e.target.value)}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      formErrors.category ? "border-red-500" : "border-gray-300"
-                    }`}
-                  />
-                  {formErrors.category && <p className="text-red-500 text-xs mt-1">{formErrors.category}</p>}
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">Title</label>
+                <input
+                  type="text"
+                  value={formData.title}
+                  onChange={(e) => handleChange("title", e.target.value)}
+                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                {formErrors.title && (
+                  <span className="text-red-600 text-xs">{formErrors.title}</span>
+                )}
               </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">
-                  Description <span className="text-red-500">*</span>
-                </label>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">Category</label>
+                <input
+                  type="text"
+                  value={formData.category}
+                  onChange={(e) => handleChange("category", e.target.value)}
+                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                {formErrors.category && (
+                  <span className="text-red-600 text-xs">{formErrors.category}</span>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2 md:col-span-2">
+                <label className="text-sm font-medium">Description</label>
                 <textarea
-                  placeholder="Describe your project..."
                   value={formData.description}
                   onChange={(e) => handleChange("description", e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px] resize-vertical ${
-                    formErrors.description ? "border-red-500" : "border-gray-300"
-                  }`}
+                  rows={4}
+                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                {formErrors.description && <p className="text-red-500 text-xs mt-1">{formErrors.description}</p>}
+                {formErrors.description && (
+                  <span className="text-red-600 text-xs">{formErrors.description}</span>
+                )}
               </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">Image URL</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">Image URL</label>
                 <input
-                  type="url"
-                  placeholder="https://example.com/image.jpg"
+                  type="text"
                   value={formData.image}
                   onChange={(e) => handleChange("image", e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    formErrors.image ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                {formErrors.image && <p className="text-red-500 text-xs mt-1">{formErrors.image}</p>}
+                {formErrors.image && (
+                  <span className="text-red-600 text-xs">{formErrors.image}</span>
+                )}
               </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">Project Link</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">Project Link</label>
                 <input
-                  type="url"
-                  placeholder="https://example.com"
+                  type="text"
                   value={formData.link}
                   onChange={(e) => handleChange("link", e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    formErrors.link ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                {formErrors.link && <p className="text-red-500 text-xs mt-1">{formErrors.link}</p>}
+                {formErrors.link && (
+                  <span className="text-red-600 text-xs">{formErrors.link}</span>
+                )}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Tags</label>
-                  <input
-                    type="text"
-                    placeholder="React, TypeScript, API"
-                    value={formData.tags}
-                    onChange={(e) => handleChange("tags", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">Separate tags with commas</p>
-                </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">Tags (comma separated)</label>
+                <input
+                  type="text"
+                  value={formData.tags}
+                  onChange={(e) => handleChange("tags", e.target.value)}
+                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
 
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Status</label>
-                  <select
-                    value={formData.status}
-                    onChange={(e) => handleChange("status", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                  >
-                    <option value="active">Active</option>
-                    <option value="draft">Draft</option>
-                    <option value="archived">Archived</option>
-                  </select>
-                </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">Status</label>
+                <select
+                  value={formData.status}
+                  onChange={(e) => handleChange("status", e.target.value)}
+                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="active">Active</option>
+                  <option value="draft">Draft</option>
+                  <option value="archived">Archived</option>
+                </select>
               </div>
             </div>
 
-            <div className="flex gap-3 pt-4">
+            <div className="flex justify-end mt-6 gap-3">
               <Button
-                onClick={() => setIsDialogOpen(false)}
                 variant="outline"
-                className="flex-1"
+                onClick={() => setIsDialogOpen(false)}
+                disabled={isLoading}
               >
                 Cancel
               </Button>
               <Button
                 onClick={handleSave}
-                className="bg-blue-600 hover:bg-blue-700 text-white flex-1"
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                disabled={isLoading}
               >
-                {editingProject ? "Update Project" : "Add Project"}
+                {isLoading
+                  ? editingProject
+                    ? "Updating..."
+                    : "Creating..."
+                  : editingProject
+                  ? "Update Project"
+                  : "Create Project"}
               </Button>
             </div>
           </DialogContent>
