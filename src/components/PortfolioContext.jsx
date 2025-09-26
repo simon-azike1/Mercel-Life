@@ -7,22 +7,24 @@ export const PortfolioProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL; // environment variable
-        const res = await fetch(`${apiUrl}/projects`);
-        const data = await res.json();
-        setProjects(data);
-      } catch (err) {
-        console.error("Error fetching projects:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+ const apiUrl = process.env.REACT_APP_API_URL;
 
-    fetchProjects();
-  }, []);
+useEffect(() => {
+  const fetchProjects = async () => {
+    try {
+      const res = await fetch(`${apiUrl}/projects`);
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const data = await res.json();
+      setProjects(data);
+    } catch (err) {
+      console.error("Error fetching projects:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchProjects();
+}, [apiUrl]);
+
 
   return (
     <PortfolioContext.Provider value={{ projects, loading }}>
