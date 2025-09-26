@@ -13,9 +13,11 @@ import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import AdminDashboard from "./components/AdminDashboard";
+import AdminLogin from "./components/AdminLoginForm"
 
 // ✅ Import the context
 import { PortfolioProvider } from "./components/PortfolioContext";
+// import AdminLogin from "./components/AdminLoginForm";
 
 function App() {
   return (
@@ -32,7 +34,9 @@ function App() {
           <Route path="/blog" element={<BlogSection />} />
           <Route path="/experience" element={<ExperienceSection />} />
           <Route path="/contact" element={<ContactSection />} />
+          <Route path="/login" element={<AdminLogin/>}/>
           <Route path="/admin" element={<AdminDashboard />} />
+          
         </Routes>
         <Footer />
       </div>
