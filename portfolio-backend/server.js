@@ -9,14 +9,17 @@ dotenv.config();
 const app = express();
 
 // CORS setup - allow local dev and Vercel frontend
+const cors = require("cors");
+
 app.use(cors({
   origin: [
-    "http://localhost:5173", // local Vite dev
-    "https://mercel-life.vercel.app" // deployed frontend
+    "https://mercel-life.vercel.app", // your frontend
+    "http://localhost:5173" // for local dev
   ],
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   credentials: true
 }));
+
 
 app.use(express.json()); // parse JSON
 
