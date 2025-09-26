@@ -204,7 +204,7 @@ const AdminDashboard = () => {
 
   // Project Card
   const ProjectCard = ({ project }) => (
-    <Card className="bg-white hover:shadow-lg transition-shadow duration-200">
+    <Card className="bg-white hover:shadow-lg transition-shadow duration-200 border-none">
       <CardContent className="p-0">
         {project.image ? (
           <div className="relative h-48 bg-gray-200 rounded-t-lg overflow-hidden">
@@ -297,7 +297,7 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-gray-50 p-6 mt-23">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center  gap-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
             <p className="text-gray-600 mt-1">Manage your portfolio projects</p>
@@ -311,7 +311,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 border-none">
           {[
             {
               label: "Total Projects",
@@ -338,7 +338,7 @@ const AdminDashboard = () => {
               color: "bg-yellow-100",
             },
           ].map((stat, idx) => (
-            <Card key={idx} className="bg-white">
+            <Card key={idx} className="bg-white border-none">
               <CardContent className="p-4 flex justify-between items-center">
                 <div>
                   <p className="text-sm font-medium text-gray-600">{stat.label}</p>
@@ -351,7 +351,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Search & Filters */}
-        <Card className="bg-white mb-6">
+        <Card className="bg-white mb-6 border-none">
           <CardContent className="p-4 flex flex-col md:flex-row gap-4 items-center">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
