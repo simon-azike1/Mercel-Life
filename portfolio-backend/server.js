@@ -31,17 +31,18 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Routes
 const projectRoutes = require("./routes/projectRoutes");
-const authRoutes = require("./routes/authRoutes"); // <-- moved below middleware
+const authRoutes = require("./routes/authRoutes");
 
 app.use("/projects", projectRoutes);
-app.use("/auth", authRoutes); // <-- now after middleware
+app.use("/auth", authRoutes);
 
 // Test route
 app.get("/", (req, res) => {
   res.send("API is running!");
 });
 
+// Fixed port binding - added missing comma
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0' () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
