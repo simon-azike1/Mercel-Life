@@ -1,42 +1,15 @@
-// routes/authRoutes.js
+// routes/authRoutes.js - MOST SECURE VERSION
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-// POST /auth/register - optional if you want to create admins
-router.post("/register", async (req, res) => {
-  const { email, password } = req.body;
-  
-  if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
-  }
-
-  try {
-    const existingUser = await User.findOne({ email: email.toLowerCase().trim() });
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const newUser = new User({ 
-      email: email.toLowerCase().trim(), 
-      password: hashedPassword 
-    });
-    await newUser.save();
-
-    res.status(201).json({ 
-      message: "User registered successfully",
-      user: {
-        id: newUser._id,
-        email: newUser.email
-      }
-    });
-  } catch (err) {
-    console.error("Registration error:", err);
-    res.status(500).json({ message: "Server error" });
-  }
+// POST /auth/register - COMPLETELY DISABLED FOR SECURITY
+router.post("/register", (req, res) => {
+  res.status(403).json({ 
+    message: "Registration is disabled. Contact administrator for access." 
+  });
 });
 
 // POST /auth/login
@@ -71,7 +44,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: tokenExpiry }
     );
 
-    // Update user's last login (optional)
+    // Update user's last login
     user.lastLogin = new Date();
     await user.save();
 
@@ -122,6 +95,21 @@ router.post("/verify", async (req, res) => {
   } catch (err) {
     console.error("Token verification error:", err);
     res.status(401).json({ message: "Invalid or expired token" });
+  }
+});
+
+// POST /auth/logout - clear any server-side session data
+router.post("/logout", async (req, res) => {
+  try {
+    // Since we're using JWTs, logout is mainly handled client-side
+    // But we can add any server-side cleanup here if needed
+    
+    res.json({
+      message: "Logged out successfully"
+    });
+  } catch (err) {
+    console.error("Logout error:", err);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 

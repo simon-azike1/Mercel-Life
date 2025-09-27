@@ -12,8 +12,8 @@ const AdminLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
-  // You can make this configurable via environment variables
-  const API_BASE_URL = "https://mercel-life.onrender.com";
+  // Updated to your working backend URL
+  const API_BASE_URL = "https://mercel-life-1.onrender.com";
 
   const handleChange = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -92,8 +92,9 @@ const AdminLogin = () => {
 
       // Show success message briefly then redirect
       setTimeout(() => {
-        window.location.href = "/admin-dashboard";
-        // Or if using React Router: navigate("/admin-dashboard");
+        // Redirect to your admin page
+        window.location.href = "/admin";
+        // Or if using React Router: navigate("/admin");
       }, 1500);
 
     } catch (error) {
