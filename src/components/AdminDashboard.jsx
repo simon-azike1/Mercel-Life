@@ -23,6 +23,7 @@ import {
   AlertCircle,
   ImageIcon,
   Link as LinkIcon,
+  LogOut,
 } from "lucide-react";
 
 const AdminDashboard = () => {
@@ -42,7 +43,7 @@ const AdminDashboard = () => {
     status: "active",
   });
   const [formErrors, setFormErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false); // Added
+  const [isLoading, setIsLoading] = useState(false);
 
   // Get unique categories
   const categories = useMemo(
@@ -189,12 +190,20 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    sessionStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
+    window.location.href = '/';
+  };
+
   const getStatusBadgeColor = (status) => {
     switch (status) {
       case "active":
-        return "bg-green-100 text-green-800 border-green-200";
+        return "bg-emerald-100 text-emerald-800 border-emerald-200";
       case "draft":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+        return "bg-amber-100 text-amber-800 border-amber-200";
       case "archived":
         return "bg-gray-100 text-gray-800 border-gray-200";
       default:
@@ -202,46 +211,44 @@ const AdminDashboard = () => {
     }
   };
 
-  // Project Card
+  // Project Card with improved design
   const ProjectCard = ({ project }) => (
-    <Card className="bg-white hover:shadow-lg transition-shadow duration-200 border-none">
+    <Card className="group bg-white hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-gray-200 rounded-xl overflow-hidden">
       <CardContent className="p-0">
         {project.image ? (
-          <div className="relative h-48 bg-gray-200 rounded-t-lg overflow-hidden">
+          <div className="relative h-52 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
             <img
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               onError={(e) => (e.target.style.display = "none")}
             />
-            <div className="absolute top-2 right-2">
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+            <div className="absolute top-3 right-3">
               <Badge
-                className={`${getStatusBadgeColor(project.status || "active")} text-xs`}
+                className={`${getStatusBadgeColor(project.status || "active")} text-xs font-medium px-2 py-1 shadow-sm`}
               >
-                {(project.status || "active")
-                  .charAt(0)
-                  .toUpperCase() +
-                  (project.status || "active").slice(1)}
+                {(project.status || "active").charAt(0).toUpperCase() + (project.status || "active").slice(1)}
               </Badge>
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-48 bg-gray-100 text-gray-400">
-            No Image
+          <div className="flex items-center justify-center h-52 bg-gradient-to-br from-gray-100 to-gray-200 text-gray-400">
+            <ImageIcon className="w-12 h-12" />
           </div>
         )}
 
-        <div className="p-4">
-          <div className="flex justify-between items-start mb-3">
-            <h3 className="font-semibold text-gray-900 text-lg truncate flex-1 mr-2">
+        <div className="p-6">
+          <div className="flex justify-between items-start mb-4">
+            <h3 className="font-bold text-gray-900 text-xl truncate flex-1 mr-3 group-hover:text-blue-600 transition-colors">
               {project.title}
             </h3>
-            <div className="flex gap-1 flex-shrink-0">
+            <div className="flex gap-1.5 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => openEditModal(project)}
-                className="h-8 w-8 p-0 hover:bg-blue-50 hover:text-blue-600"
+                className="h-9 w-9 p-0 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
               >
                 <Edit className="w-4 h-4" />
               </Button>
@@ -249,30 +256,31 @@ const AdminDashboard = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => handleDelete(project)}
-                className="h-8 w-8 p-0 hover:bg-red-50 hover:text-red-600"
+                className="h-9 w-9 p-0 hover:bg-red-50 hover:text-red-600 rounded-lg"
               >
                 <Trash className="w-4 h-4" />
               </Button>
             </div>
           </div>
 
-          <Badge variant="secondary" className="mb-3 text-xs">
+          <Badge variant="secondary" className="mb-4 text-xs font-medium bg-blue-50 text-blue-700 border-blue-200">
             {project.category}
           </Badge>
-          <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed">
+
+          <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
             {project.description}
           </p>
 
           {project.tags?.length > 0 && (
-            <div className="flex flex-wrap gap-1 mb-3">
-              {project.tags.slice(0, 3).map((tag, idx) => (
-                <Badge key={idx} variant="outline" className="text-xs px-2 py-1">
+            <div className="flex flex-wrap gap-2 mb-4">
+              {project.tags.slice(0, 2).map((tag, idx) => (
+                <Badge key={idx} variant="outline" className="text-xs px-2 py-1 bg-gray-50 border-gray-200">
                   {tag}
                 </Badge>
               ))}
-              {project.tags.length > 3 && (
-                <Badge variant="outline" className="text-xs px-2 py-1">
-                  +{project.tags.length - 3} more
+              {project.tags.length > 2 && (
+                <Badge variant="outline" className="text-xs px-2 py-1 bg-gray-50 border-gray-200">
+                  +{project.tags.length - 2} more
                 </Badge>
               )}
             </div>
@@ -283,9 +291,10 @@ const AdminDashboard = () => {
               variant="link"
               size="sm"
               onClick={() => window.open(project.link, "_blank")}
-              className="text-blue-600 hover:text-blue-700 p-0 h-auto flex items-center gap-1"
+              className="text-blue-600 hover:text-blue-700 p-0 h-auto flex items-center gap-1.5 font-medium"
             >
-              Visit Project <ExternalLink className="w-3 h-3" />
+              <ExternalLink className="w-3 h-3" />
+              Visit Project
             </Button>
           )}
         </div>
@@ -294,208 +303,278 @@ const AdminDashboard = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 mt-23">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100/50 pt-20 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center  gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-            <p className="text-gray-600 mt-1">Manage your portfolio projects</p>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">Portfolio Dashboard</h1>
+              <p className="text-gray-600 text-lg">Manage and showcase your creative work</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                className="flex items-center gap-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200"
+              >
+                <LogOut className="w-4 h-4" />
+                Logout
+              </Button>
+              <Button
+                onClick={openAddModal}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2 px-6 py-2.5"
+              >
+                <Plus className="w-4 h-4" />
+                Add New Project
+              </Button>
+            </div>
           </div>
-          <Button
-            onClick={openAddModal}
-            className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
-          >
-            <Plus className="w-4 h-4" /> Add New Project
-          </Button>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 border-none">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {[
             {
               label: "Total Projects",
               value: projects.length,
-              icon: <Eye className="w-5 h-5 text-blue-600" />,
-              color: "bg-blue-100",
+              icon: <Eye className="w-6 h-6" />,
+              color: "from-blue-500 to-blue-600",
+              bgColor: "bg-blue-50",
+              textColor: "text-blue-600",
             },
             {
               label: "Categories",
               value: categories.length,
-              icon: <Tag className="w-5 h-5 text-green-600" />,
-              color: "bg-green-100",
+              icon: <Tag className="w-6 h-6" />,
+              color: "from-emerald-500 to-emerald-600",
+              bgColor: "bg-emerald-50",
+              textColor: "text-emerald-600",
             },
             {
-              label: "Active",
+              label: "Active Projects",
               value: projects.filter((p) => p.status === "active" || !p.status).length,
-              icon: <Calendar className="w-5 h-5 text-green-600" />,
-              color: "bg-green-100",
+              icon: <Calendar className="w-6 h-6" />,
+              color: "from-green-500 to-green-600",
+              bgColor: "bg-green-50",
+              textColor: "text-green-600",
             },
             {
-              label: "Drafts",
+              label: "Draft Projects",
               value: projects.filter((p) => p.status === "draft").length,
-              icon: <Edit className="w-5 h-5 text-yellow-600" />,
-              color: "bg-yellow-100",
+              icon: <Edit className="w-6 h-6" />,
+              color: "from-amber-500 to-amber-600",
+              bgColor: "bg-amber-50",
+              textColor: "text-amber-600",
             },
           ].map((stat, idx) => (
-            <Card key={idx} className="bg-white border-none">
-              <CardContent className="p-4 flex justify-between items-center">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+            <Card key={idx} className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 mb-1">{stat.label}</p>
+                    <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
+                  </div>
+                  <div className={`${stat.bgColor} p-4 rounded-xl ${stat.textColor}`}>
+                    {stat.icon}
+                  </div>
                 </div>
-                <div className={`${stat.color} p-3 rounded-full`}>{stat.icon}</div>
               </CardContent>
             </Card>
           ))}
         </div>
 
         {/* Search & Filters */}
-        <Card className="bg-white mb-6 border-none">
-          <CardContent className="p-4 flex flex-col md:flex-row gap-4 items-center">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div className="flex gap-2">
-              <div className="relative">
-                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+        <Card className="bg-white border border-gray-100 rounded-xl shadow-sm mb-8">
+          <CardContent className="p-6">
+            <div className="flex flex-col lg:flex-row gap-4 items-center">
+              <div className="relative flex-1 w-full">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search projects by title, description, or tags..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 focus:bg-white transition-all duration-200"
+                />
+              </div>
+              <div className="flex gap-3 w-full lg:w-auto">
+                <div className="relative">
+                  <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <select
+                    value={filterCategory}
+                    onChange={(e) => setFilterCategory(e.target.value)}
+                    className="pl-12 pr-10 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 focus:bg-white transition-all duration-200 min-w-[160px]"
+                  >
+                    <option value="all">All Categories</option>
+                    {categories.map((cat) => (
+                      <option key={cat} value={cat}>
+                        {cat}
+                      </option>
+                    ))}
+                  </select>
+                </div>
                 <select
-                  value={filterCategory}
-                  onChange={(e) => setFilterCategory(e.target.value)}
-                  className="pl-10 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 focus:bg-white transition-all duration-200 min-w-[140px]"
                 >
-                  <option value="all">All Categories</option>
-                  {categories.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="title">By Title</option>
+                  <option value="category">By Category</option>
                 </select>
               </div>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-                <option value="title">Title</option>
-                <option value="category">Category</option>
-              </select>
             </div>
           </CardContent>
         </Card>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.id || project._id} project={project} />
-          ))}
-        </div>
+        {/* Projects Grid - Improved spacing */}
+        {filteredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {filteredProjects.map((project) => (
+              <ProjectCard key={project.id || project._id} project={project} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <div className="bg-white rounded-2xl border border-gray-200 p-12 max-w-md mx-auto">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <AlertCircle className="w-8 h-8 text-gray-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No projects found</h3>
+              <p className="text-gray-600 mb-4">
+                {searchTerm || filterCategory !== "all"
+                  ? "Try adjusting your search or filters"
+                  : "Get started by adding your first project"}
+              </p>
+              {!searchTerm && filterCategory === "all" && (
+                <Button onClick={openAddModal} className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Your First Project
+                </Button>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Modern Add/Edit Dialog */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="max-w-4xl max-h-[95vh] overflow-y-auto bg-white shadow-2xl border-0">
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white shadow-2xl border-0 rounded-2xl">
             <DialogHeader className="pb-6 border-b border-gray-100">
-              <DialogTitle className="text-lg font-semibold">
-                {editingProject ? "Edit Project" : "Add New Project"}
+              <DialogTitle className="text-2xl font-bold text-gray-900">
+                {editingProject ? "Edit Project" : "Create New Project"}
               </DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="text-gray-600 text-lg">
                 {editingProject
                   ? `Editing: ${editingProject.title}`
-                  : "Fill out the details for the new project."}
+                  : "Fill out the details to showcase your new project."}
               </DialogDescription>
             </DialogHeader>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Title</label>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-900">Project Title *</label>
                 <input
                   type="text"
                   value={formData.title}
                   onChange={(e) => handleChange("title", e.target.value)}
-                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  placeholder="Enter project title"
                 />
                 {formErrors.title && (
-                  <span className="text-red-600 text-xs">{formErrors.title}</span>
+                  <span className="text-red-600 text-sm flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {formErrors.title}
+                  </span>
                 )}
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Category</label>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-900">Category *</label>
                 <input
                   type="text"
                   value={formData.category}
                   onChange={(e) => handleChange("category", e.target.value)}
-                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  placeholder="e.g. Web Design, Branding, Photography"
                 />
                 {formErrors.category && (
-                  <span className="text-red-600 text-xs">{formErrors.category}</span>
+                  <span className="text-red-600 text-sm flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {formErrors.category}
+                  </span>
                 )}
               </div>
 
-              <div className="flex flex-col gap-2 md:col-span-2">
-                <label className="text-sm font-medium">Description</label>
+              <div className="lg:col-span-2 space-y-2">
+                <label className="text-sm font-semibold text-gray-900">Description *</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => handleChange("description", e.target.value)}
                   rows={4}
-                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                  placeholder="Describe your project, the challenges you solved, and the impact it made..."
                 />
                 {formErrors.description && (
-                  <span className="text-red-600 text-xs">{formErrors.description}</span>
+                  <span className="text-red-600 text-sm flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {formErrors.description}
+                  </span>
                 )}
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Image URL</label>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-900">Image URL</label>
                 <input
                   type="text"
                   value={formData.image}
                   onChange={(e) => handleChange("image", e.target.value)}
-                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  placeholder="https://example.com/image.jpg"
                 />
                 {formErrors.image && (
-                  <span className="text-red-600 text-xs">{formErrors.image}</span>
+                  <span className="text-red-600 text-sm flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {formErrors.image}
+                  </span>
                 )}
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Project Link</label>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-900">Project Link</label>
                 <input
                   type="text"
                   value={formData.link}
                   onChange={(e) => handleChange("link", e.target.value)}
-                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  placeholder="https://your-project.com"
                 />
                 {formErrors.link && (
-                  <span className="text-red-600 text-xs">{formErrors.link}</span>
+                  <span className="text-red-600 text-sm flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {formErrors.link}
+                  </span>
                 )}
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Tags (comma separated)</label>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-900">Tags</label>
                 <input
                   type="text"
                   value={formData.tags}
                   onChange={(e) => handleChange("tags", e.target.value)}
-                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  placeholder="React, Design, Frontend (comma separated)"
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Status</label>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-900">Status</label>
                 <select
                   value={formData.status}
                   onChange={(e) => handleChange("status", e.target.value)}
-                  className="border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 >
                   <option value="active">Active</option>
                   <option value="draft">Draft</option>
@@ -504,17 +583,18 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <div className="flex justify-end mt-6 gap-3">
+            <div className="flex justify-end mt-8 pt-6 border-t border-gray-100 gap-4">
               <Button
                 variant="outline"
                 onClick={() => setIsDialogOpen(false)}
                 disabled={isLoading}
+                className="px-6 py-2.5 rounded-xl"
               >
                 Cancel
               </Button>
               <Button
                 onClick={handleSave}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                 disabled={isLoading}
               >
                 {isLoading
