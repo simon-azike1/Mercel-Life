@@ -50,8 +50,9 @@ router.get("/:id", async (req, res) => {
 // ------------------------
 router.post("/", async (req, res) => {
   try {
-    const { title, category, description, tags, status } = req.body;
+    const { title, category, description, tags, status, image, link } = req.body;
 
+    // Required fields validation
     if (!title || !category || !description) {
       return res.status(400).json({
         success: false,
@@ -68,8 +69,10 @@ router.post("/", async (req, res) => {
       title,
       category,
       description,
-      tags: Array.isArray(tags) ? tags : [],
+      tags: Array.isArray(tags) ? tags.map(tag => tag.trim()).filter(Boolean) : [],
       status: status || "active",
+      image: image || "",
+      link: link || "",
     });
 
     const saved = await newProject.save();
@@ -78,6 +81,7 @@ router.post("/", async (req, res) => {
       message: "Project created successfully",
       data: transformProject(saved),
     });
+
   } catch (err) {
     console.error("Error creating project:", err.stack);
     if (err.name === "ValidationError") {
@@ -96,32 +100,28 @@ router.post("/", async (req, res) => {
 });
 
 // ------------------------
-// PUT update project
+// PUT update project (partial updates allowed)
 // ------------------------
 router.put("/:id", async (req, res) => {
   try {
-    const { title, category, description, tags, status } = req.body;
-    if (!title || !category || !description) {
-      return res.status(400).json({
-        success: false,
-        message: "Title, category, and description are required",
-        errors: {
-          ...(!title && { title: "Title is required" }),
-          ...(!category && { category: "Category is required" }),
-          ...(!description && { description: "Description is required" }),
-        },
-      });
+    const { title, category, description, tags, status, image, link } = req.body;
+
+    const updatedData = {};
+    if (title) updatedData.title = title;
+    if (category) updatedData.category = category;
+    if (description) updatedData.description = description;
+    if (tags) updatedData.tags = Array.isArray(tags) ? tags.map(tag => tag.trim()).filter(Boolean) : [];
+    if (status) updatedData.status = status;
+    if (image) updatedData.image = image;
+    if (link) updatedData.link = link;
+
+    if (Object.keys(updatedData).length === 0) {
+      return res.status(400).json({ success: false, message: "No valid fields provided to update" });
     }
 
     const updated = await Project.findByIdAndUpdate(
       req.params.id,
-      {
-        title,
-        category,
-        description,
-        tags: Array.isArray(tags) ? tags : [],
-        status: status || "active",
-      },
+      updatedData,
       { new: true, runValidators: true }
     );
 
@@ -132,6 +132,7 @@ router.put("/:id", async (req, res) => {
       message: "Project updated successfully",
       data: transformProject(updated),
     });
+
   } catch (err) {
     console.error("Error updating project:", err.stack);
     if (err.name === "ValidationError") {
@@ -144,6 +145,45 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to update project",
+      error: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    });
+  }
+});
+
+// ------------------------
+// PATCH project status
+// ------------------------
+router.patch("/:id/status", async (req, res) => {
+  try {
+    const { status } = req.body;
+    const validStatuses = ["active", "draft", "archived"];
+
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid status. Must be one of: ${validStatuses.join(", ")}`,
+      });
+    }
+
+    const updated = await Project.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true, runValidators: true }
+    );
+
+    if (!updated) return res.status(404).json({ success: false, message: "Project not found" });
+
+    res.json({
+      success: true,
+      message: "Project status updated successfully",
+      data: transformProject(updated),
+    });
+
+  } catch (err) {
+    console.error("Error updating project status:", err.stack);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update project status",
       error: process.env.NODE_ENV === "development" ? err.stack : undefined,
     });
   }
@@ -167,38 +207,6 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to delete project",
-      error: process.env.NODE_ENV === "development" ? err.stack : undefined,
-    });
-  }
-});
-
-// ------------------------
-// PATCH project status
-// ------------------------
-router.patch("/:id/status", async (req, res) => {
-  try {
-    const { status } = req.body;
-    if (!["active", "draft", "archived"].includes(status)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid status. Must be 'active', 'draft', or 'archived'",
-      });
-    }
-
-    const updated = await Project.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true, runValidators: true }
-    );
-
-    if (!updated) return res.status(404).json({ success: false, message: "Project not found" });
-
-    res.json({ success: true, message: "Project status updated successfully", data: transformProject(updated) });
-  } catch (err) {
-    console.error("Error updating project status:", err.stack);
-    res.status(500).json({
-      success: false,
-      message: "Failed to update project status",
       error: process.env.NODE_ENV === "development" ? err.stack : undefined,
     });
   }
