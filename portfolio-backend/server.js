@@ -9,18 +9,16 @@ dotenv.config();
 const app = express();
 
 // CORS setup - allow local dev and Vercel frontend
-const cors = require("cors");
-
 app.use(cors({
   origin: [
-    "https://mercel-life.vercel.app", // your frontend
-    "http://localhost:5173" // for local dev
+    "https://mercel-life.vercel.app", // frontend
+    "http://localhost:5173"           // local dev
   ],
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   credentials: true
 }));
 
-
+// Middleware
 app.use(express.json()); // parse JSON
 
 // MongoDB connection
@@ -33,7 +31,10 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Routes
 const projectRoutes = require("./routes/projectRoutes");
+const authRoutes = require("./routes/authRoutes"); // <-- moved below middleware
+
 app.use("/projects", projectRoutes);
+app.use("/auth", authRoutes); // <-- now after middleware
 
 // Test route
 app.get("/", (req, res) => {
@@ -41,6 +42,6 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0' () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
