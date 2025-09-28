@@ -106,7 +106,7 @@ export default function HeroSection() {
               {/* Right Side - Image */}
               <div className="relative">
                 <img
-                  src="/assets/img/bg_24.png"
+                  src="/assets/img/bg_26.jpg"
                   alt="Hero"
                   className="rounded-2xl shadow-2xl w-full"
                 />
