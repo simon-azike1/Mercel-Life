@@ -32,6 +32,9 @@ mongoose.connect(process.env.MONGO_URI)
 // Routes
 const projectRoutes = require("./routes/projectRoutes");
 const authRoutes = require("./routes/authRoutes");
+app.use("/projects", projectRoutes);
+app.use("/auth", authRoutes);
+console.log("✅ Auth routes loaded");
 
 app.use("/projects", projectRoutes);
 app.use("/auth", authRoutes);
