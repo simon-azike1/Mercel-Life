@@ -10,3 +10,6 @@ portfolio-backend/.env
 # Optional: build/output folders for frontend
 dist/
 build/
+
+# Ignore sensitive scripts
+createAdmin.js
