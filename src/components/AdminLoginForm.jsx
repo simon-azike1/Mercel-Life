@@ -251,9 +251,9 @@ const AdminLogin = () => {
         </div>
 
         {/* Development Helper */}
-        <div className="p-4 bg-yellow-50 border-t text-xs text-yellow-800">
+        {/* <div className="p-4 bg-yellow-50 border-t text-xs text-yellow-800">
           <strong>API Endpoint:</strong> {API_BASE_URL}/auth/login
-        </div>
+        </div> */}
       </div>
     </div>
   );
