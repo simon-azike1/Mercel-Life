@@ -12,12 +12,15 @@ import ExperienceSection from "./components/ExperienceSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+
+// Admin and Auth Components
 import AdminDashboard from "./components/AdminDashboard";
-import AdminLogin from "./components/AdminLoginForm"
+import AdminLogin from "./components/AdminLoginForm";
+import ForgotPassword from "./components/ForgotPassword"; // optional component to request reset
+import ResetPassword from "./components/ResetPassword";
 
 // ✅ Import the context
 import { PortfolioProvider } from "./components/PortfolioContext";
-// import AdminLogin from "./components/AdminLoginForm";
 
 function App() {
   return (
@@ -26,6 +29,7 @@ function App() {
         <Navigation />
         <ScrollToTop />
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<HeroSection />} />
           <Route path="/about" element={<AboutSection />} />
           <Route path="/services" element={<ServicesSection />} />
@@ -34,9 +38,14 @@ function App() {
           <Route path="/blog" element={<BlogSection />} />
           <Route path="/experience" element={<ExperienceSection />} />
           <Route path="/contact" element={<ContactSection />} />
-          <Route path="/login" element={<AdminLogin/>}/>
+
+          {/* Admin Routes */}
+          <Route path="/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          
+
+          {/* Password Reset Flow */}
+          <Route path="/forgot-password" element={<ForgotPassword />} /> {/* request reset email */}
+          <Route path="/reset-password/:token" element={<ResetPassword />} /> {/* reset with token */}
         </Routes>
         <Footer />
       </div>

@@ -226,7 +226,11 @@ const AdminLogin = () => {
               />
               <span className="ml-2 text-sm text-gray-700">Remember me</span>
             </label>
-            <button type="button" className="text-sm text-green-600 hover:text-green-700 font-medium">
+            <button 
+              type="button"
+              onClick={() => window.location.href = '/forgot-password'}
+              className="text-sm text-green-600 hover:text-green-700 font-medium"
+            >
               Forgot password?
             </button>
           </div>
