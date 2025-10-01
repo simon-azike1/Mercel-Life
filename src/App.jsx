@@ -20,6 +20,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 
 import { PortfolioProvider } from "./components/PortfolioContext";
+import { ServiceProvider } from "./components/ServiceContext"; // <-- added
 import { AuthProvider, useAuth } from "./components/AuthContext";
 
 // Protect Admin Dashboard
@@ -33,35 +34,37 @@ function App() {
   return (
     <AuthProvider>
       <PortfolioProvider>
-        <div className="min-h-screen bg-gray-300">
-          <Navigation />
-          <ScrollToTop />
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<HeroSection />} />
-            <Route path="/about" element={<AboutSection />} />
-            <Route path="/services" element={<ServicesSection />} />
-            <Route path="/skills" element={<SkillsSection />} />
-            <Route path="/portfolio" element={<PortfolioSection />} />
-            <Route path="/blog" element={<BlogSection />} />
-            <Route path="/experience" element={<ExperienceSection />} />
-            <Route path="/contact" element={<ContactSection />} />
+        <ServiceProvider>
+          <div className="min-h-screen bg-gray-300">
+            <Navigation />
+            <ScrollToTop />
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<HeroSection />} />
+              <Route path="/about" element={<AboutSection />} />
+              <Route path="/services" element={<ServicesSection />} />
+              <Route path="/skills" element={<SkillsSection />} />
+              <Route path="/portfolio" element={<PortfolioSection />} />
+              <Route path="/blog" element={<BlogSection />} />
+              <Route path="/experience" element={<ExperienceSection />} />
+              <Route path="/contact" element={<ContactSection />} />
 
-            {/* Auth & Admin */}
-            <Route path="/login" element={<AdminLogin />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-          <Footer />
-        </div>
+              {/* Auth & Admin */}
+              <Route path="/login" element={<AdminLogin />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password/:token" element={<ResetPassword />} />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+            <Footer />
+          </div>
+        </ServiceProvider>
       </PortfolioProvider>
     </AuthProvider>
   );

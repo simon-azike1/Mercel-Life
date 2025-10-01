@@ -91,12 +91,12 @@ export default function Navigation() {
             </div>
 
             {/* Admin Login Button */}
-            <Link to="/login">
+            {/* <Link to="/login">
               <button className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-green-700 bg-green-50 hover:bg-green-100 hover:text-green-800 rounded-lg transition-all duration-200 border border-green-200">
                 <Shield className="h-4 w-4" />
                 <span className="hidden lg:inline">Admin</span>
               </button>
-            </Link>
+            </Link> */}
 
             {/* Schedule Button */}
             <a
