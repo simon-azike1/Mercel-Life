@@ -12,30 +12,22 @@ const AdminLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
-  // Updated to your working backend URL
-  const API_BASE_URL = "https://mercel-life-1.onrender.com";
+  const API_BASE_URL = import.meta.env.VITE_API_URL; // Use Vite env
 
   const handleChange = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const validateForm = () => {
     const newErrors = {};
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
       newErrors.email = "Please enter a valid email address";
-    }
 
-    if (!formData.password.trim()) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
+    if (!formData.password.trim()) newErrors.password = "Password is required";
+    else if (formData.password.length < 6)
       newErrors.password = "Password must be at least 6 characters";
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -43,18 +35,15 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
 
     setIsLoading(true);
-    setErrors({}); // Clear any previous errors
+    setErrors({});
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: formData.email.trim().toLowerCase(),
           password: formData.password,
@@ -64,45 +53,33 @@ const AdminLogin = () => {
 
       const data = await response.json();
 
-      // Handle errors first
       if (!response.ok) {
         throw new Error(data.message || `Login failed (${response.status})`);
       }
 
-      // Login successful - your backend now returns the expected format
       setLoginSuccess(true);
 
-      // Store authentication data
+      const storage = formData.rememberMe ? localStorage : sessionStorage;
+
       if (data.token) {
-        const storage = formData.rememberMe ? localStorage : sessionStorage;
         storage.setItem("authToken", data.token);
-        
-        // Store expiry time if provided
         if (formData.rememberMe && data.expiresIn) {
-          const expiryTime = new Date(Date.now() + (data.expiresIn * 1000));
+          const expiryTime = new Date(Date.now() + data.expiresIn * 1000);
           localStorage.setItem("tokenExpiry", expiryTime.toISOString());
         }
       }
 
-      // Store user info
       if (data.user) {
-        const storage = formData.rememberMe ? localStorage : sessionStorage;
         storage.setItem("user", JSON.stringify(data.user));
       }
 
-      // Show success message briefly then redirect
       setTimeout(() => {
-        // Redirect to your admin page
         window.location.href = "/admin";
-        // Or if using React Router: navigate("/admin");
       }, 1500);
-
     } catch (error) {
       console.error("Login error:", error);
-      
-      // Handle specific error cases for better UX
+
       let errorMessage = error.message;
-      
       if (error.message.includes("Invalid email or password")) {
         errorMessage = "Invalid email or password. Please try again.";
       } else if (error.message.includes("Server error") || error.message.includes("500")) {
@@ -110,7 +87,7 @@ const AdminLogin = () => {
       } else if (error.message.includes("Failed to fetch")) {
         errorMessage = "Unable to connect to server. Please check your internet connection.";
       }
-      
+
       setErrors({ general: errorMessage });
     } finally {
       setIsLoading(false);
@@ -202,7 +179,7 @@ const AdminLogin = () => {
                 }`}
                 placeholder="Enter your password"
                 autoComplete="current-password"
-                onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
+                onKeyPress={(e) => e.key === "Enter" && handleSubmit(e)}
               />
               <button
                 type="button"
@@ -226,9 +203,9 @@ const AdminLogin = () => {
               />
               <span className="ml-2 text-sm text-gray-700">Remember me</span>
             </label>
-            <button 
+            <button
               type="button"
-              onClick={() => window.location.href = '/forgot-password'}
+              onClick={() => (window.location.href = "/forgot-password")}
               className="text-sm text-green-600 hover:text-green-700 font-medium"
             >
               Forgot password?
@@ -249,11 +226,6 @@ const AdminLogin = () => {
             {isLoading ? "Signing in..." : "Sign In to Dashboard"}
           </button>
         </div>
-
-        {/* Development Helper */}
-        {/* <div className="p-4 bg-yellow-50 border-t text-xs text-yellow-800">
-          <strong>API Endpoint:</strong> {API_BASE_URL}/auth/login
-        </div> */}
       </div>
     </div>
   );

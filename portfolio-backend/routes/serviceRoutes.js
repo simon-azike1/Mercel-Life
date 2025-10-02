@@ -3,7 +3,7 @@ const router = express.Router();
 const Service = require('../models/Service');
 
 // GET all services
-router.get('/services', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const services = await Service.find().sort({ createdAt: -1 });
     res.json(services);
@@ -13,7 +13,7 @@ router.get('/services', async (req, res) => {
 });
 
 // GET single service
-router.get('/services/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
     if (!service) {
@@ -26,7 +26,7 @@ router.get('/services/:id', async (req, res) => {
 });
 
 // POST create new service
-router.post('/services', async (req, res) => {
+router.post('/', async (req, res) => {
   const service = new Service({
     title: req.body.title,
     description: req.body.description,
@@ -45,7 +45,7 @@ router.post('/services', async (req, res) => {
 });
 
 // PUT update service
-router.put('/services/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
     if (!service) {
@@ -67,7 +67,7 @@ router.put('/services/:id', async (req, res) => {
 });
 
 // DELETE service
-router.delete('/services/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
     if (!service) {

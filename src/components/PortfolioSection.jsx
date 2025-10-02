@@ -109,11 +109,11 @@ const PortfolioSection = forwardRef(({ limit }, ref) => {
                     ))}
                   </div>
 
-                  <Link to={project.link}>
+                  {/* <Link to={project.link}>
                     <button className="w-full text-green-600 hover:bg-green-100 px-3 py-2 rounded-md transition-all duration-300">
                       View Case Study
                     </button>
-                  </Link>
+                  </Link> */}
                 </CardContent>
               </Card>
             ))}

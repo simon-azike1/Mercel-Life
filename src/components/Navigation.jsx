@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from '/assets/img/logo_3.PNG';
 import { AnimatePresence, motion } from "framer-motion";
@@ -90,6 +90,14 @@ export default function Navigation() {
               </AnimatePresence>
             </div>
 
+            {/* Admin Login Button */}
+            {/* <Link to="/login">
+              <button className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-green-700 bg-green-50 hover:bg-green-100 hover:text-green-800 rounded-lg transition-all duration-200 border border-green-200">
+                <Shield className="h-4 w-4" />
+                <span className="hidden lg:inline">Admin</span>
+              </button>
+            </Link> */}
+
             {/* Schedule Button */}
             <a
               href="https://wa.me/2349056195484?text=Hi%20Mercelina,%20I%20would%20like%20to%20schedule%20a%20consultation"
@@ -136,6 +144,16 @@ export default function Navigation() {
                   {item.label}
                 </Link>
               ))}
+              
+              {/* Admin Login in Mobile Menu */}
+              {/* <Link
+                to="/login"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-green-700 bg-green-50 hover:bg-green-100 rounded-lg w-full border border-green-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Shield className="h-4 w-4" />
+                Admin Login
+              </Link> */}
 
               <a
                 href="https://wa.me/2349056195484?text=Hi%20Mercelina,%20I%20would%20like%20to%20schedule%20a%20consultation"
