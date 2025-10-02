@@ -2,17 +2,13 @@ import React, { useState } from "react";
 import { Eye, EyeOff, Lock, Mail, Shield, AlertCircle, CheckCircle } from "lucide-react";
 
 const AdminLogin = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    rememberMe: false,
-  });
+  const [formData, setFormData] = useState({ email: "", password: "", rememberMe: false });
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
-  const API_BASE_URL = import.meta.env.VITE_API_URL; // Use Vite env
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -49,6 +45,7 @@ const AdminLogin = () => {
           password: formData.password,
           rememberMe: formData.rememberMe,
         }),
+        credentials: "include", // Needed if backend sends cookies
       });
 
       const data = await response.json();
@@ -79,14 +76,9 @@ const AdminLogin = () => {
     } catch (error) {
       console.error("Login error:", error);
 
-      let errorMessage = error.message;
-      if (error.message.includes("Invalid email or password")) {
-        errorMessage = "Invalid email or password. Please try again.";
-      } else if (error.message.includes("Server error") || error.message.includes("500")) {
-        errorMessage = "Server error. Please try again later.";
-      } else if (error.message.includes("Failed to fetch")) {
-        errorMessage = "Unable to connect to server. Please check your internet connection.";
-      }
+      let errorMessage = error.message.includes("Failed to fetch")
+        ? "Unable to connect to server. Check your internet."
+        : error.message;
 
       setErrors({ general: errorMessage });
     } finally {
