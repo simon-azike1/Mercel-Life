@@ -6,8 +6,8 @@ const projectSchema = new mongoose.Schema({
   description: { type: String, required: true },
   tags: { type: [String], default: [] },
   status: { type: String, enum: ["active", "draft", "archived"], default: "active" },
-  image: { type: String, default: "" },  // new field
-  link: { type: String, default: "" },   // new field
+  image: { type: String, default: "" },  
+  link: { type: String, default: "" },  
 }, { timestamps: true });
 
 module.exports = mongoose.model("Project", projectSchema);

@@ -154,7 +154,7 @@ const AdminDashboard = () => {
   };
 
   const isValidUrl = (string) => {
-    if (!string) return true; // Empty is valid (optional field)
+    if (!string) return true;
     try {
       new URL(string);
       return true;
@@ -204,8 +204,8 @@ const AdminDashboard = () => {
         if (formData.icon?.trim()) {
           dataToSave.icon = formData.icon.trim();
         }
-        if (formData.price && !isNaN(Number(formData.price))) {
-          dataToSave.price = Number(formData.price);
+        if (formData.price?.trim()) {
+          dataToSave.price = formData.price.trim();
         }
       }
 
@@ -292,7 +292,7 @@ const AdminDashboard = () => {
                   e.target.style.display = "none";
                 }}
               />
-              <div className="absolute  inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute top-4 right-4">
                 <Badge className={`${getStatusBadgeColor(item.status || "active")} text-xs font-semibold px-3 py-1 shadow-lg backdrop-blur-sm border`}>
                   {(item.status || "active").charAt(0).toUpperCase() + (item.status || "active").slice(1)}
@@ -390,7 +390,6 @@ const AdminDashboard = () => {
               <div className="mb-4">
                 <div className="text-2xl font-bold text-slate-900">
                   ${item.price}
-                  <span className="text-sm font-normal text-slate-500"></span>
                 </div>
               </div>
             )}
@@ -409,18 +408,18 @@ const AdminDashboard = () => {
                 )}
               </div>
             )}
-{/* 
+
             {item.link && (
               <Button
                 variant="link"
                 size="sm"
-                onClick={() => window.open(item.link, "_blank")}
+                onClick={() => window.open(item.link, "_blank", "noopener,noreferrer")}
                 className="text-blue-600 hover:text-blue-700 p-0 h-auto flex items-center gap-2 font-semibold group/link"
               >
                 <span>{activeTab === "service" ? "Learn More" : "View Project"}</span>
                 <ExternalLink className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
               </Button>
-            )} */}
+            )}
           </div>
         </CardContent>
       </Card>
@@ -428,7 +427,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen  mt-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50 pt-6 pb-12">
+    <div className="min-h-screen mt-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50 pt-6 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-8 mb-8">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
@@ -647,6 +646,7 @@ const AdminDashboard = () => {
                   className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 />
                 {formErrors.image && <span className="text-red-500 text-xs mt-1.5 font-medium">{formErrors.image}</span>}
+                <span className="text-xs text-slate-500 mt-1.5">Enter a valid image URL (e.g., from Unsplash or Imgur)</span>
               </div>
 
               <div className="flex flex-col">
@@ -659,6 +659,7 @@ const AdminDashboard = () => {
                   className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 />
                 {formErrors.link && <span className="text-red-500 text-xs mt-1.5 font-medium">{formErrors.link}</span>}
+                <span className="text-xs text-slate-500 mt-1.5">Link to project or service details</span>
               </div>
 
               <div className="flex flex-col">
@@ -679,22 +680,24 @@ const AdminDashboard = () => {
                     <label className="text-sm font-semibold text-slate-700 mb-2">Icon Name</label>
                     <input
                       type="text"
-                      placeholder="e.g. Palette"
+                      placeholder="e.g. Palette, Code, Smartphone"
                       value={formData.icon}
                       onChange={(e) => handleChange("icon", e.target.value)}
                       className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
+                    <span className="text-xs text-slate-500 mt-1.5">Lucide React icon name (e.g., Palette, Code, Layout)</span>
                   </div>
 
                   <div className="flex flex-col">
                     <label className="text-sm font-semibold text-slate-700 mb-2">Features</label>
-                    <input
-                      type="text"
+                    <textarea
                       placeholder="Feature 1, Feature 2, Feature 3"
                       value={formData.features}
                       onChange={(e) => handleChange("features", e.target.value)}
-                      className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      rows={3}
+                      className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
                     />
+                    <span className="text-xs text-slate-500 mt-1.5">Separate features with commas</span>
                   </div>
 
                   <div className="flex flex-col">
@@ -717,10 +720,11 @@ const AdminDashboard = () => {
                   onChange={(e) => handleChange("status", e.target.value)}
                   className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white font-medium text-slate-700"
                 >
-                  <option value="active">Active</option>
-                  <option value="draft">Draft</option>
-                  <option value="archived">Archived</option>
+                  <option value="active">Active - Visible to public</option>
+                  <option value="draft">Draft - Hidden from public</option>
+                  <option value="archived">Archived - Not displayed</option>
                 </select>
+                <span className="text-xs text-slate-500 mt-1.5">Control visibility on your portfolio</span>
               </div>
             </div>
 

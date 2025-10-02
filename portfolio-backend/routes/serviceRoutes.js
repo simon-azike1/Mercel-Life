@@ -29,10 +29,14 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const service = new Service({
     title: req.body.title,
+    category: req.body.category,
     description: req.body.description,
+    image: req.body.image || '',
+    link: req.body.link || '',
     price: req.body.price,
     icon: req.body.icon || 'Palette',
     features: req.body.features || [],
+    tags: req.body.tags || [],
     status: req.body.status || 'active'
   });
 
@@ -52,11 +56,16 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Service not found' });
     }
 
+    // Update all fields
     service.title = req.body.title || service.title;
+    service.category = req.body.category || service.category;
     service.description = req.body.description || service.description;
+    service.image = req.body.image !== undefined ? req.body.image : service.image;
+    service.link = req.body.link !== undefined ? req.body.link : service.link;
     service.price = req.body.price || service.price;
     service.icon = req.body.icon || service.icon;
     service.features = req.body.features || service.features;
+    service.tags = req.body.tags || service.tags;
     service.status = req.body.status || service.status;
 
     const updatedService = await service.save();

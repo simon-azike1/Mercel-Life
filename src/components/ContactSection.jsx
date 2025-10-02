@@ -89,7 +89,7 @@ export default function ContactSection() {
               <div className="flex space-x-4">
                 <a href="https://www.linkedin.com/in/marcelina-adebisi-0393b037a/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-gray-600 hover:text-green-600"><Linkedin className="h-6 w-6" /></a>
                 <a href="https://www.facebook.com/profile.php?id=61562343710215" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-gray-600 hover:text-green-600"><Facebook className="h-6 w-6" /></a>
-                <a href="https://www.instagram.com/mercelinaadebisi" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-gray-600 hover:text-green-600"><Instagram className="h-6 w-6" /></a>
+                <a href="https://www.instagram.com/marcelinaadebisi?igsh=YzljYTk1ODg3Zg==" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-gray-600 hover:text-green-600"><Instagram className="h-6 w-6" /></a>
               </div>
             </div>
           </div>
