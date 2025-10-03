@@ -12,14 +12,14 @@ import TestimonialsSection from "./TestimonialsSection";
 import TypingName from "./TypingName";
 import { Link } from "react-router-dom";
 
-const tools = [
-  { name: "Figma", icon: Figma },
-  { name: "Adobe XD", icon: PenTool },
-  { name: "Sketch", icon: Image },
-  { name: "Canva", icon: PenTool },
-  { name: "PixelApp", icon: Image },
-  { name: "Web Design", icon: Monitor },
-];
+// const tools = [
+//   { name: "Figma", icon: Figma },
+//   { name: "Adobe XD", icon: PenTool },
+//   { name: "Sketch", icon: Image },
+//   { name: "Canva", icon: PenTool },
+//   { name: "PixelApp", icon: Image },
+//   { name: "Web Design", icon: Monitor },
+// ];
 
 export default function HeroSection() {
   const portfolioRef = useRef(null);
@@ -148,16 +148,16 @@ export default function HeroSection() {
       </motion.div>
 
       {/* Skills Section */}
-      <SkillsSection />
+      {/* <SkillsSection /> */}
 
       {/* Portfolio Section (3 projects) */}
       <PortfolioSection ref={portfolioRef} limit={3} />
 
       {/* Tools I Use Section */}
-      <section id="tools" className="py-20 bg-gray-50">
+      {/* <section id="tools" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 text-center mb-12">
-            Tools I Use
+            Tools
           </h2>
 
           <motion.div
@@ -182,10 +182,10 @@ export default function HeroSection() {
             })}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       <TestimonialsSection />
-      <FAQSection />
+      {/* <FAQSection /> */}
     </>
   );
 }

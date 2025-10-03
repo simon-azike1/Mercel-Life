@@ -20,17 +20,42 @@ import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 
 import { PortfolioProvider } from "./components/PortfolioContext";
-import { ServiceProvider } from "./components/ServiceContext"; // <-- added
+import { ServiceProvider } from "./components/ServiceContext";
 import { AuthProvider, useAuth } from "./components/AuthContext";
 
+// Simple Route Protection
+const ProtectedRoute = ({ children, routePath }) => {
+  React.useEffect(() => {
+    // Only in production
+    if (process.env.NODE_ENV === 'production') {
+      // Check if user came directly to this URL
+      const isDirectAccess = !sessionStorage.getItem('visited_home') && routePath !== '/';
+      
+      if (isDirectAccess) {
+        window.location.replace('/');
+        return;
+      }
+    }
+  }, [routePath]);
+
+  return children;
+};
+
 // Protect Admin Dashboard
-const ProtectedRoute = ({ children }) => {
+const ProtectedAdminRoute = ({ children }) => {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
   return children;
 };
 
 function App() {
+  React.useEffect(() => {
+    // Mark that user has visited the site properly
+    if (window.location.pathname === '/') {
+      sessionStorage.setItem('visited_home', 'true');
+    }
+  }, []);
+
   return (
     <AuthProvider>
       <PortfolioProvider>
@@ -39,26 +64,86 @@ function App() {
             <Navigation />
             <ScrollToTop />
             <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<HeroSection />} />
-              <Route path="/about" element={<AboutSection />} />
-              <Route path="/services" element={<ServicesSection />} />
-              <Route path="/skills" element={<SkillsSection />} />
-              <Route path="/portfolio" element={<PortfolioSection />} />
-              <Route path="/blog" element={<BlogSection />} />
-              <Route path="/experience" element={<ExperienceSection />} />
-              <Route path="/contact" element={<ContactSection />} />
+              {/* Home Route */}
+              <Route 
+                path="/" 
+                element={
+                  <ProtectedRoute routePath="/">
+                    <HeroSection />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              {/* Protected Routes */}
+              <Route 
+                path="/about" 
+                element={
+                  <ProtectedRoute routePath="/about">
+                    <AboutSection />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/services" 
+                element={
+                  <ProtectedRoute routePath="/services">
+                    <ServicesSection />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/skills" 
+                element={
+                  <ProtectedRoute routePath="/skills">
+                    <SkillsSection />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/portfolio" 
+                element={
+                  <ProtectedRoute routePath="/portfolio">
+                    <PortfolioSection />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/blog" 
+                element={
+                  <ProtectedRoute routePath="/blog">
+                    <BlogSection />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/experience" 
+                element={
+                  <ProtectedRoute routePath="/experience">
+                    <ExperienceSection />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/contact" 
+                element={
+                  <ProtectedRoute routePath="/contact">
+                    <ContactSection />
+                  </ProtectedRoute>
+                } 
+              />
 
-              {/* Auth & Admin */}
+              {/* Auth Routes */}
               <Route path="/login" element={<AdminLogin />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password/:token" element={<ResetPassword />} />
+              
+              {/* Admin Route */}
               <Route
                 path="/admin"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedAdminRoute>
                     <AdminDashboard />
-                  </ProtectedRoute>
+                  </ProtectedAdminRoute>
                 }
               />
             </Routes>

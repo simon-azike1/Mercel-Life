@@ -76,12 +76,12 @@ const PortfolioSection = forwardRef(({ limit }, ref) => {
           viewport={{ once: true, amount: 0.3 }}
           variants={headerVariants}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-black mb-4">
+          {/* <h2 className="text-4xl lg:text-5xl font-bold text-black mb-4">
             Featured Work
           </h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-4">
             A selection of projects that showcase my design process, creative thinking, and problem-solving approach.
-          </p>
+          </p> */}
         </motion.div>
 
         {loading ? (

@@ -23,6 +23,7 @@ import {
   Grid3x3,
   List,
   Package,
+  Sparkles,
 } from "lucide-react";
 
 const AdminDashboard = () => {
@@ -265,36 +266,33 @@ const AdminDashboard = () => {
   const getStatusBadgeColor = (status) => {
     switch (status) {
       case "active":
-        return "bg-emerald-500/10 text-emerald-700 border-emerald-500/20";
+        return "bg-emerald-500/15 text-emerald-600 border-emerald-500/30";
       case "draft":
-        return "bg-amber-500/10 text-amber-700 border-amber-500/20";
+        return "bg-gray-500/15 text-gray-600 border-gray-500/30";
       case "archived":
-        return "bg-slate-500/10 text-slate-700 border-slate-500/20";
+        return "bg-gray-400/15 text-gray-500 border-gray-400/30";
       default:
-        return "bg-blue-500/10 text-blue-700 border-blue-500/20";
+        return "bg-emerald-500/15 text-emerald-600 border-emerald-500/30";
     }
   };
 
   const ItemCard = ({ item }) => {
-    console.log("Rendering card:", { title: item.title, image: item.image, link: item.link, price: item.price });
-    
     return (
-      <Card className="group bg-white hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 rounded-2xl overflow-hidden shadow-sm">
+      <Card className="group bg-gradient-to-br from-gray-900 to-black hover:shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500 hover:-translate-y-2 border border-gray-800 rounded-2xl overflow-hidden">
         <CardContent className="p-0">
           {item.image ? (
-            <div className="relative h-56 bg-gradient-to-br from-slate-100 to-slate-50 overflow-hidden">
+            <div className="relative h-56 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
               <img
                 src={item.image}
                 alt={item.title}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 onError={(e) => {
-                  console.error("Image failed:", item.image);
                   e.target.style.display = "none";
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
               <div className="absolute top-4 right-4">
-                <Badge className={`${getStatusBadgeColor(item.status || "active")} text-xs font-semibold px-3 py-1 shadow-lg backdrop-blur-sm border`}>
+                <Badge className={`${getStatusBadgeColor(item.status || "active")} text-xs font-semibold px-3 py-1.5 shadow-lg backdrop-blur-sm border`}>
                   {(item.status || "active").charAt(0).toUpperCase() + (item.status || "active").slice(1)}
                 </Badge>
               </div>
@@ -304,7 +302,7 @@ const AdminDashboard = () => {
                     variant="secondary"
                     size="sm"
                     onClick={() => openEditModal(item)}
-                    className="bg-white/90 hover:bg-white backdrop-blur-sm text-slate-900 shadow-lg flex-1"
+                    className="bg-emerald-500 hover:bg-emerald-600 backdrop-blur-sm text-white shadow-lg flex-1 border-0"
                   >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
@@ -313,7 +311,7 @@ const AdminDashboard = () => {
                     variant="secondary"
                     size="sm"
                     onClick={() => handleDelete(item)}
-                    className="bg-red-500/90 hover:bg-red-600 backdrop-blur-sm text-white shadow-lg"
+                    className="bg-red-500/90 hover:bg-red-600 backdrop-blur-sm text-white shadow-lg border-0"
                   >
                     <Trash className="w-4 h-4" />
                   </Button>
@@ -321,12 +319,12 @@ const AdminDashboard = () => {
               </div>
             </div>
           ) : (
-            <div className="relative h-56 bg-gradient-to-br from-slate-100 to-slate-50 overflow-hidden">
-              <div className="flex items-center justify-center h-full text-slate-300">
+            <div className="relative h-56 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+              <div className="flex items-center justify-center h-full text-gray-600">
                 <ImageIcon className="w-16 h-16" />
               </div>
               <div className="absolute top-4 right-4">
-                <Badge className={`${getStatusBadgeColor(item.status || "active")} text-xs font-semibold px-3 py-1 shadow-lg backdrop-blur-sm border`}>
+                <Badge className={`${getStatusBadgeColor(item.status || "active")} text-xs font-semibold px-3 py-1.5 shadow-lg backdrop-blur-sm border`}>
                   {(item.status || "active").charAt(0).toUpperCase() + (item.status || "active").slice(1)}
                 </Badge>
               </div>
@@ -336,7 +334,7 @@ const AdminDashboard = () => {
                     variant="secondary"
                     size="sm"
                     onClick={() => openEditModal(item)}
-                    className="bg-white/90 hover:bg-white backdrop-blur-sm text-slate-900 shadow-lg flex-1"
+                    className="bg-emerald-500 hover:bg-emerald-600 backdrop-blur-sm text-white shadow-lg flex-1 border-0"
                   >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
@@ -345,7 +343,7 @@ const AdminDashboard = () => {
                     variant="secondary"
                     size="sm"
                     onClick={() => handleDelete(item)}
-                    className="bg-red-500/90 hover:bg-red-600 backdrop-blur-sm text-white shadow-lg"
+                    className="bg-red-500/90 hover:bg-red-600 backdrop-blur-sm text-white shadow-lg border-0"
                   >
                     <Trash className="w-4 h-4" />
                   </Button>
@@ -354,33 +352,33 @@ const AdminDashboard = () => {
             </div>
           )}
 
-          <div className="p-6">
+          <div className="p-6 bg-gradient-to-br from-gray-900 to-black">
             <div className="mb-3">
-              <Badge variant="secondary" className="text-xs font-semibold bg-blue-500/10 text-blue-700 border border-blue-500/20 px-3 py-1">
+              <Badge variant="secondary" className="text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1">
                 {item.category}
               </Badge>
             </div>
 
-            <h3 className="font-bold text-slate-900 text-xl mb-3 line-clamp-2 leading-tight">
+            <h3 className="font-bold text-white text-xl mb-3 line-clamp-2 leading-tight">
               {item.title}
             </h3>
 
-            <p className="text-slate-600 text-sm mb-4 line-clamp-3 leading-relaxed">
+            <p className="text-gray-400 text-sm mb-4 line-clamp-3 leading-relaxed">
               {item.description}
             </p>
 
             {activeTab === "service" && item.features && item.features.length > 0 && (
               <div className="mb-4">
-                <div className="text-xs font-semibold text-slate-500 mb-2">Features:</div>
+                <div className="text-xs font-semibold text-gray-500 mb-2">Features:</div>
                 <div className="space-y-1">
                   {item.features.slice(0, 3).map((feature, idx) => (
-                    <div key={idx} className="text-xs text-slate-600 flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
+                    <div key={idx} className="text-xs text-gray-400 flex items-start">
+                      <span className="text-emerald-500 mr-2">•</span>
                       <span>{feature}</span>
                     </div>
                   ))}
                   {item.features.length > 3 && (
-                    <div className="text-xs text-slate-500 ml-4">+{item.features.length - 3} more</div>
+                    <div className="text-xs text-gray-500 ml-4">+{item.features.length - 3} more</div>
                   )}
                 </div>
               </div>
@@ -388,7 +386,7 @@ const AdminDashboard = () => {
 
             {activeTab === "service" && item.price > 0 && (
               <div className="mb-4">
-                <div className="text-2xl font-bold text-slate-900">
+                <div className="text-2xl font-bold text-emerald-400">
                   ${item.price}
                 </div>
               </div>
@@ -397,12 +395,12 @@ const AdminDashboard = () => {
             {item.tags && item.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4">
                 {item.tags.slice(0, 3).map((tag, idx) => (
-                  <Badge key={idx} variant="outline" className="text-xs px-2.5 py-1 bg-slate-50 border-slate-200 text-slate-600 font-medium">
+                  <Badge key={idx} variant="outline" className="text-xs px-2.5 py-1 bg-gray-800 border-gray-700 text-gray-300 font-medium">
                     {tag}
                   </Badge>
                 ))}
                 {item.tags.length > 3 && (
-                  <Badge variant="outline" className="text-xs px-2.5 py-1 bg-slate-50 border-slate-200 text-slate-600 font-medium">
+                  <Badge variant="outline" className="text-xs px-2.5 py-1 bg-gray-800 border-gray-700 text-gray-300 font-medium">
                     +{item.tags.length - 3}
                   </Badge>
                 )}
@@ -414,7 +412,7 @@ const AdminDashboard = () => {
                 variant="link"
                 size="sm"
                 onClick={() => window.open(item.link, "_blank", "noopener,noreferrer")}
-                className="text-blue-600 hover:text-blue-700 p-0 h-auto flex items-center gap-2 font-semibold group/link"
+                className="text-emerald-400 hover:text-emerald-300 p-0 h-auto flex items-center gap-2 font-semibold group/link"
               >
                 <span>{activeTab === "service" ? "Learn More" : "View Project"}</span>
                 <ExternalLink className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
@@ -427,56 +425,56 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen mt-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50 pt-6 pb-12">
+    <div className="min-h-screen mt-20 bg-black pt-6 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-8 mb-8">
+        <div className="bg-gradient-to-br from-gray-900 to-black backdrop-blur-xl rounded-3xl shadow-2xl shadow-emerald-500/10 border border-gray-800 p-8 mb-8">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-lg">
-                  <Package className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                  <Sparkles className="w-6 h-6 text-white" />
                 </div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
                   Admin Dashboard
                 </h1>
               </div>
-              <p className="text-slate-600 text-lg ml-15">
+              <p className="text-gray-400 text-lg ml-15">
                 Manage your {activeTab === "portfolio" ? "portfolio projects" : "services"}
               </p>
             </div>
 
-            <Button onClick={handleLogout} variant="outline" className="flex items-center gap-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors border-slate-200">
+            <Button onClick={handleLogout} variant="outline" className="flex items-center gap-2 bg-gray-900 hover:bg-red-500/10 text-gray-300 hover:text-red-400 hover:border-red-500/30 transition-all border-gray-700">
               <LogOut className="w-4 h-4" />
               Logout
             </Button>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-2xl p-4 border border-blue-200/50">
-              <div className="text-blue-600 text-sm font-semibold mb-1">Total</div>
-              <div className="text-3xl font-bold text-blue-900">{stats.total}</div>
+            <div className="bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 rounded-2xl p-4 border border-emerald-500/30">
+              <div className="text-emerald-400 text-sm font-semibold mb-1">Total</div>
+              <div className="text-3xl font-bold text-white">{stats.total}</div>
             </div>
-            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-2xl p-4 border border-emerald-200/50">
-              <div className="text-emerald-600 text-sm font-semibold mb-1">Active</div>
-              <div className="text-3xl font-bold text-emerald-900">{stats.active}</div>
+            <div className="bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 rounded-2xl p-4 border border-emerald-500/30">
+              <div className="text-emerald-400 text-sm font-semibold mb-1">Active</div>
+              <div className="text-3xl font-bold text-white">{stats.active}</div>
             </div>
-            <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-2xl p-4 border border-amber-200/50">
-              <div className="text-amber-600 text-sm font-semibold mb-1">Draft</div>
-              <div className="text-3xl font-bold text-amber-900">{stats.draft}</div>
+            <div className="bg-gradient-to-br from-gray-500/20 to-gray-600/10 rounded-2xl p-4 border border-gray-500/30">
+              <div className="text-gray-400 text-sm font-semibold mb-1">Draft</div>
+              <div className="text-3xl font-bold text-white">{stats.draft}</div>
             </div>
-            <div className="bg-gradient-to-br from-slate-50 to-slate-100/50 rounded-2xl p-4 border border-slate-200/50">
-              <div className="text-slate-600 text-sm font-semibold mb-1">Archived</div>
-              <div className="text-3xl font-bold text-slate-900">{stats.archived}</div>
+            <div className="bg-gradient-to-br from-gray-500/20 to-gray-600/10 rounded-2xl p-4 border border-gray-500/30">
+              <div className="text-gray-400 text-sm font-semibold mb-1">Archived</div>
+              <div className="text-3xl font-bold text-white">{stats.archived}</div>
             </div>
           </div>
 
-          <div className="flex gap-2 bg-slate-100 p-1.5 rounded-2xl w-fit">
+          <div className="flex gap-2 bg-gray-800/50 p-1.5 rounded-2xl w-fit border border-gray-700">
             <button
               onClick={() => setActiveTab("portfolio")}
               className={`px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
                 activeTab === "portfolio"
-                  ? "bg-white text-blue-600 shadow-lg shadow-blue-500/10"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
+                  : "text-gray-400 hover:text-white"
               }`}
             >
               Portfolio
@@ -485,8 +483,8 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab("service")}
               className={`px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
                 activeTab === "service"
-                  ? "bg-white text-blue-600 shadow-lg shadow-blue-500/10"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
+                  : "text-gray-400 hover:text-white"
               }`}
             >
               Services
@@ -494,32 +492,32 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 p-6 mb-8">
+        <div className="bg-gradient-to-br from-gray-900 to-black backdrop-blur-xl rounded-2xl shadow-lg border border-gray-800 p-6 mb-8">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-4">
             <Button
               onClick={openAddModal}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg shadow-blue-500/30 flex items-center gap-2 px-6 py-6 rounded-xl font-semibold transition-all"
+              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/30 flex items-center gap-2 px-6 py-6 rounded-xl font-semibold transition-all border-0"
             >
               <Plus className="w-5 h-5" />
               Add {activeTab === "portfolio" ? "Project" : "Service"}
             </Button>
 
             <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
               <input
                 type="text"
                 placeholder="Search by title, description, or tags..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                className="w-full pl-12 pr-4 py-3 border border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-900 text-white placeholder-gray-500"
               />
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <select
                 value={filterCategory}
                 onChange={(e) => setFilterCategory(e.target.value)}
-                className="border border-slate-200 rounded-xl px-4 py-3 font-medium text-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white min-w-[140px]"
+                className="border border-gray-700 rounded-xl px-4 py-3 font-medium text-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-gray-900 min-w-[140px]"
               >
                 <option value="all">All Categories</option>
                 {categories.map((cat) => (
@@ -530,7 +528,7 @@ const AdminDashboard = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="border border-slate-200 rounded-xl px-4 py-3 font-medium text-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white min-w-[120px]"
+                className="border border-gray-700 rounded-xl px-4 py-3 font-medium text-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-gray-900 min-w-[120px]"
               >
                 <option value="newest">Newest</option>
                 <option value="oldest">Oldest</option>
@@ -538,11 +536,11 @@ const AdminDashboard = () => {
                 <option value="category">Category</option>
               </select>
 
-              <div className="flex gap-2 bg-slate-100 p-1 rounded-xl">
+              <div className="flex gap-2 bg-gray-800 p-1 rounded-xl border border-gray-700">
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`p-2.5 rounded-lg transition-all ${
-                    viewMode === "grid" ? "bg-white text-blue-600 shadow-sm" : "text-slate-600 hover:text-slate-900"
+                    viewMode === "grid" ? "bg-emerald-500 text-white shadow-sm" : "text-gray-400 hover:text-white"
                   }`}
                 >
                   <Grid3x3 className="w-5 h-5" />
@@ -550,7 +548,7 @@ const AdminDashboard = () => {
                 <button
                   onClick={() => setViewMode("list")}
                   className={`p-2.5 rounded-lg transition-all ${
-                    viewMode === "list" ? "bg-white text-blue-600 shadow-sm" : "text-slate-600 hover:text-slate-900"
+                    viewMode === "list" ? "bg-emerald-500 text-white shadow-sm" : "text-gray-400 hover:text-white"
                   }`}
                 >
                   <List className="w-5 h-5" />
@@ -561,18 +559,18 @@ const AdminDashboard = () => {
         </div>
 
         {filteredItems.length === 0 ? (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 p-16 text-center">
-            <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Package className="w-10 h-10 text-slate-400" />
+          <div className="bg-gradient-to-br from-gray-900 to-black backdrop-blur-xl rounded-2xl shadow-lg border border-gray-800 p-16 text-center">
+            <div className="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Package className="w-10 h-10 text-gray-600" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">No items found</h3>
-            <p className="text-slate-600 mb-6">
+            <h3 className="text-xl font-bold text-white mb-2">No items found</h3>
+            <p className="text-gray-400 mb-6">
               {searchTerm || filterCategory !== "all"
                 ? "Try adjusting your filters"
                 : `Start by adding your first ${activeTab === "portfolio" ? "project" : "service"}`}
             </p>
             {!searchTerm && filterCategory === "all" && (
-              <Button onClick={openAddModal} className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg">
+              <Button onClick={openAddModal} className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg border-0">
                 <Plus className="w-4 h-4 mr-2" />
                 Add {activeTab === "portfolio" ? "Project" : "Service"}
               </Button>
@@ -588,12 +586,12 @@ const AdminDashboard = () => {
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-2xl w-full rounded-3xl p-0 bg-white shadow-2xl border-0 max-h-[90vh] overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6">
+        <DialogContent className="max-w-2xl w-full rounded-3xl p-0 bg-gray-900 shadow-2xl border border-gray-800 max-h-[90vh] overflow-hidden">
+          <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 p-6">
             <DialogTitle className="text-2xl font-bold text-white">
               {editingItem ? "Edit" : "Add New"} {activeTab === "portfolio" ? "Project" : "Service"}
             </DialogTitle>
-            <DialogDescription className="text-blue-100 mt-1">
+            <DialogDescription className="text-emerald-100 mt-1">
               Fill out the form below to {editingItem ? "update" : "create"} your {activeTab === "portfolio" ? "project" : "service"}
             </DialogDescription>
           </div>
@@ -601,146 +599,146 @@ const AdminDashboard = () => {
           <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
             <div className="grid grid-cols-1 gap-5">
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-slate-700 mb-2">Title *</label>
+                <label className="text-sm font-semibold text-gray-300 mb-2">Title *</label>
                 <input
                   type="text"
                   placeholder="Enter title"
                   value={formData.title}
                   onChange={(e) => handleChange("title", e.target.value)}
-                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-800 text-white placeholder-gray-500"
                 />
-                {formErrors.title && <span className="text-red-500 text-xs mt-1.5 font-medium">{formErrors.title}</span>}
+                {formErrors.title && <span className="text-red-400 text-xs mt-1.5 font-medium">{formErrors.title}</span>}
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-slate-700 mb-2">Category *</label>
+                <label className="text-sm font-semibold text-gray-300 mb-2">Category *</label>
                 <input
                   type="text"
                   placeholder="Enter category"
                   value={formData.category}
                   onChange={(e) => handleChange("category", e.target.value)}
-                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-800 text-white placeholder-gray-500"
                 />
-                {formErrors.category && <span className="text-red-500 text-xs mt-1.5 font-medium">{formErrors.category}</span>}
+                {formErrors.category && <span className="text-red-400 text-xs mt-1.5 font-medium">{formErrors.category}</span>}
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-slate-700 mb-2">Description *</label>
+                <label className="text-sm font-semibold text-gray-300 mb-2">Description *</label>
                 <textarea
                   placeholder="Enter description"
                   value={formData.description}
                   onChange={(e) => handleChange("description", e.target.value)}
                   rows={4}
-                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                  className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none bg-gray-800 text-white placeholder-gray-500"
                 />
-                {formErrors.description && <span className="text-red-500 text-xs mt-1.5 font-medium">{formErrors.description}</span>}
+                {formErrors.description && <span className="text-red-400 text-xs mt-1.5 font-medium">{formErrors.description}</span>}
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-slate-700 mb-2">Image URL</label>
+                <label className="text-sm font-semibold text-gray-300 mb-2">Image URL</label>
                 <input
                   type="text"
                   placeholder="https://example.com/image.jpg"
                   value={formData.image}
                   onChange={(e) => handleChange("image", e.target.value)}
-                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-800 text-white placeholder-gray-500"
                 />
-                {formErrors.image && <span className="text-red-500 text-xs mt-1.5 font-medium">{formErrors.image}</span>}
-                <span className="text-xs text-slate-500 mt-1.5">Enter a valid image URL (e.g., from Unsplash or Imgur)</span>
+                {formErrors.image && <span className="text-red-400 text-xs mt-1.5 font-medium">{formErrors.image}</span>}
+                <span className="text-xs text-gray-500 mt-1.5">Enter a valid image URL (e.g., from Unsplash or Imgur)</span>
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-slate-700 mb-2">External Link</label>
+                <label className="text-sm font-semibold text-gray-300 mb-2">External Link</label>
                 <input
                   type="text"
                   placeholder="https://example.com"
                   value={formData.link}
                   onChange={(e) => handleChange("link", e.target.value)}
-                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-800 text-white placeholder-gray-500"
                 />
-                {formErrors.link && <span className="text-red-500 text-xs mt-1.5 font-medium">{formErrors.link}</span>}
-                <span className="text-xs text-slate-500 mt-1.5">Link to project or service details</span>
+                {formErrors.link && <span className="text-red-400 text-xs mt-1.5 font-medium">{formErrors.link}</span>}
+                <span className="text-xs text-gray-500 mt-1.5">Link to project or service details</span>
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-slate-700 mb-2">Tags</label>
+                <label className="text-sm font-semibold text-gray-300 mb-2">Tags</label>
                 <input
                   type="text"
                   placeholder="React, Design, Development"
                   value={formData.tags}
                   onChange={(e) => handleChange("tags", e.target.value)}
-                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-800 text-white placeholder-gray-500"
                 />
-                <span className="text-xs text-slate-500 mt-1.5">Separate tags with commas</span>
+                <span className="text-xs text-gray-500 mt-1.5">Separate tags with commas</span>
               </div>
 
               {activeTab === "service" && (
                 <>
                   <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-slate-700 mb-2">Icon Name</label>
+                    <label className="text-sm font-semibold text-gray-300 mb-2">Icon Name</label>
                     <input
                       type="text"
                       placeholder="e.g. Palette, Code, Smartphone"
                       value={formData.icon}
                       onChange={(e) => handleChange("icon", e.target.value)}
-                      className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-800 text-white placeholder-gray-500"
                     />
-                    <span className="text-xs text-slate-500 mt-1.5">Lucide React icon name (e.g., Palette, Code, Layout)</span>
+                    <span className="text-xs text-gray-500 mt-1.5">Lucide React icon name (e.g., Palette, Code, Layout)</span>
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-slate-700 mb-2">Features</label>
+                    <label className="text-sm font-semibold text-gray-300 mb-2">Features</label>
                     <textarea
                       placeholder="Feature 1, Feature 2, Feature 3"
                       value={formData.features}
                       onChange={(e) => handleChange("features", e.target.value)}
                       rows={3}
-                      className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                      className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all resize-none bg-gray-800 text-white placeholder-gray-500"
                     />
-                    <span className="text-xs text-slate-500 mt-1.5">Separate features with commas</span>
+                    <span className="text-xs text-gray-500 mt-1.5">Separate features with commas</span>
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-slate-700 mb-2">Price</label>
+                    <label className="text-sm font-semibold text-gray-300 mb-2">Price</label>
                     <input
                       type="number"
                       placeholder="0.00"
                       value={formData.price}
                       onChange={(e) => handleChange("price", e.target.value)}
-                      className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-800 text-white placeholder-gray-500"
                     />
                   </div>
                 </>
               )}
 
               <div className="flex flex-col">
-                <label className="text-sm font-semibold text-slate-700 mb-2">Status *</label>
+                <label className="text-sm font-semibold text-gray-300 mb-2">Status *</label>
                 <select
                   value={formData.status}
                   onChange={(e) => handleChange("status", e.target.value)}
-                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white font-medium text-slate-700"
+                  className="border border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-gray-800 text-white font-medium"
                 >
                   <option value="active">Active - Visible to public</option>
                   <option value="draft">Draft - Hidden from public</option>
                   <option value="archived">Archived - Not displayed</option>
                 </select>
-                <span className="text-xs text-slate-500 mt-1.5">Control visibility on your portfolio</span>
+                <span className="text-xs text-gray-500 mt-1.5">Control visibility on your portfolio</span>
               </div>
             </div>
 
-            <div className="flex gap-3 mt-8 pt-6 border-t border-slate-100">
+            <div className="flex gap-3 mt-8 pt-6 border-t border-gray-800">
               <Button
                 onClick={() => setIsDialogOpen(false)}
                 variant="outline"
                 disabled={isLoading}
-                className="flex-1 py-6 rounded-xl font-semibold border-slate-200 hover:bg-slate-50"
+                className="flex-1 py-6 rounded-xl font-semibold border-gray-700 hover:bg-gray-800 text-gray-300 hover:text-white"
               >
                 Cancel
               </Button>
               <Button
                 onClick={handleSave}
                 disabled={isLoading}
-                className="flex-1 py-6 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold shadow-lg shadow-blue-500/30 transition-all"
+                className="flex-1 py-6 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold shadow-lg shadow-emerald-500/30 transition-all border-0"
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">

@@ -59,10 +59,10 @@ export default function ContactSection() {
     <section id="contact" className="py-20 bg-gradient-to-br from-white via-gray-200 to-green-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-black mb-4">Let's Work Together</h2>
+          {/* <h2 className="text-4xl lg:text-5xl font-bold text-black mb-4">Let's Work Together</h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
             Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
-          </p>
+          </p> */}
         </div>
 
         <motion.div
