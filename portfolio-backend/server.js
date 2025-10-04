@@ -14,10 +14,10 @@ const allowedOrigins = [
   "https://mercel-life.vercel.app",
   "http://localhost:5173",
 ];
-
+// allow Postman or server-to-server requests
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // allow Postman or server-to-server requests
+    if (!origin) return callback(null, true); 
     if (allowedOrigins.includes(origin)) return callback(null, true);
     callback(new Error("CORS policy: This origin is not allowed"));
   },

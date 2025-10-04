@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function FAQSection() {
+export default function FAQSection({ isDarkMode = false }) {
   const [openFAQ, setOpenFAQ] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   
@@ -91,11 +91,19 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-200  mt-45 via-white to-green-50 relative overflow-hidden">
+    <section className={`py-24 mt-45 relative overflow-hidden transition-colors duration-300 ${
+      isDarkMode 
+        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
+        : 'bg-gradient-to-br from-gray-200 via-white to-green-50'
+    }`}>
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-green-500 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-black rounded-full blur-3xl" />
+        <div className={`absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl transition-colors duration-300 ${
+          isDarkMode ? 'bg-green-400' : 'bg-green-500'
+        }`} />
+        <div className={`absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl transition-colors duration-300 ${
+          isDarkMode ? 'bg-blue-400' : 'bg-black'
+        }`} />
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -108,23 +116,37 @@ export default function FAQSection() {
           transition={{ duration: 0.8 }}
         >
           <div className="flex items-center justify-center mb-6">
-            <div className="p-4 bg-gradient-to-r from-green-500 to-black rounded-2xl mr-4 shadow-lg">
+            <div className={`p-4 rounded-2xl mr-4 shadow-lg transition-colors duration-300 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-green-500 to-blue-500' 
+                : 'bg-gradient-to-r from-green-500 to-black'
+            }`}>
               <HelpCircle className="h-8 w-8 text-white" />
             </div>
-            <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-black via-green-600 to-black bg-clip-text text-transparent">
+            <h2 className={`text-4xl lg:text-5xl font-bold bg-gradient-to-r bg-clip-text text-transparent transition-colors duration-300 ${
+              isDarkMode 
+                ? 'from-white via-green-400 to-blue-400' 
+                : 'from-black via-green-600 to-black'
+            }`}>
               FAQ
             </h2>
           </div>
           
           <motion.div 
-            className="w-24 h-1 bg-gradient-to-r from-green-500 to-black mx-auto mb-8 rounded-full"
+            className={`w-24 h-1 mx-auto mb-8 rounded-full transition-colors duration-300 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-green-400 to-blue-400' 
+                : 'bg-gradient-to-r from-green-500 to-black'
+            }`}
             initial={{ width: 0 }}
             whileInView={{ width: 96 }}
             transition={{ delay: 0.5, duration: 0.8 }}
             viewport={{ once: true }}
           />
           
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed">
+          <p className={`text-xl max-w-2xl mx-auto leading-relaxed transition-colors duration-300 ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-700'
+          }`}>
             Common questions about my design process, timeline, and collaboration approach.
           </p>
         </motion.div>
@@ -143,9 +165,15 @@ export default function FAQSection() {
               placeholder="Search FAQs..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 pl-12 bg-white/80 backdrop-blur-sm border border-green-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+              className={`w-full px-4 py-3 pl-12 backdrop-blur-sm border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 ${
+                isDarkMode 
+                  ? 'bg-gray-800/80 border-green-400 text-white placeholder-gray-400 focus:ring-green-400 focus:border-transparent' 
+                  : 'bg-white/80 border-green-200 text-gray-900 placeholder-gray-500 focus:ring-green-500 focus:border-transparent'
+              }`}
             />
-            <HelpCircle className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-green-500" />
+            <HelpCircle className={`absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 transition-colors duration-300 ${
+              isDarkMode ? 'text-green-400' : 'text-green-500'
+            }`} />
           </div>
         </motion.div>
 
@@ -161,7 +189,11 @@ export default function FAQSection() {
             <Badge
               key={index}
               variant="outline"
-              className="border-green-200 text-green-700 hover:bg-green-50 transition-colors cursor-pointer"
+              className={`transition-colors cursor-pointer duration-300 ${
+                isDarkMode 
+                  ? 'border-green-400 text-green-400 hover:bg-green-400/10' 
+                  : 'border-green-200 text-green-700 hover:bg-green-50'
+              }`}
             >
               {category}
             </Badge>
@@ -186,28 +218,46 @@ export default function FAQSection() {
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2 }}
               >
-                <Card className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 bg-white/80 backdrop-blur-sm">
+                <Card className={`overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm ${
+                  isDarkMode ? 'bg-gray-800/80' : 'bg-white/80'
+                }`}>
                   <CardContent className="p-0">
                     <button
                       onClick={() => toggleFAQ(index)}
-                      className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-green-50/50 transition-colors duration-300 group"
+                      className={`w-full px-6 py-5 text-left flex items-center justify-between transition-colors duration-300 group ${
+                        isDarkMode ? 'hover:bg-green-400/10' : 'hover:bg-green-50/50'
+                      }`}
                     >
                       <div className="flex items-center flex-1">
-                        <div className="p-2 bg-gradient-to-r from-green-500 to-black rounded-lg mr-4 group-hover:scale-110 transition-transform duration-300">
+                        <div className={`p-2 rounded-lg mr-4 group-hover:scale-110 transition-transform duration-300 ${
+                          isDarkMode 
+                            ? 'bg-gradient-to-r from-green-500 to-blue-500' 
+                            : 'bg-gradient-to-r from-green-500 to-black'
+                        }`}>
                           <IconComponent className="h-4 w-4 text-white" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-lg font-bold text-black group-hover:text-green-600 transition-colors duration-300">
+                            <h3 className={`text-lg font-bold transition-colors duration-300 ${
+                              isDarkMode 
+                                ? 'text-white group-hover:text-green-400' 
+                                : 'text-black group-hover:text-green-600'
+                            }`}>
                               {faq.question}
                             </h3>
                             {faq.popular && (
-                              <Badge className="bg-green-100 text-green-700 text-xs border-green-200">
+                              <Badge className={`text-xs border transition-colors duration-300 ${
+                                isDarkMode 
+                                  ? 'bg-green-900/50 text-green-300 border-green-700' 
+                                  : 'bg-green-100 text-green-700 border-green-200'
+                              }`}>
                                 Popular
                               </Badge>
                             )}
                           </div>
-                          <p className="text-sm text-green-600 font-medium">{faq.category}</p>
+                          <p className={`text-sm font-medium transition-colors duration-300 ${
+                            isDarkMode ? 'text-green-400' : 'text-green-600'
+                          }`}>{faq.category}</p>
                         </div>
                       </div>
                       
@@ -216,7 +266,9 @@ export default function FAQSection() {
                         transition={{ duration: 0.3 }}
                         className="ml-4"
                       >
-                        <ChevronDown className="h-5 w-5 text-green-600" />
+                        <ChevronDown className={`h-5 w-5 transition-colors duration-300 ${
+                          isDarkMode ? 'text-green-400' : 'text-green-600'
+                        }`} />
                       </motion.div>
                     </button>
 
@@ -230,8 +282,12 @@ export default function FAQSection() {
                           className="overflow-hidden"
                         >
                           <div className="px-6 pb-6">
-                            <div className="border-t border-green-200 pt-4 ml-12">
-                              <p className="text-gray-700 leading-relaxed">
+                            <div className={`border-t pt-4 ml-12 transition-colors duration-300 ${
+                              isDarkMode ? 'border-green-400/30' : 'border-green-200'
+                            }`}>
+                              <p className={`leading-relaxed transition-colors duration-300 ${
+                                isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                              }`}>
                                 {faq.answer}
                               </p>
                             </div>
@@ -254,7 +310,11 @@ export default function FAQSection() {
           viewport={{ once: true }}
           className="relative"
         >
-          <Card className="overflow-hidden border-none shadow-2xl bg-gradient-to-r from-green-500 to-black">
+          <Card className={`overflow-hidden border-none shadow-2xl transition-colors duration-300 ${
+            isDarkMode 
+              ? 'bg-gradient-to-r from-green-500 to-blue-500' 
+              : 'bg-gradient-to-r from-green-500 to-black'
+          }`}>
             <CardContent className="p-0">
               <div className="relative p-8 text-white">
                 {/* Background Pattern */}
@@ -269,7 +329,9 @@ export default function FAQSection() {
                     <h3 className="text-2xl font-bold">Still Have Questions?</h3>
                   </div>
                   
-                  <p className="mb-8 max-w-2xl mx-auto text-green-100 leading-relaxed">
+                  <p className={`mb-8 max-w-2xl mx-auto leading-relaxed transition-colors duration-300 ${
+                    isDarkMode ? 'text-green-100' : 'text-green-100'
+                  }`}>
                     Get personalized answers and discuss your project needs. 
                     I'm here to help you make informed decisions about your design journey.
                   </p>
@@ -277,7 +339,11 @@ export default function FAQSection() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <Button
                       asChild
-                      className="bg-white text-green-600 hover:bg-green-50 border-none shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-3"
+                      className={`border-none shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-3 ${
+                        isDarkMode 
+                          ? 'bg-white text-green-600 hover:bg-green-50' 
+                          : 'bg-white text-green-600 hover:bg-green-50'
+                      }`}
                     >
                       <a href={link} target="_blank" rel="noopener noreferrer">
                         <Phone className="h-4 w-4 mr-2" />
@@ -294,7 +360,9 @@ export default function FAQSection() {
                     </Button>
                   </div>
 
-                  <div className="mt-6 text-sm text-green-100">
+                  <div className={`mt-6 text-sm transition-colors duration-300 ${
+                    isDarkMode ? 'text-green-100' : 'text-green-100'
+                  }`}>
                     <p>📞 Usually respond within 2 hours • 💬 Free consultation available</p>
                   </div>
                 </div>

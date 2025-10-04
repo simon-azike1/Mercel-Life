@@ -19,9 +19,11 @@ import AdminLogin from "./components/AdminLoginForm";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 
+// Context Providers
 import { PortfolioProvider } from "./components/PortfolioContext";
 import { ServiceProvider } from "./components/ServiceContext";
 import { AuthProvider, useAuth } from "./components/AuthContext";
+import { ThemeProvider } from "./components/ThemeContext"; // 👈 ADD THIS
 
 // Simple Route Protection
 const ProtectedRoute = ({ children, routePath }) => {
@@ -48,6 +50,16 @@ const ProtectedAdminRoute = ({ children }) => {
   return children;
 };
 
+// Loading Component for Theme
+const ThemeLoader = () => (
+  <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+      <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+    </div>
+  </div>
+);
+
 function App() {
   React.useEffect(() => {
     // Mark that user has visited the site properly
@@ -57,101 +69,143 @@ function App() {
   }, []);
 
   return (
-    <AuthProvider>
-      <PortfolioProvider>
-        <ServiceProvider>
-          <div className="min-h-screen bg-gray-300">
-            <Navigation />
-            <ScrollToTop />
-            <Routes>
-              {/* Home Route */}
-              <Route 
-                path="/" 
-                element={
-                  <ProtectedRoute routePath="/">
-                    <HeroSection />
-                  </ProtectedRoute>
-                } 
-              />
+    <ThemeProvider> {/* 👈 WRAP EVERYTHING WITH THEME PROVIDER */}
+      <AuthProvider>
+        <PortfolioProvider>
+          <ServiceProvider>
+            {/* Updated with theme-aware background */}
+            <div className="min-h-screen bg-bg-light dark:bg-bg-dark transition-colors duration-300">
+              <Navigation />
+              <ScrollToTop />
               
-              {/* Protected Routes */}
-              <Route 
-                path="/about" 
-                element={
-                  <ProtectedRoute routePath="/about">
-                    <AboutSection />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/services" 
-                element={
-                  <ProtectedRoute routePath="/services">
-                    <ServicesSection />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/skills" 
-                element={
-                  <ProtectedRoute routePath="/skills">
-                    <SkillsSection />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/portfolio" 
-                element={
-                  <ProtectedRoute routePath="/portfolio">
-                    <PortfolioSection />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/blog" 
-                element={
-                  <ProtectedRoute routePath="/blog">
-                    <BlogSection />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/experience" 
-                element={
-                  <ProtectedRoute routePath="/experience">
-                    <ExperienceSection />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/contact" 
-                element={
-                  <ProtectedRoute routePath="/contact">
-                    <ContactSection />
-                  </ProtectedRoute>
-                } 
-              />
+              <Routes>
+                {/* Home Route */}
+                <Route 
+                  path="/" 
+                  element={
+                    <ProtectedRoute routePath="/">
+                      <HeroSection />
+                    </ProtectedRoute>
+                  } 
+                />
+                
+                {/* Protected Routes */}
+                <Route 
+                  path="/about" 
+                  element={
+                    <ProtectedRoute routePath="/about">
+                      <AboutSection />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/services" 
+                  element={
+                    <ProtectedRoute routePath="/services">
+                      <ServicesSection />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/skills" 
+                  element={
+                    <ProtectedRoute routePath="/skills">
+                      <SkillsSection />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/portfolio" 
+                  element={
+                    <ProtectedRoute routePath="/portfolio">
+                      <PortfolioSection />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/blog" 
+                  element={
+                    <ProtectedRoute routePath="/blog">
+                      <BlogSection />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/experience" 
+                  element={
+                    <ProtectedRoute routePath="/experience">
+                      <ExperienceSection />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/contact" 
+                  element={
+                    <ProtectedRoute routePath="/contact">
+                      <ContactSection />
+                    </ProtectedRoute>
+                  } 
+                />
 
-              {/* Auth Routes */}
-              <Route path="/login" element={<AdminLogin />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password/:token" element={<ResetPassword />} />
+                {/* Auth Routes - Theme Aware */}
+                <Route 
+                  path="/login" 
+                  element={
+                    <div className="min-h-screen bg-bg-light dark:bg-bg-dark transition-colors duration-300">
+                      <AdminLogin />
+                    </div>
+                  } 
+                />
+                <Route 
+                  path="/forgot-password" 
+                  element={
+                    <div className="min-h-screen bg-bg-light dark:bg-bg-dark transition-colors duration-300">
+                      <ForgotPassword />
+                    </div>
+                  } 
+                />
+                <Route 
+                  path="/reset-password/:token" 
+                  element={
+                    <div className="min-h-screen bg-bg-light dark:bg-bg-dark transition-colors duration-300">
+                      <ResetPassword />
+                    </div>
+                  } 
+                />
+                
+                {/* Admin Route - Theme Aware */}
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedAdminRoute>
+                      <div className="min-h-screen bg-bg-light dark:bg-bg-dark transition-colors duration-300">
+                        <AdminDashboard />
+                      </div>
+                    </ProtectedAdminRoute>
+                  }
+                />
+
+                {/* 404 Route - Theme Aware */}
+                <Route 
+                  path="*" 
+                  element={
+                    <div className="min-h-screen bg-bg-light dark:bg-bg-dark flex items-center justify-center">
+                      <div className="text-center">
+                        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">404</h1>
+                        <p className="text-gray-600 dark:text-gray-400 mb-8">Page not found</p>
+                        <Navigate to="/" replace />
+                      </div>
+                    </div>
+                  } 
+                />
+              </Routes>
               
-              {/* Admin Route */}
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedAdminRoute>
-                    <AdminDashboard />
-                  </ProtectedAdminRoute>
-                }
-              />
-            </Routes>
-            <Footer />
-          </div>
-        </ServiceProvider>
-      </PortfolioProvider>
-    </AuthProvider>
+              <Footer />
+            </div>
+          </ServiceProvider>
+        </PortfolioProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

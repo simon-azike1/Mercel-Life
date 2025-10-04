@@ -7,7 +7,7 @@ const User = require("../models/User");
 // Login route with detailed debugging
 router.post("/login", async (req, res) => {
   const { email, password, rememberMe } = req.body;
-
+  
   // Validate request
   if (!email || !password) {
     console.warn("Login attempt with missing email or password");

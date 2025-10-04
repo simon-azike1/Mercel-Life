@@ -11,18 +11,11 @@ import FAQSection from "./FAQSection";
 import TestimonialsSection from "./TestimonialsSection";
 import TypingName from "./TypingName";
 import { Link } from "react-router-dom";
-
-// const tools = [
-//   { name: "Figma", icon: Figma },
-//   { name: "Adobe XD", icon: PenTool },
-//   { name: "Sketch", icon: Image },
-//   { name: "Canva", icon: PenTool },
-//   { name: "PixelApp", icon: Image },
-//   { name: "Web Design", icon: Monitor },
-// ];
+import { useTheme } from './ThemeContext';
 
 export default function HeroSection() {
   const portfolioRef = useRef(null);
+  const { isDarkMode, toggleTheme } = useTheme();
 
   // Smooth scroll to Portfolio section
   const scrollToPortfolio = () => {
@@ -40,152 +33,211 @@ export default function HeroSection() {
       >
         <section
           id="home"
-          className="pt-16 min-h-[80vh] flex items-center bg-white"
+          className={`
+            pt-16 min-h-[80vh] flex items-center transition-all duration-300
+            ${isDarkMode 
+              ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
+              : 'bg-gradient-to-br from-white via-gray-50 to-green-50'
+            }
+          `}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 
-              {/* Left Side - Image with face and partial body visible */}
+              {/* Left Side - Image with enhanced theme support */}
               <div className="relative h-[480px] max-h-[98vh] lg:h-[560px]">
+                <div className={`
+                  absolute inset-0 rounded-2xl transition-all duration-300
+                  ${isDarkMode ? 'bg-gray-800/20' : 'bg-white/20'}
+                `}></div>
+                
                 <img
                   src="/assets/img/bg_27.jpg"
-                  alt="Hero"
-                  className="rounded-2xl shadow-lg w-full h-full object-cover object-[center_top_30%]"
+                  alt="Adebisi Marcelina - Graphic Designer & UI/UX Designer"
+                  className={`
+                    rounded-2xl w-full h-full object-cover object-[center_top_30%] 
+                    transition-all duration-300 relative z-10
+                    ${isDarkMode 
+                      ? 'shadow-2xl shadow-black/50 border border-gray-700' 
+                      : 'shadow-2xl shadow-gray-300/50 border border-gray-200'
+                    }
+                  `}
                   style={{ objectPosition: "center 20%" }}
                 />
-                <div className="absolute -top-4 -right-4 w-60 h-60 bg-gradient-to-br from-green-400 to-black rounded-full opacity-20 blur-3xl"></div>
-                <div className="absolute -bottom-4 -left-4 w-60 h-60 bg-gradient-to-br from-black to-green-400 rounded-full opacity-20 blur-3xl"></div>
+                
+                {/* Enhanced gradient overlays */}
+                <div className={`
+                  absolute -top-4 -right-4 w-60 h-60 rounded-full blur-3xl transition-all duration-300
+                  ${isDarkMode 
+                    ? 'bg-gradient-to-br from-green-400/30 to-emerald-500/20' 
+                    : 'bg-gradient-to-br from-green-400/20 to-black/10'
+                  }
+                `}></div>
+                
+                <div className={`
+                  absolute -bottom-4 -left-4 w-60 h-60 rounded-full blur-3xl transition-all duration-300
+                  ${isDarkMode 
+                    ? 'bg-gradient-to-br from-emerald-500/20 to-green-400/30' 
+                    : 'bg-gradient-to-br from-black/10 to-green-400/20'
+                  }
+                `}></div>
               </div>
 
-              {/* Right Side - Content */}
-              <div className="space-y-4 bg-white p-5 rounded-xl relative">
-                {/* Circular element with greeting */}
-                <div className="bg-green-100 text-green-700 rounded-full px-5 py-1.5 inline-block mb-1 text-sm">
+              {/* Right Side - Content with full theme support */}
+              <div className={`
+                space-y-4 p-6 lg:p-8 rounded-2xl relative transition-all duration-300
+                ${isDarkMode 
+                  ? 'bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 shadow-2xl shadow-black/20' 
+                  : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-2xl shadow-gray-300/20'
+                }
+              `}>
+                
+                {/* Greeting badge */}
+                <div className={`
+                  rounded-full px-5 py-2 inline-block mb-2 text-sm font-medium transition-all duration-300
+                  ${isDarkMode 
+                    ? 'bg-green-400/20 text-green-300 border border-green-400/30' 
+                    : 'bg-green-100 text-green-700 border border-green-200'
+                  }
+                `}>
                   Hi 🙋‍♀️
                 </div>
                 
-                {/* Name */}
-                <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
+                {/* Name with theme-aware styling */}
+                <h1 className={`
+                  text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight transition-colors duration-300
+                  ${isDarkMode ? 'text-white' : 'text-gray-900'}
+                `}>
                   I'm <TypingName name="Adebisi Marcelina" />
                 </h1>
                 
-                {/* Simplified Professional title */}
-                <p className="text-lg text-gray-700 font-medium">
+                {/* Professional title with gradient */}
+                <p className={`
+                  text-lg lg:text-xl font-semibold bg-gradient-to-r bg-clip-text text-transparent
+                  ${isDarkMode 
+                    ? 'from-green-400 via-emerald-300 to-green-300' 
+                    : 'from-green-600 via-green-500 to-emerald-600'
+                  }
+                `}>
                   Graphic Designer & UI/UX Designer
                 </p>
                 
-                {/* Concise Description */}
-                <p className="text-base text-gray-600">
+                {/* Description */}
+                <p className={`
+                  text-base lg:text-lg leading-relaxed transition-colors duration-300
+                  ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}
+                `}>
                   I create captivating visuals and intuitive user interfaces 
                   that help businesses connect with their audience and achieve 
                   meaningful results.
                 </p>
 
-                {/* Compact Action Row: Social + Buttons */}
-                <div className="flex flex-wrap items-center justify-between pt-2">
-                  {/* Social Media Icons with your actual links */}
-                  <div className="flex gap-3 my-2">
-                    <a 
-                      href="https://www.facebook.com/profile.php?id=61562343710215" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-green-600 transition-colors"
-                      aria-label="Facebook"
-                    >
-                      <Facebook size={18} />
-                    </a>
-                    <a 
-                      href="https://www.linkedin.com/in/marcelina-adebisi-0393b037a/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-green-600 transition-colors"
-                      aria-label="LinkedIn"
-                    >
-                      <Linkedin size={18} />
-                    </a>
-                    <a 
-                      href="https://www.instagram.com/marcelinaadebisi?igsh=YzljYTk1ODg3Zg==" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-green-600 transition-colors"
-                      aria-label="Instagram"
-                    >
-                      <Instagram size={18} />
-                    </a>
-                    <a 
-                      href="mailto:mercelinaadebisi@gmail.com" 
-                      className="text-gray-600 hover:text-green-600 transition-colors"
-                      aria-label="Email"
-                    >
-                      <Mail size={18} />
-                    </a>
+                {/* Action Row: Social + Buttons */}
+                <div className="flex flex-wrap items-center justify-between pt-4 gap-4">
+                  
+                  {/* Social Media Icons */}
+                  <div className="flex gap-4">
+                    {[
+                      { 
+                        href: "https://www.facebook.com/profile.php?id=61562343710215", 
+                        icon: Facebook, 
+                        label: "Facebook",
+                        color: "hover:text-blue-500"
+                      },
+                      { 
+                        href: "https://www.linkedin.com/in/marcelina-adebisi-0393b037a/", 
+                        icon: Linkedin, 
+                        label: "LinkedIn",
+                        color: "hover:text-blue-600"
+                      },
+                      { 
+                        href: "https://www.instagram.com/marcelinaadebisi?igsh=YzljYTk1ODg3Zg==", 
+                        icon: Instagram, 
+                        label: "Instagram",
+                        color: "hover:text-pink-500"
+                      },
+                      { 
+                        href: "mailto:mercelinaadebisi@gmail.com", 
+                        icon: Mail, 
+                        label: "Email",
+                        color: "hover:text-green-500"
+                      }
+                    ].map((social, index) => {
+                      const Icon = social.icon;
+                      return (
+                        <a 
+                          key={index}
+                          href={social.href} 
+                          target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                          rel="noopener noreferrer"
+                          className={`
+                            p-2 rounded-lg transition-all duration-300 transform hover:scale-110
+                            ${isDarkMode 
+                              ? 'text-gray-400 hover:bg-gray-700/50' 
+                              : 'text-gray-600 hover:bg-gray-100'
+                            } ${social.color}
+                          `}
+                          aria-label={social.label}
+                        >
+                          <Icon size={20} />
+                        </a>
+                      );
+                    })}
                   </div>
 
-                  {/* Compact Buttons */}
-                  <div className="flex gap-3 my-2">
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
                     <Button
                       onClick={scrollToPortfolio}
-                      className="bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-black text-white px-4 py-1.5 text-sm hover:cursor-pointer rounded-md"
+                      className={`
+                        px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-500/20
+                        ${isDarkMode
+                          ? 'bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-gray-900'
+                          : 'bg-gradient-to-r from-green-600 to-black hover:from-green-700 hover:to-gray-900 text-white'
+                        } shadow-lg hover:shadow-xl
+                      `}
                     >
                       View Work
-                      <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
                     <a href="/assets/Resume.pdf" download="Resume.pdf">
                       <Button
-                        variant="outline"
-                        className="border-black text-black hover:bg-gray-100 px-3 py-1.5 text-sm bg-transparent hover:cursor-pointer rounded-md"
+                        className={`
+                          px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-500/20
+                          ${isDarkMode
+                            ? 'bg-gray-700/50 text-white border border-gray-600 hover:bg-gray-600/50 hover:border-gray-500'
+                            : 'bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+                          } shadow-lg hover:shadow-xl
+                        `}
                       >
-                        <Download className="mr-1 h-3.5 w-3.5" /> Resume
+                        <Download className="mr-2 h-4 w-4" /> 
+                        Resume
                       </Button>
                     </a>
                   </div>
                 </div>
+
+                {/* Decorative elements */}
+                <div className={`
+                  absolute top-4 right-4 w-20 h-20 rounded-full blur-2xl transition-all duration-300
+                  ${isDarkMode ? 'bg-green-400/10' : 'bg-green-500/10'}
+                `}></div>
               </div>
             </div>
           </div>
         </section>
       </motion.div>
 
-      {/* Skills Section */}
-      {/* <SkillsSection /> */}
+      {/* Portfolio Section */}
+      <div className={`transition-colors duration-300 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+        <PortfolioSection ref={portfolioRef} limit={3} isDarkMode={isDarkMode} />
+      </div>
 
-      {/* Portfolio Section (3 projects) */}
-      <PortfolioSection ref={portfolioRef} limit={3} />
-
-      {/* Tools I Use Section */}
-      {/* <section id="tools" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 text-center mb-12">
-            Tools
-          </h2>
-
-          <motion.div
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
-          >
-            {tools.map((tool, index) => {
-              const Icon = tool.icon;
-              return (
-                <motion.div
-                  key={index}
-                  className="group flex flex-col items-center justify-center p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 hover:scale-105"
-                  variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                >
-                  <Icon className="h-12 w-12 text-green-500 mb-2 transition-colors duration-300 group-hover:text-green-600" />
-                  <span className="text-gray-800 font-semibold">{tool.name}</span>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section> */}
-
-      <TestimonialsSection />
-      {/* <FAQSection /> */}
+      {/* Testimonials Section */}
+      <div className={`transition-colors duration-300 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <TestimonialsSection />
+      </div>
     </>
   );
 }

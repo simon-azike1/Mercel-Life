@@ -443,7 +443,7 @@ const AdminDashboard = () => {
               </p>
             </div>
 
-            <Button onClick={handleLogout} variant="outline" className="flex items-center gap-2 bg-gray-900 hover:bg-red-500/10 text-gray-300 hover:text-red-400 hover:border-red-500/30 transition-all border-gray-700">
+            <Button onClick={handleLogout} variant="outline" className="flex items-center gap-2 bg-gray-900 hover:bg-red-500/10 text-gray-300 hover:text-red-400 hover:border-red-500/30 transition-all border-gray-700 hover:cursor-pointer">
               <LogOut className="w-4 h-4" />
               Logout
             </Button>
@@ -473,7 +473,7 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab("portfolio")}
               className={`px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
                 activeTab === "portfolio"
-                  ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
+                  ? "bg-emerald-500 text-white hover:cursor-pointer shadow-lg shadow-emerald-500/30"
                   : "text-gray-400 hover:text-white"
               }`}
             >
@@ -481,7 +481,7 @@ const AdminDashboard = () => {
             </button>
             <button
               onClick={() => setActiveTab("service")}
-              className={`px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
+              className={`px-6 py-2.5 rounded-xl font-semibold hover:cursor-pointer transition-all duration-300 ${
                 activeTab === "service"
                   ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
                   : "text-gray-400 hover:text-white"
@@ -496,7 +496,7 @@ const AdminDashboard = () => {
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-4">
             <Button
               onClick={openAddModal}
-              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/30 flex items-center gap-2 px-6 py-6 rounded-xl font-semibold transition-all border-0"
+              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/30 flex hover:cursor-pointer items-center gap-2 px-6 py-6 rounded-xl font-semibold transition-all border-0"
             >
               <Plus className="w-5 h-5" />
               Add {activeTab === "portfolio" ? "Project" : "Service"}
@@ -731,7 +731,7 @@ const AdminDashboard = () => {
                 onClick={() => setIsDialogOpen(false)}
                 variant="outline"
                 disabled={isLoading}
-                className="flex-1 py-6 rounded-xl font-semibold border-gray-700 hover:bg-gray-800 text-gray-300 hover:text-white"
+                className="flex-1 py-6 rounded-xl  hover:cursor-pointer font-semibold border-gray-700 hover:bg-gray-800 text-gray-300 hover:text-white"
               >
                 Cancel
               </Button>
@@ -749,7 +749,7 @@ const AdminDashboard = () => {
                     Saving...
                   </span>
                 ) : (
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center hover:cursor-pointer gap-2">
                     <Plus className="w-5 h-5" />
                     {editingItem ? "Update" : "Create"} {activeTab === "portfolio" ? "Project" : "Service"}
                   </span>

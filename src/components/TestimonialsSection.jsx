@@ -343,6 +343,6 @@ export default function TestimonialsSection() {
           </div>
         </motion.div>
       </div>
-    </section>
+    </section >
   );
 }
