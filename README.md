@@ -207,6 +207,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ⭐ If you found this project helpful, please give it a star on GitHub!
 
-<img width="1880" height="872" alt="image" src="https://github.com/user-attachments/assets/8ca6d2c5-8dac-43a5-bde7-f925a6a1ec33" />
 
+<img width="1333" height="639" alt="image" src="https://github.com/user-attachments/assets/95d848a1-f656-4c24-963c-3e5a793c0fe7" />
 
